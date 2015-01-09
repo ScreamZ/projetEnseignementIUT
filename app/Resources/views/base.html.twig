@@ -1,13 +1,35 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}Welcome!{% endblock %}</title>
+
+    <!-- Included CSS Files (Compressed) -->
+    {% stylesheets filter='cssrewrite' output='css/compiled/app.css'
+    '' %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+
+    {% block stylesheets %}
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+</head>
+<body>
+<!-- ######################## Main MenuBAR ######################## -->
+{% include '::navbar.html.twig' %}
+
+<!-- ######################## BODY ######################## -->
+{% block body %}{% endblock %}
+
+
+<!-- ######################## Scripts ######################## -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<!-- Included JS Files (Compressed) -->
+{% javascripts
+'' %}
+<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% block javascripts %}
+{% endblock %}
+</body>
 </html>
