@@ -1,0 +1,15 @@
+{
+  "name": "KMGH/projetIutEnseignement",
+  "description": "not yet",
+  "minimum-stability": "dev",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "KMGH",
+      "email": "dontcare@gmail.com"
+    }
+  ],
+  "require": {
+    "symfony/framework-standard-edition": "v2.6.1"
+  }
+}
