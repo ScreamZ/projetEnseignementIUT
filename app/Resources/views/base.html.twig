@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8"/>
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <meta charset="utf-8"/>
+    <title>{% block title %}welcome!{% endblock %}</title>
 
-    <!-- Included CSS Files (Compressed) -->
+    <!-- included css files (compressed) -->
     {% stylesheets filter='cssrewrite' output='css/compiled/app.css'
     '' %}
     <link rel="stylesheet" href="{{ asset('bundles/kmghapp/css/style.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('bundles/kmghapp/css/bootstrap.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('bundles/kmghapp/css/bootstrap.min.ss') }}"/>
     {% endstylesheets %}
 
     {% block stylesheets %}
