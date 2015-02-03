@@ -37,6 +37,20 @@ class Periode
      */
     private $semestre;
 
+    /**
+     * @var Enseignement
+     *
+     * @ORM\ManyToMany(targetEntity="KMGH\AppBundle\Entity\Enseignement", inversedBy="periodes")
+     */
+    private $lesEnseignements;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->lesEnseignements = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -94,5 +108,39 @@ class Periode
         $this->semestre = $semestre;
 
         return $this;
+    }
+
+    /**
+     * Add lesEnseignements
+     *
+     * @param \KMGH\AppBundle\Entity\Enseignement $lesEnseignements
+     *
+     * @return Periode
+     */
+    public function addLesEnseignement(\KMGH\AppBundle\Entity\Enseignement $lesEnseignements)
+    {
+        $this->lesEnseignements[] = $lesEnseignements;
+
+        return $this;
+    }
+
+    /**
+     * Remove lesEnseignements
+     *
+     * @param \KMGH\AppBundle\Entity\Enseignement $lesEnseignements
+     */
+    public function removeLesEnseignement(\KMGH\AppBundle\Entity\Enseignement $lesEnseignements)
+    {
+        $this->lesEnseignements->removeElement($lesEnseignements);
+    }
+
+    /**
+     * Get lesEnseignements
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLesEnseignements()
+    {
+        return $this->lesEnseignements;
     }
 }

@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({"module" = "KMGH\AppBundle\Entity\Module", "stage" = "KMGH\AppBundle\Entity\Stage","projet" = "KMGH\AppBundle\Entity\Projet"})
  */
-abstract class Enseignement
+class Enseignement
 {
     /**
      * @ORM\Id
@@ -29,9 +29,9 @@ abstract class Enseignement
 
     /**
      * @var Periode
-     * @ORM\ManyToMany(targetEntity="KMGH\AppBundle\Entity\Periode", mappedBy="id")
+     * @ORM\ManyToMany(targetEntity="KMGH\AppBundle\Entity\Periode",mappedBy="id")
      */
-    protected $periode;
+    protected $periodes;
 
     /**
      * Constructor
@@ -39,6 +39,7 @@ abstract class Enseignement
     public function __construct()
     {
         $this->lesAttributions = new ArrayCollection();
+        $this->periodes = new ArrayCollection();
     }
 
     /**
@@ -66,22 +67,6 @@ abstract class Enseignement
     }
 
     /**
-     * @return Periode
-     */
-    public function getPeriode()
-    {
-        return $this->periode;
-    }
-
-    /**
-     * @param Periode $periode
-     */
-    public function setPeriode($periode)
-    {
-        $this->periode = $periode;
-    }
-
-    /**
      * Remove lesAttributions
      *
      * @param Attribution $lesAttributions
@@ -99,5 +84,40 @@ abstract class Enseignement
     public function getLesAttributions()
     {
         return $this->lesAttributions;
+    }
+
+
+    /**
+     * Add periodes
+     *
+     * @param Periode $periode
+     *
+     * @return Enseignement
+     */
+    public function addPeriodes(Periode $periode)
+    {
+        $this->periodes[] = $periode;
+
+        return $this;
+    }
+
+    /**
+     * Remove periodes
+     *
+     * @param Periode $periode
+     */
+    public function removePeriodes(Periode $periode)
+    {
+        $this->periodes->removeElement($periode);
+    }
+
+    /**
+     * Get periodes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPeriodes()
+    {
+        return $this->periodes;
     }
 }
