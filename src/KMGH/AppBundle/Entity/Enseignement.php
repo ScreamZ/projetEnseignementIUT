@@ -27,6 +27,11 @@ abstract class Enseignement
      */
     protected $lesAttributions;
 
+    /**
+     * @var Periode
+     * @ORM\ManyToMany(targetEntity="KMGH\AppBundle\Entity\Periode", mappedBy="id")
+     */
+    protected $periode;
 
     /**
      * Constructor
@@ -58,6 +63,22 @@ abstract class Enseignement
         $this->lesAttributions[] = $lesAttributions;
 
         return $this;
+    }
+
+    /**
+     * @return Periode
+     */
+    public function getPeriode()
+    {
+        return $this->periode;
+    }
+
+    /**
+     * @param Periode $periode
+     */
+    public function setPeriode($periode)
+    {
+        $this->periode = $periode;
     }
 
     /**
