@@ -2,26 +2,17 @@
 
 namespace KMGH\AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\InheritanceType;
 
 /**
  * Module
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="KMGH\AppBundle\Entity\ModuleRepository")
- * @InheritanceType("JOINED")
  */
 class Module extends Enseignement
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
 
     /**
      * @var string
@@ -101,18 +92,8 @@ class Module extends Enseignement
      */
     public function __construct()
     {
-        $this->compositionRecommandee = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->compositionChoisie = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
+        $this->compositionRecommandee = new ArrayCollection();
+        $this->compositionChoisie = new ArrayCollection();
     }
 
     /**
