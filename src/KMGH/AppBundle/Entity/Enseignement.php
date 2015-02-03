@@ -22,7 +22,7 @@ class Enseignement
 
     /**
      * @var ArrayCollection
-     * @ORM\ManyToMany(targetEntity="KMGH\AppBundle\Entity\Attribution")
+     * @ORM\OneToMany(targetEntity="KMGH\AppBundle\Entity\Attribution",mappedBy="enseignement")
      * @ORM\JoinTable(name="enseignements_attributions")
      */
     protected $lesAttributions;
