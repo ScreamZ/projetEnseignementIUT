@@ -87,6 +87,23 @@ class Module extends Enseignement
      */
     private $compositionChoisie;
 
+
+    /**
+     * @var Module
+     *
+     * @ORM\ManyToMany(targetEntity="KMGH\AppBundle\Entity\Module", mappedBy="preRequisDe")
+     */
+    private $modulesPreRequis;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="KMGH\AppBundle\Entity\Module", inversedBy="modulesPreRequis")
+     * @ORM\JoinTable(name="module_pre_requis",
+     *      joinColumns={@ORM\JoinColumn(name="module_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="pre_requis_module_id", referencedColumnName="id")}
+     *      )
+     **/
+    private $preRequisDe;
+
     /**
      * Constructor
      */
@@ -94,6 +111,8 @@ class Module extends Enseignement
     {
         $this->compositionRecommandee = new ArrayCollection();
         $this->compositionChoisie = new ArrayCollection();
+        $this->modulesPreRequis = new ArrayCollection();
+        $this->preRequisDe = new ArrayCollection();
     }
 
     /**
