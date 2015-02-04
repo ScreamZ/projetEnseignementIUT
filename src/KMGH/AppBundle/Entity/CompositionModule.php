@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CompositionModule
  *
- * @ORM\Table()
+ * @ORM\Table(name="composition_module")
  * @ORM\Entity(repositoryClass="KMGH\AppBundle\Entity\CompositionModuleRepository")
  */
 class CompositionModule
