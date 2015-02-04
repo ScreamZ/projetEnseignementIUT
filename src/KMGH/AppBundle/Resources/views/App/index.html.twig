@@ -41,6 +41,34 @@
 
                 <div class="tab">
 
+
+
+
+
+                    <div class="level1">
+                    {% for ens in enseignement %}
+                        {# KMGH\AppBundle\Entity\Enseignement ens #}
+                        <div class="ligne">
+                            <div class="col icon">
+                                <span class="glyphicon glyphicon-folder-close"></span>
+                                <img alt="" class="loading" height="16"
+                                     src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
+                            </div>
+                            <div class="col content">
+                                <a href="#" title="{{ ens.denomination }}">{{ ens.denomination }}</a>
+                            </div>
+
+                            <div class="col">
+                                <span>6h de cours</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+
+
+
+
+
                     <div class="level1">
                         <div class="ligne">
                             <div class="col icon">
@@ -269,7 +297,7 @@
         <div id="menu_right">
             <h1>Informations</h1>
 
-            <p>Kqsfdqdfqsdfan Sanié</p>
+            <p>{{ app.user.enseignant.prenom ~ ' ' ~ app.user.enseignant.nom }}</p>
 
             <p>Nombre d'heure affectées : 25h</p>
 

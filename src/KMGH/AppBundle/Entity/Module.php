@@ -13,6 +13,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Module extends Enseignement
 {
+    /**
+     * @var Diplome
+     *
+     * @ORM\ManyToOne(targetEntity="KMGH\AppBundle\Entity\Diplome")
+     */
+    private $diplome;
 
     /**
      * @var string
@@ -136,6 +142,7 @@ class Module extends Enseignement
 
 
 
+
     /**
      * Get denomination
      *
@@ -144,6 +151,22 @@ class Module extends Enseignement
     public function getDenomination()
     {
         return $this->denomination;
+    }
+
+    /**
+     * @return Diplome
+     */
+    public function getDiplome()
+    {
+        return $this->diplome;
+    }
+
+    /**
+     * @param Diplome $diplome
+     */
+    public function setDiplome($diplome)
+    {
+        $this->diplome = $diplome;
     }
 
     /**
