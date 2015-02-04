@@ -37,4 +37,4 @@
 
 # Composer PHAR
 /composer.phar
-composer.lock
+/composer.lock
