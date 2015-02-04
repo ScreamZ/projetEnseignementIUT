@@ -2,17 +2,23 @@
 <html>
 <head>
     <meta charset="UTF-8"/>
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <title>{% block title %}IUT Montpellier - Gestion attributions{% endblock %}</title>
+
+    <!--[if lt IE 9]>
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
     <!-- Included CSS Files (Compressed) -->
     {% stylesheets filter='cssrewrite' output='css/compiled/app.css'
-    '' %}
-    <link rel="stylesheet" href="{{ asset('bundles/kmghapp/css/style.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('bundles/kmghapp/css/bootstrap.min.css') }}"/>
+    'bundles/kmghapp/css/bootstrap.min.css'
+    'bundles/kmghapp/css/style.css' %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
 
+    <!-- UnCompressed -->
     {% block stylesheets %}
     {% endblock %}
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
 <body>
@@ -20,18 +26,25 @@
 {% include '::navbar.html.twig' %}
 
 <!-- ######################## BODY ######################## -->
-{% block body %}{% endblock %}
-
-
+{% block body %}
+{% endblock %}
 <!-- ######################## Scripts ######################## -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 <!-- Included JS Files (Compressed) -->
 {% javascripts
-'' %}
+'bundles/kmghapp/js/bootstrap.min.js'
+'bundles/kmghapp/js/script.js' %}
 <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
-{% block javascripts %}
 
-{% endblock %}
+<!-- UnCompressed -->
+{% block javascripts %}{% endblock %}
 </body>
 </html>
+
+
+
+
+
+
+

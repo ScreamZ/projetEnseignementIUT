@@ -10,12 +10,22 @@ class AppController extends Controller
 {
     /**
      * @Route("/")
-     * @Template()
+     * @Template("KMGHAppBundle:App:index.html.twig")
      */
     public function indexAction()
     {
+
         return array(// ...
         );
+    }
+
+    /**
+     * @Route("/options")
+     * @Template("KMGHAppBundle:App:options.html.twig")
+     */
+    public function optionsAction()
+    {
+
     }
 
 }

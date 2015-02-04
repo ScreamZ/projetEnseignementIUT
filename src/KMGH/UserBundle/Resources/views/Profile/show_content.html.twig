@@ -1,0 +1,56 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{# user \Screamz\UserBundle\Entity\User #}
+
+<div class="ten column centered">
+    <form>
+        <div class="row">
+            <div class="twelve centered column text-center" style="margin-bottom: 5px">
+                <img class="photo-frame" src="{{ gravatar(user.emailCanonical, 150) }}">
+
+                <p>Ceci est votre <a href="https://gravatar.com/">Gravatar</a>, une image qui vous suit sur tous les
+                    sites où vous utilisez votre adresse e-mail. Si vous n'avez pas d'image nous vous invitons à vous
+                    enregistrer sur le site et en ajouter une !</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="three mobile-one columns">
+                <label class="right inline">{{ 'profile.show.username'|trans }}:</label>
+            </div>
+            <div class="nine mobile-three columns">
+                <input type="text" class="nine" value="{{ user.username }}" disabled/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="three mobile-one columns">
+                <label class="right inline">{{ 'profile.show.email'|trans }}:</label>
+            </div>
+            <div class="nine mobile-three columns">
+                <input type="text" class="nine" value="{{ user.email }}" disabled/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="three mobile-one columns">
+                <label class="right inline">Ville principale:</label>
+            </div>
+            <div class="nine mobile-three columns">
+                <input type="text" class="nine" value="{{ user.ville.nom }}" disabled/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="three mobile-one columns">
+                <label class="right inline">Biographie:</label>
+            </div>
+            <div class="nine mobile-three columns">
+                <textarea class="nine" readonly disabled style="resize: none;">{{ user.bio }}</textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="three mobile-one columns">
+                <label class="right inline">Dernière connexion:</label>
+            </div>
+            <div class="nine mobile-three columns">
+                <input type="text" class="nine" value="{{ user.lastLogin|date('d/m/Y | H:i') }}" disabled/>
+            </div>
+        </div>
+    </form>
+</div>

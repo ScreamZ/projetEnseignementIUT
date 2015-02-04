@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({"module" = "KMGH\AppBundle\Entity\Module", "stage" = "KMGH\AppBundle\Entity\Stage","projet" = "KMGH\AppBundle\Entity\Projet"})
  */
-class Enseignement
+abstract class Enseignement
 {
     /**
      * @ORM\Id
@@ -32,6 +32,12 @@ class Enseignement
      * @ORM\ManyToMany(targetEntity="KMGH\AppBundle\Entity\Periode",mappedBy="id")
      */
     protected $periodes;
+
+    /**
+     * @var
+     * @ORM\ManyToOne(targetEntity="KMGH\UserBundle\Entity\Enseignant")
+     */
+    protected $enseignantResponsable;
 
     /**
      * Constructor
@@ -86,6 +92,21 @@ class Enseignement
         return $this->lesAttributions;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getEnseignantResponsable()
+    {
+        return $this->enseignantResponsable;
+    }
+
+    /**
+     * @param mixed $enseignantResponsable
+     */
+    public function setEnseignantResponsable($enseignantResponsable)
+    {
+        $this->enseignantResponsable = $enseignantResponsable;
+    }
 
     /**
      * Add periodes

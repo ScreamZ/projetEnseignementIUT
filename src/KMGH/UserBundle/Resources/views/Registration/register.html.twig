@@ -1,0 +1,18 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+    <div class="seven column centered">
+        <h1 class="text-center" style="font-weight: bold">S'enregistrer sur {{ site.nom }}</h1>
+
+        <p>S'inscrire sur <strong>{{ site.nom }}</strong> est gratuit et vous permet de bénéficier de nombreuses
+            fonctionnalités tel que la gestion des favoris.</p>
+
+        <p>Votre adresse e-mail défini votre avatar, qui n'est d'autre qu'un <a href="http://gravatar.com"
+                                                                                target="_blank"><strong>Gravatar</strong></a>
+
+        <p>Dans les prochaine versions votre profil sera évolutif et vous permettra de nombreuses choses notamment
+            vis-à-vis de vos amis et des différentes structures.</p>
+        </p>
+        {% include "FOSUserBundle:Registration:register_content.html.twig" %}
+    </div>
+{% endblock fos_user_content %}
