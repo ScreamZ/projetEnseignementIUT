@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Enseignant
 {
     /**
-     * @var integer
+     * @var integerr
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
