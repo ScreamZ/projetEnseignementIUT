@@ -4,6 +4,7 @@ namespace KMGH\UserBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use KMGH\AppBundle\Entity\Attribution;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -46,6 +47,13 @@ class Enseignant
     private $utilisateur;
 
     /**
+     * @var Statut
+     * @ORM\ManyToOne(targetEntity="KMGH\UserBundle\Entity\Statut")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $statut;
+
+    /**
      * @var ArrayCollection
      * @ORM\ManyToMany(targetEntity="KMGH\AppBundle\Entity\Attribution",mappedBy="enseignant")
      * @ORM\JoinTable(name="enseignants_attributions")
@@ -57,7 +65,7 @@ class Enseignant
      */
     public function __construct()
     {
-        $this->lesAttributions = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->lesAttributions = new ArrayCollection();
     }
 
     /**
@@ -142,14 +150,15 @@ class Enseignant
         return $this;
     }
 
+
     /**
      * Add lesAttributions
      *
-     * @param \KMGH\AppBundle\Entity\Attribution $lesAttributions
+     * @param Attribution $lesAttributions
      *
      * @return Enseignant
      */
-    public function addLesAttribution(\KMGH\AppBundle\Entity\Attribution $lesAttributions)
+    public function addLesAttribution(Attribution $lesAttributions)
     {
         $this->lesAttributions[] = $lesAttributions;
 
@@ -159,9 +168,9 @@ class Enseignant
     /**
      * Remove lesAttributions
      *
-     * @param \KMGH\AppBundle\Entity\Attribution $lesAttributions
+     * @param Attribution $lesAttributions
      */
-    public function removeLesAttribution(\KMGH\AppBundle\Entity\Attribution $lesAttributions)
+    public function removeLesAttribution(Attribution $lesAttributions)
     {
         $this->lesAttributions->removeElement($lesAttributions);
     }
@@ -174,5 +183,29 @@ class Enseignant
     public function getLesAttributions()
     {
         return $this->lesAttributions;
+    }
+
+    /**
+     * Get statut
+     *
+     * @return \KMGH\UserBundle\Entity\Statut
+     */
+    public function getStatut()
+    {
+        return $this->statut;
+    }
+
+    /**
+     * Set statut
+     *
+     * @param \KMGH\UserBundle\Entity\Statut $statut
+     *
+     * @return Enseignant
+     */
+    public function setStatut(\KMGH\UserBundle\Entity\Statut $statut)
+    {
+        $this->statut = $statut;
+
+        return $this;
     }
 }
