@@ -46,8 +46,8 @@
 
 
                     <div class="level1">
-                    {% for ens in enseignement %}
-                        {# KMGH\AppBundle\Entity\Enseignement ens #}
+                    {% for diplome in diplomes %}
+                        {# KMGH\AppBundle\Entity\Diplome diplome #}
                         <div class="ligne">
                             <div class="col icon">
                                 <span class="glyphicon glyphicon-folder-close"></span>
@@ -55,13 +55,14 @@
                                      src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
                             </div>
                             <div class="col content">
-                                <a href="#" title="{{ ens.denomination }}">{{ ens.denomination }}</a>
+                                <a href="#" title="{{ diplome.type }}">{{ diplome.type }}</a>
                             </div>
 
                             <div class="col">
                                 <span>6h de cours</span>
                             </div>
                         </div>
+                        <!-- ICI diplome.nom en foreach -->
                     {% endfor %}
                     </div>
 

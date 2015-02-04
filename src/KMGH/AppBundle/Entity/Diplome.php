@@ -2,6 +2,7 @@
 
 namespace KMGH\AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,11 +29,39 @@ class Diplome
      */
     private $nom;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=255)
+     */
+    private $type;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="KMGH\AppBundle\Entity\Enseignement", mappedBy="diplome")
+     */
+    private $lesEnseignements;
+
+    /**
+     * @var TypeDiplome
+     *
+     * @ORM\ManyToOne(targetEntity="KMGH\AppBundle\Entity\TypeDiplome", inversedBy="lesDiplomes")
+     */
+    private $typeDiplome;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->lesEnseignements = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -51,14 +80,62 @@ class Diplome
 
         return $this;
     }
-
     /**
      * Get nom
      *
-     * @return string 
+     * @return string
      */
     public function getNom()
     {
         return $this->nom;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * Add lesEnseignements
+     *
+     * @param \KMGH\UserBundle\Entity\Enseignement $lesEnseignements
+     * @return Diplome
+     */
+    public function addLesEnseignement(\KMGH\UserBundle\Entity\Enseignement $lesEnseignements)
+    {
+        $this->lesEnseignements[] = $lesEnseignements;
+
+        return $this;
+    }
+
+    /**
+     * Remove lesEnseignements
+     *
+     * @param \KMGH\UserBundle\Entity\Enseignement $lesEnseignements
+     */
+    public function removeLesEnseignement(\KMGH\UserBundle\Entity\Enseignement $lesEnseignements)
+    {
+        $this->lesEnseignements->removeElement($lesEnseignements);
+    }
+
+    /**
+     * Get lesEnseignements
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLesEnseignements()
+    {
+        return $this->lesEnseignements;
     }
 }

@@ -40,6 +40,13 @@ abstract class Enseignement
     protected $enseignantResponsable;
 
     /**
+     * @var Diplome
+     *
+     * @ORM\ManyToOne(targetEntity="KMGH\AppBundle\Entity\Diplome")
+     */
+    private $diplome;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -56,6 +63,22 @@ abstract class Enseignement
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return Diplome
+     */
+    public function getDiplome()
+    {
+        return $this->diplome;
+    }
+
+    /**
+     * @param Diplome $diplome
+     */
+    public function setDiplome($diplome)
+    {
+        $this->diplome = $diplome;
     }
 
     /**
