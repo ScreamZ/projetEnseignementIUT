@@ -1,0 +1,9 @@
+{% set route = app.request.attributes.get('_route') %}
+<dl class="sub-nav">
+    <dt>Que faire ? :</dt>
+    <dd {% if route == 'fos_user_profile_show' %}class="active"{% endif %}><a
+                href="{{ path('fos_user_profile_show') }}">Mon profil</a></dd>
+    <dd {% if route == 'fos_user_change_password' %}class="active"{% endif %}><a
+                href="{{ path('fos_user_change_password') }}">Changer mon mot de passe</a></dd>
+    <dd><a href="#">Mes favoris</a></dd>
+</dl>

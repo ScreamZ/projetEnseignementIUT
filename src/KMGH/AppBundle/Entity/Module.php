@@ -105,15 +105,36 @@ class Module extends Enseignement
     private $preRequisDe;
 
     /**
+     * @ORM\Column(name="date_demarrage",type="date")
+     */
+    private $dateDemarrage;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
-        $this->compositionRecommandee = new ArrayCollection();
-        $this->compositionChoisie = new ArrayCollection();
         $this->modulesPreRequis = new ArrayCollection();
         $this->preRequisDe = new ArrayCollection();
     }
+
+    /**
+     * @return mixed
+     */
+    public function getDateDemarrage()
+    {
+        return $this->dateDemarrage;
+    }
+
+    /**
+     * @param mixed $dateDemarrage
+     */
+    public function setDateDemarrage($dateDemarrage)
+    {
+        $this->dateDemarrage = $dateDemarrage;
+    }
+
+
 
     /**
      * Get denomination

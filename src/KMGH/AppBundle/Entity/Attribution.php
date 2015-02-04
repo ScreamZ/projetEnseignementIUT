@@ -15,15 +15,6 @@ use KMGH\UserBundle\Entity\Enseignant;
 class Attribution
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
      * @var float
      *
      * @ORM\Column(name="nombreHeures", type="float")
@@ -39,9 +30,17 @@ class Attribution
 
     /**
      * @var ArrayCollection
-     * @ORM\ManyToMany(targetEntity="KMGH\UserBundle\Entity\Enseignant", inversedBy="lesAttributions")
+     * @ORM\ManyToOne(targetEntity="KMGH\UserBundle\Entity\Enseignant", inversedBy="lesAttributions")
+     * @ORM\Id()
      */
     private $enseignant;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\ManyToOne(targetEntity="KMGH\AppBundle\Entity\Enseignement",inversedBy="lesAttributions")
+     * @ORM\Id()
+     */
+    private $enseignement;
 
     /**
      * Constructor

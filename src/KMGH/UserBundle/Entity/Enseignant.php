@@ -55,7 +55,7 @@ class Enseignant
 
     /**
      * @var ArrayCollection
-     * @ORM\ManyToMany(targetEntity="KMGH\AppBundle\Entity\Attribution",mappedBy="enseignant")
+     * @ORM\OneToMany(targetEntity="KMGH\AppBundle\Entity\Attribution",mappedBy="enseignant")
      * @ORM\JoinTable(name="enseignants_attributions")
      */
     private $lesAttributions;

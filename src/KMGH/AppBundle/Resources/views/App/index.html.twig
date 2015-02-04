@@ -1,7 +1,279 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}KMGHAppBundle:App:index{% endblock %}
-
 {% block body %}
-    <h1>Welcome to the App:index page</h1>
+    <div id="header">
+        <div id="header_left">
+            <div id="header_left1">
+                <h1>GADI</h1>
+
+                <h3>Gestion des Attributions du Département Informatique</h3>
+            </div>
+            <div id="header_left2">
+                <h2>UM2</h2>
+            </div>
+        </div>
+
+        <div id="header_right">
+            <p>Bienvenue, <b>{{ app.user.enseignant.prenom ~ ' ' ~ app.user.enseignant.nom }}</b></p>
+
+            <p><a href="settings_admin.php">Options</a> | <a
+                        href="{{ path('fos_user_security_logout') }}">Déconnexion</a></p>
+        </div>
+    </div> <!--- header -->
+
+
+
+    <div id="main">
+        <div class="loading">
+            <img src="{{ asset('bundles/kmghapp/img/ajax_load.gif') }}" alt="loading" width="71" height="61"
+                 id="loading"/>
+        </div>
+        <div id="pageContent">
+
+            <div id="alertMsg" class="alert-box">
+                <div class="close-box">x</div>
+                <span class="type"></span>
+                <span class="msg"></span>
+            </div>
+
+            <div class="file-wrap">
+                <div class="commit commit-tease js-details-container"></div>
+
+                <div class="tab">
+
+                    <div class="level1">
+                        <div class="ligne">
+                            <div class="col icon">
+                                <span class="glyphicon glyphicon-folder-close"></span>
+                                <img alt="" class="loading" height="16"
+                                     src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
+                            </div>
+                            <div class="col content">
+                                <a href="#" title="DUT">DUT</a>
+                            </div>
+
+                            <div class="col">
+                                <span>6h de cours</span>
+                            </div>
+                        </div>
+
+                        <div class="level2">
+                            <div class="ligne">
+                                <div class="col icon">
+                                    <span class="glyphicon glyphicon-folder-close"></span>
+                                    <img alt="" class="loading" height="16"
+                                         src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
+                                </div>
+                                <div class="col content">
+                                    <a href="#" title="Année 1">Année 1</a>
+                                </div>
+
+                                <div class="col">
+                                    <span>3h de cours</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="level2">
+                            <div class="ligne">
+                                <div class="col icon">
+                                    <span class="glyphicon glyphicon-folder-close"></span>
+                                    <img alt="" class="loading" height="16"
+                                         src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
+                                </div>
+                                <div class="col content">
+                                    <a href="#" title="Année 2">Année 2</a>
+                                </div>
+
+                                <div class="col">
+                                    <span>3h de cours</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="level1">
+                        <div class="ligne">
+                            <div class="col icon">
+                                <span class="glyphicon glyphicon-folder-close"></span>
+                                <img alt="" class="loading" height="16"
+                                     src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
+                            </div>
+                            <div class="col content">
+                                <a href="#" title="Licence">Licence</a>
+                            </div>
+
+                            <div class="col">
+                                <span>56h de cours</span>
+                            </div>
+                        </div>
+
+                        <div class="level2">
+                            <div class="ligne">
+                                <div class="col icon">
+                                    <span class="glyphicon glyphicon-folder-close"></span>
+                                    <img alt="" class="loading" height="16"
+                                         src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
+                                </div>
+                                <div class="col content">
+                                    <a href="#" title="API-DAE">API-DAE</a>
+                                </div>
+                                <div class="col">
+                                    <span>56h de cours</span>
+                                </div>
+                            </div>
+
+                            <div class="level3">
+                                <div class="ligne">
+                                    <div class="col icon">
+                                        <span class="glyphicon glyphicon-folder-close"></span>
+                                        <img alt="" class="loading" height="16"
+                                             src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
+                                    </div>
+                                    <div class="col content">
+                                        <a href="#" title="UML">UML</a>
+                                    </div>
+                                    <div class="col">
+                                        <span>20h de cours</span>
+                                    </div>
+                                </div>
+
+                                <div class="last-level">
+                                    <div class="ligne">
+                                        <table>
+                                            <tbody>
+                                            <tr>
+                                                <th>Enseignant</th>
+                                                <th>Heures de CM</th>
+                                                <th>Heures de TD</th>
+                                                <th>Heures de TP</th>
+                                            </tr>
+                                            <tr>
+                                                <td class="username">Xavier Paleja</td>
+                                                <td class="cm"><input type="text" name="cm" value="0" disabled></td>
+                                                <td class="td"><input type="text" name="td" value="18" disabled></td>
+                                                <td class="tp"><input type="text" name="tp" value="38" disabled></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="username">Keryan Sanié</td>
+                                                <td class="cm"><input type="text" name="cm" value="0" disabled></td>
+                                                <td class="td"><input type="text" name="td" value="10" disabled></td>
+                                                <td class="tp"><input type="text" name="tp" value="10" disabled></td>
+                                                <td class="btn_action">
+                                                    <a href="#" title="Modifier" class='btnModifier'><span
+                                                                class="glyphicon glyphicon-pencil"></span></a>
+                                                    <a href="#" title="Supprimer" class='btnSupprimer'><span
+                                                                class="glyphicon glyphicon-trash"></span></a>
+                                                    <a href="#" title="Valider" class='btnValider'><span
+                                                                class="glyphicon glyphicon-ok"></span></a>
+                                                </td>
+
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="level3">
+                                <div class="ligne">
+                                    <div class="col icon">
+                                        <span class="glyphicon glyphicon-folder-close"></span>
+                                        <img alt="" class="loading" height="16"
+                                             src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
+                                    </div>
+                                    <div class="col content">
+                                        <a href="#" title="BD">Base de données</a>
+                                    </div>
+                                    <div class="col">
+                                        <span>36h de cours</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="level2">
+                            <div class="ligne">
+                                <div class="col icon">
+                                    <span class="glyphicon glyphicon-folder-close"></span>
+                                    <img alt="" class="loading" height="16"
+                                         src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
+                                </div>
+                                <div class="col content">
+                                    <a href="#" title="PCSI">PCSI</a>
+                                </div>
+
+                                <div class="col">
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="level1">
+                        <div class="ligne">
+                            <div class="col icon">
+                                <span class="glyphicon glyphicon-folder-close"></span>
+                                <img alt="" class="loading" height="16"
+                                     src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
+                            </div>
+                            <div class="col content">
+                                <a href="#" title="DUT">Année Spéciale</a>
+                            </div>
+
+                            <div class="col">
+
+                            </div>
+                        </div>
+
+                        <div class="level2">
+                            <div class="ligne">
+                                <div class="col icon">
+                                    <span class="glyphicon glyphicon-folder-close"></span>
+                                    <img alt="" class="loading" height="16"
+                                         src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
+                                </div>
+                                <div class="col content">
+                                    <a href="#" title="Année 1">Année 1</a>
+                                </div>
+
+                                <div class="col">
+                                    <span>3h de cours</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="level2">
+                            <div class="ligne">
+                                <div class="col icon">
+                                    <span class="glyphicon glyphicon-folder-close"></span>
+                                    <img alt="" class="loading" height="16"
+                                         src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
+                                </div>
+                                <div class="col content">
+                                    <a href="#" title="Année 2">Année 2</a>
+                                </div>
+
+                                <div class="col">
+                                    <span>3h de cours</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <!-- PageContent -->
+
+        <div id="menu_right">
+            <h1>Informations</h1>
+
+            <p>Keryan Sanié</p>
+
+            <p>Nombre d'heure affectées : 25h</p>
+
+            <p></p>
+        </div>
+    </div>
 {% endblock %}
