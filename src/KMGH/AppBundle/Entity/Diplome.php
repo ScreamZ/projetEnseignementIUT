@@ -62,6 +62,22 @@ class Diplome
     }
 
     /**
+     * @return TypeDiplome
+     */
+    public function getTypeDiplome()
+    {
+        return $this->typeDiplome;
+    }
+
+    /**
+     * @param TypeDiplome $typeDiplome
+     */
+    public function setTypeDiplome($typeDiplome)
+    {
+        $this->typeDiplome = $typeDiplome;
+    }
+
+    /**
      * Set nom
      *
      * @param string $nom
