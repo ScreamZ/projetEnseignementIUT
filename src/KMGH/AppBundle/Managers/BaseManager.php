@@ -24,11 +24,11 @@ abstract class BaseManager
    }
 
 
-   protected function persistAndFlush($entity)
+   public function persistAndFlush($entity)
    {
       $this->em->persist($entity);
       $this->em->flush();
    }
 
-   abstract protected function getRepository();
+   abstract public function getRepository();
 }
