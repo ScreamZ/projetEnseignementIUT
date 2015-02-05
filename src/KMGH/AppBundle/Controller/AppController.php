@@ -2,9 +2,11 @@
 
 namespace KMGH\AppBundle\Controller;
 
+use KMGH\AppBundle\Managers\EnseignementManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 class AppController extends Controller
 {
@@ -14,10 +16,10 @@ class AppController extends Controller
      */
     public function indexAction()
     {
-        $diplome = $this->getDoctrine()->getRepository("KMGHAppBundle:Diplome")->findAll();
-        return array(
-            "diplomes"=>$diplome
-        );
+        $man = new EnseignementManager($this->getDoctrine()->getManager());
+        var_dump($man->createEnseignement('module'));
+        return new Response();
+
     }
 
     /**
