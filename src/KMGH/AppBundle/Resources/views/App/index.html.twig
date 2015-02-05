@@ -1,27 +1,6 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-    <div id="header">
-        <div id="header_left">
-            <div id="header_left1">
-                <h1>GADI</h1>
-
-                <h3>Gestion des Attributions du Département Informatique</h3>
-            </div>
-            <div id="header_left2">
-                <h2>UM2</h2>
-            </div>
-        </div>
-
-        <div id="header_right">
-            <p>Bienvenue, <b>{{ app.user.enseignant.prenom ~ ' ' ~ app.user.enseignant.nom }}</b></p>
-
-            <p><a href="settings_admin.php">Options</a> | <a
-                        href="{{ path('fos_user_security_logout') }}">Déconnexion</a></p>
-        </div>
-    </div> <!--- header -->
-
-
 
     <div id="main">
         <div class="loading">
@@ -109,7 +88,7 @@
 
 
                                                         {% for attribution in enseignement.lesAttributions %}
-                                                            <tr>
+                                                            <tr id="{{ attribution.id }}">
                                                                 <td class="username">{{ attribution.enseignant.prenom }} {{ attribution.enseignant.nom }}</td>
                                                                 <td class="cm"><input type="text" name="cm" value="{{ attribution.nombreHeuresCM }}"
                                                                                       disabled></td>

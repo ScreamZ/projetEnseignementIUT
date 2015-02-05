@@ -9,22 +9,11 @@ use KMGH\UserBundle\Entity\Enseignant;
 /**
  * Attribution
  *
- * @ORM\Table(uniqueConstraints={
- *      @ORM\UniqueConstraint(name="unique_attribution", columns={"enseignant_id","enseignement_id"})
- * })
+ * @ORM\Table()
  * @ORM\Entity(repositoryClass="KMGH\AppBundle\Entity\AttributionRepository")
  */
 class Attribution
 {
-
-    /**
-     * @var integer
-     * @ORM\Id()
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
     /**
      * @var float
      *
@@ -55,13 +44,13 @@ class Attribution
 
     /**
      * @ORM\ManyToOne(targetEntity="KMGH\UserBundle\Entity\Enseignant", inversedBy="lesAttributions")
-     * @ORM\JoinColumn(name="enseignant_id")
+     * @ORM\Id()
      */
     private $enseignant;
 
     /**
      * @ORM\ManyToOne(targetEntity="KMGH\AppBundle\Entity\Enseignement",inversedBy="lesAttributions")
-     * @ORM\JoinColumn(name="enseignement_id")
+     * @ORM\Id()
      */
     private $enseignement;
 
@@ -144,80 +133,5 @@ class Attribution
     public function getEnseignement()
     {
         return $this->enseignement;
-    }
-
-    /**
-     * Set nombreHeuresTD
-     *
-     * @param float $nombreHeuresTD
-     * @return Attribution
-     */
-    public function setNombreHeuresTD($nombreHeuresTD)
-    {
-        $this->nombreHeuresTD = $nombreHeuresTD;
-
-        return $this;
-    }
-
-    /**
-     * Get nombreHeuresTD
-     *
-     * @return float 
-     */
-    public function getNombreHeuresTD()
-    {
-        return $this->nombreHeuresTD;
-    }
-
-    /**
-     * Set nombreHeuresTP
-     *
-     * @param float $nombreHeuresTP
-     * @return Attribution
-     */
-    public function setNombreHeuresTP($nombreHeuresTP)
-    {
-        $this->nombreHeuresTP = $nombreHeuresTP;
-
-        return $this;
-    }
-
-    /**
-     * Get nombreHeuresTP
-     *
-     * @return float 
-     */
-    public function getNombreHeuresTP()
-    {
-        return $this->nombreHeuresTP;
-    }
-
-    /**
-     * Set enseignement
-     *
-     * @param \KMGH\AppBundle\Entity\Enseignement $enseignement
-     * @return Attribution
-     */
-    public function setEnseignement(\KMGH\AppBundle\Entity\Enseignement $enseignement)
-    {
-        $this->enseignement = $enseignement;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
     }
 }

@@ -3,9 +3,15 @@ $(document).ready(function () {
     /* Close-box message */
     $('.alert-box').on('click', '.close-box', function () {
         $(this).parent().fadeOut();
-        $(this).parent().find('.msg').html('');
+        clearMsgBox();
     });
 
+    /* Vide la message box */
+    function clearMsgBox(){
+        $('.alert-box').find('.msg').html('');
+        $('.alert-box').find('.type').html('');
+        $('.alert-box').removeClass('success').removeClass('error');
+    }
     /* Clique au niveau 1 */
     $('.tab > .level1 > .ligne > .content a').click(function () {
         var ligne = $(this).parent().parent();
@@ -60,7 +66,7 @@ $(document).ready(function () {
 
     /* Clique sur modifier */
     $('.last-level table td.btn_action .btnModifier').click(function () {
-        btn_action = $(this).parent();
+        var btn_action = $(this).parent();
         $('.btnModifier', btn_action).fadeOut();
         $('.btnSupprimer', btn_action).fadeOut();
         $('.btnValider', btn_action).delay(400).fadeIn();
@@ -69,18 +75,46 @@ $(document).ready(function () {
 
     /* Clique sur valider */
     $('.last-level table td.btn_action .btnValider').click(function () {
-        /* Envoi de la requete ajax de modification d'heures de cours */
-        /* Si succés : */
-        btn_action = $(this).parent();
-        ligne = btn_action.parent();
-        $('.btnValider', btn_action).fadeOut();
-        $('.btnModifier', btn_action).delay(400).fadeIn();
-        $('.btnSupprimer', btn_action).delay(400).fadeIn();
-        ligne.find("input").prop("disabled", true).attr('id', 'inputError1');
-        /* Sinon : */
-        $('#alertMsg .msg').html('Impossible de se connecter à la base données');
-        $('#alertMsg .type').html('Erreur : ');
-        $('#alertMsg').addClass('error').fadeIn();
+        var that = this;
+        var tr = $(this).parent().parent();
+        var cm = $('.cm input', tr).val();
+        var td = $('.td input', tr).val();
+        var tp = $('.tp input', tr).val();
+        var id = tr.attr('id');
+
+        // todo ajout jeton csrf
+        // todo ajouter jsRoutingbundle pour changer l'adresse
+        $.post( "http://localhost/projetEnseignementIUT/web/app_dev.php/update/"+id, { cm: cm, td: td, tp: tp } )
+            .done(function(data){
+                if (data == 200){
+                    var btn_action = $(that).parent();
+                    var ligne = btn_action.parent();
+                    $('.btnValider', btn_action).fadeOut();
+                    ligne.find("input").prop("disabled", true).attr('id', 'inputError1');
+                    $('#alertMsg').addClass('success').fadeIn();
+                    $('#alertMsg .msg').html('Les modifications ont été effectuées avec succès.');
+                    $('#alertMsg .type').html('Ok : ');
+                    $('.btnModifier', btn_action).delay(400).fadeIn();
+                    $('.btnSupprimer', btn_action).delay(400).fadeIn();
+
+                }
+                else{
+                    $('#alertMsg .msg').html('Modication non permise');
+                    $('#alertMsg .type').html('Erreur : ');
+                    $('#alertMsg').addClass('error').fadeIn();
+                }
+            })
+            .fail(function(){
+                $('#alertMsg .msg').html('Impossible de se connecter à la base données');
+                $('#alertMsg .type').html('Erreur : ');
+                $('#alertMsg').addClass('error').fadeIn();
+            });
+
+        window.setTimeout( function(){
+            $('#alertMsg').slideUp();
+            clearMsgBox();
+        }, 5000 );
+
     });
 
 });

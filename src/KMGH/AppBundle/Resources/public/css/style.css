@@ -61,7 +61,7 @@ body{
 /* ----------------------- UP -------------------------------*/
 #header{
 	width:100%;
-	height:120px;
+	height:130px;
 	padding:1px 8% 10px 8%;
 	background:url(../img/bg_header.png) repeat-x;
 }
@@ -305,7 +305,7 @@ body{
 	border-color: #c7e2bc;
 	border-left: solid 7px #76b35a;
 }
-.alert-box.success span:before{
+.alert-box.success .type:before{
 	content: url(../img/success.png);
 	padding:5px 10px 0 0;
 }

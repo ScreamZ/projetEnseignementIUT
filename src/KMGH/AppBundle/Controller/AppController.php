@@ -9,11 +9,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class AppController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route(name="kmgh_appbundle_app_index", path="/")
      * @Template("KMGHAppBundle:App:index.html.twig")
      */
     public function indexAction()
     {
+        //todo recuperer par ordre alphabetique
         $typeDiplomes = $this->getDoctrine()->getRepository("KMGHAppBundle:TypeDiplome")->findAll();
         return array(
             "typeDiplomes"=>$typeDiplomes
@@ -21,10 +22,19 @@ class AppController extends Controller
     }
 
     /**
-     * @Route("/options")
+     * @Route(name="kmgh_appbundle_app_options", path="/options")
      * @Template("KMGHAppBundle:App:options.html.twig")
      */
     public function optionsAction()
+    {
+
+    }
+
+    /**
+     * @Route(name="kmgh_appbundle_app_fiches", path="/fiches-enseignement")
+     * @Template("KMGHAppBundle:App:fiches.html.twig")
+     */
+    public function fichesAction()
     {
 
     }
