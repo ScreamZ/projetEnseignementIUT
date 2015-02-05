@@ -17,9 +17,23 @@ class Attribution
     /**
      * @var float
      *
-     * @ORM\Column(name="nombreHeures", type="float")
+     * @ORM\Column(name="nombreHeuresCM", type="float")
      */
-    private $nombreHeures;
+    private $nombreHeuresCM;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="nombreHeuresTD", type="float")
+     */
+    private $nombreHeuresTD;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="nombreHeuresTP", type="float")
+     */
+    private $nombreHeuresTP;
 
     /**
      * @var \DateTime
@@ -29,14 +43,12 @@ class Attribution
     private $annee;
 
     /**
-     * @var ArrayCollection
      * @ORM\ManyToOne(targetEntity="KMGH\UserBundle\Entity\Enseignant", inversedBy="lesAttributions")
      * @ORM\Id()
      */
     private $enseignant;
 
     /**
-     * @var ArrayCollection
      * @ORM\ManyToOne(targetEntity="KMGH\AppBundle\Entity\Enseignement",inversedBy="lesAttributions")
      * @ORM\Id()
      */
@@ -47,40 +59,28 @@ class Attribution
      */
     public function __construct()
     {
-        $this->enseignant = new ArrayCollection();
-        $this->enseignement = new ArrayCollection();
     }
 
     /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Get nombreHeures
+     * Get nombreHeuresCM
      *
      * @return float
      */
-    public function getNombreHeures()
+    public function getNombreHeuresCM()
     {
-        return $this->nombreHeures;
+        return $this->nombreHeuresCM;
     }
 
     /**
-     * Set nombreHeures
+     * Set nombreHeuresCM
      *
-     * @param float $nombreHeures
+     * @param float $nombreHeuresCM
      *
      * @return Attribution
      */
-    public function setNombreHeures($nombreHeures)
+    public function setNombreHeuresCM($nombreHeuresCM)
     {
-        $this->nombreHeures = $nombreHeures;
+        $this->nombreHeuresCM = $nombreHeuresCM;
 
         return $this;
     }
@@ -110,33 +110,7 @@ class Attribution
     }
 
     /**
-     * Add enseignant
-     *
-     * @param Enseignant $enseignant
-     *
-     * @return Attribution
-     */
-    public function addEnseignant(Enseignant $enseignant)
-    {
-        $this->enseignant[] = $enseignant;
-
-        return $this;
-    }
-
-    /**
-     * Remove enseignant
-     *
-     * @param Enseignant $enseignant
-     */
-    public function removeEnseignant(Enseignant $enseignant)
-    {
-        $this->enseignant->removeElement($enseignant);
-    }
-
-    /**
-     * Get enseignant
-     *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return mixed
      */
     public function getEnseignant()
     {
@@ -144,27 +118,11 @@ class Attribution
     }
 
     /**
-     * Add enseignement
-     *
-     * @param \KMGH\AppBundle\Entity\Enseignement $enseignement
-     *
-     * @return Attribution
+     * @param mixed $enseignant
      */
-    public function addEnseignement(\KMGH\AppBundle\Entity\Enseignement $enseignement)
+    public function setEnseignant($enseignant)
     {
-        $this->enseignement[] = $enseignement;
-
-        return $this;
-    }
-
-    /**
-     * Remove enseignement
-     *
-     * @param \KMGH\AppBundle\Entity\Enseignement $enseignement
-     */
-    public function removeEnseignement(\KMGH\AppBundle\Entity\Enseignement $enseignement)
-    {
-        $this->enseignement->removeElement($enseignement);
+        $this->enseignant = $enseignant;
     }
 
     /**
@@ -175,5 +133,64 @@ class Attribution
     public function getEnseignement()
     {
         return $this->enseignement;
+    }
+
+    /**
+     * Set nombreHeuresTD
+     *
+     * @param float $nombreHeuresTD
+     * @return Attribution
+     */
+    public function setNombreHeuresTD($nombreHeuresTD)
+    {
+        $this->nombreHeuresTD = $nombreHeuresTD;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreHeuresTD
+     *
+     * @return float 
+     */
+    public function getNombreHeuresTD()
+    {
+        return $this->nombreHeuresTD;
+    }
+
+    /**
+     * Set nombreHeuresTP
+     *
+     * @param float $nombreHeuresTP
+     * @return Attribution
+     */
+    public function setNombreHeuresTP($nombreHeuresTP)
+    {
+        $this->nombreHeuresTP = $nombreHeuresTP;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreHeuresTP
+     *
+     * @return float 
+     */
+    public function getNombreHeuresTP()
+    {
+        return $this->nombreHeuresTP;
+    }
+
+    /**
+     * Set enseignement
+     *
+     * @param \KMGH\AppBundle\Entity\Enseignement $enseignement
+     * @return Attribution
+     */
+    public function setEnseignement(\KMGH\AppBundle\Entity\Enseignement $enseignement)
+    {
+        $this->enseignement = $enseignement;
+
+        return $this;
     }
 }

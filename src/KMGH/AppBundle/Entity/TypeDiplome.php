@@ -32,7 +32,7 @@ class TypeDiplome
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="KMGH\AppBundle\Entity\Diplome", mappedBy="id")
+     * @ORM\OneToMany(targetEntity="KMGH\AppBundle\Entity\Diplome", mappedBy="typeDiplome")
      */
     private $lesDiplomes;
 

@@ -111,7 +111,7 @@ class Periode
     }
 
     /**
-     * Add lesEnseignements
+     * Add enseignement
      *
      * @param \KMGH\AppBundle\Entity\Enseignement $lesEnseignements
      *
@@ -125,7 +125,7 @@ class Periode
     }
 
     /**
-     * Remove lesEnseignements
+     * Remove enseignement
      *
      * @param \KMGH\AppBundle\Entity\Enseignement $lesEnseignements
      */
@@ -135,7 +135,7 @@ class Periode
     }
 
     /**
-     * Get lesEnseignements
+     * Get enseignement
      *
      * @return \Doctrine\Common\Collections\Collection
      */

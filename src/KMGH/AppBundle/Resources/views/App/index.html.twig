@@ -42,51 +42,9 @@
                 <div class="tab">
 
 
-
-
-
-                    <div class="level1">
-                    {% for diplome in diplomes %}
-                        {# KMGH\AppBundle\Entity\Diplome diplome #}
-                        <div class="ligne">
-                            <div class="col icon">
-                                <span class="glyphicon glyphicon-folder-close"></span>
-                                <img alt="" class="loading" height="16"
-                                     src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
-                            </div>
-                            <div class="col content">
-                                <a href="#" title="{{ diplome.type }}">{{ diplome.type }}</a>
-                            </div>
-
-                            <div class="col">
-                                <span>6h de cours</span>
-                            </div>
-                        </div>
-                        <!-- ICI diplome.nom en foreach -->
-                    {% endfor %}
-                    </div>
-
-
-
-
-
-                    <div class="level1">
-                        <div class="ligne">
-                            <div class="col icon">
-                                <span class="glyphicon glyphicon-folder-close"></span>
-                                <img alt="" class="loading" height="16"
-                                     src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
-                            </div>
-                            <div class="col content">
-                                <a href="#" title="DUT">DUT</a>
-                            </div>
-
-                            <div class="col">
-                                <span>6h de cours</span>
-                            </div>
-                        </div>
-
-                        <div class="level2">
+                    {% for typeDiplome in typeDiplomes %}
+                        {# KMGH\AppBundle\Entity\TypeDiplome typeDiplome #}
+                        <div class="level1">
                             <div class="ligne">
                                 <div class="col icon">
                                     <span class="glyphicon glyphicon-folder-close"></span>
@@ -94,199 +52,98 @@
                                          src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
                                 </div>
                                 <div class="col content">
-                                    <a href="#" title="Année 1">Année 1</a>
+                                    <a href="#" title="{{ typeDiplome.nom }}">{{ typeDiplome.nom }}</a>
                                 </div>
 
                                 <div class="col">
-                                    <span>3h de cours</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="level2">
-                            <div class="ligne">
-                                <div class="col icon">
-                                    <span class="glyphicon glyphicon-folder-close"></span>
-                                    <img alt="" class="loading" height="16"
-                                         src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
-                                </div>
-                                <div class="col content">
-                                    <a href="#" title="Année 2">Année 2</a>
-                                </div>
-
-                                <div class="col">
-                                    <span>3h de cours</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="level1">
-                        <div class="ligne">
-                            <div class="col icon">
-                                <span class="glyphicon glyphicon-folder-close"></span>
-                                <img alt="" class="loading" height="16"
-                                     src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
-                            </div>
-                            <div class="col content">
-                                <a href="#" title="Licence">Licence</a>
-                            </div>
-
-                            <div class="col">
-                                <span>56h de cours</span>
-                            </div>
-                        </div>
-
-                        <div class="level2">
-                            <div class="ligne">
-                                <div class="col icon">
-                                    <span class="glyphicon glyphicon-folder-close"></span>
-                                    <img alt="" class="loading" height="16"
-                                         src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
-                                </div>
-                                <div class="col content">
-                                    <a href="#" title="API-DAE">API-DAE</a>
-                                </div>
-                                <div class="col">
-                                    <span>56h de cours</span>
+                                    <span>6h de cours</span>
                                 </div>
                             </div>
 
-                            <div class="level3">
-                                <div class="ligne">
-                                    <div class="col icon">
-                                        <span class="glyphicon glyphicon-folder-close"></span>
-                                        <img alt="" class="loading" height="16"
-                                             src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
-                                    </div>
-                                    <div class="col content">
-                                        <a href="#" title="UML">UML</a>
-                                    </div>
-                                    <div class="col">
-                                        <span>20h de cours</span>
-                                    </div>
-                                </div>
-
-                                <div class="last-level">
+                            {% for diplome in typeDiplome.lesDiplomes %}
+                                {# diplome KMGH\AppBundle\Entity\Diplome #}
+                                <div class="level2">
                                     <div class="ligne">
-                                        <table>
-                                            <tbody>
-                                            <tr>
-                                                <th>Enseignant</th>
-                                                <th>Heures de CM</th>
-                                                <th>Heures de TD</th>
-                                                <th>Heures de TP</th>
-                                            </tr>
-                                            <tr>
-                                                <td class="username">Xavier Paleja</td>
-                                                <td class="cm"><input type="text" name="cm" value="0" disabled></td>
-                                                <td class="td"><input type="text" name="td" value="18" disabled></td>
-                                                <td class="tp"><input type="text" name="tp" value="38" disabled></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="username">Keryan Sanié</td>
-                                                <td class="cm"><input type="text" name="cm" value="0" disabled></td>
-                                                <td class="td"><input type="text" name="td" value="10" disabled></td>
-                                                <td class="tp"><input type="text" name="tp" value="10" disabled></td>
-                                                <td class="btn_action">
-                                                    <a href="#" title="Modifier" class='btnModifier'><span
-                                                                class="glyphicon glyphicon-pencil"></span></a>
-                                                    <a href="#" title="Supprimer" class='btnSupprimer'><span
-                                                                class="glyphicon glyphicon-trash"></span></a>
-                                                    <a href="#" title="Valider" class='btnValider'><span
-                                                                class="glyphicon glyphicon-ok"></span></a>
-                                                </td>
+                                        <div class="col icon">
+                                            <span class="glyphicon glyphicon-folder-close"></span>
+                                            <img alt="" class="loading" height="16"
+                                                 src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
+                                        </div>
+                                        <div class="col content">
+                                            <a href="#" title="{{ diplome.nom }}">{{ diplome.nom }}</a>
+                                        </div>
 
-                                            </tr>
-                                            </tbody>
-                                        </table>
+                                        <div class="col">
+                                            <span>3h de cours</span>
+                                        </div>
                                     </div>
-                                </div>
+                                    {% for enseignement in diplome.lesEnseignements %}
+                                        {# enseignement KMGH\AppBundle\Entity\Enseignement #}
+                                        <div class="level3">
+                                            <div class="ligne">
+                                                <div class="col icon">
+                                                    <span class="glyphicon glyphicon-folder-close"></span>
+                                                    <img alt="" class="loading" height="16"
+                                                         src="{{ asset('bundles/kmghapp/img/loading.gif') }}"
+                                                         width="16">
+                                                </div>
+                                                <div class="col content">
+                                                    <a href="#"
+                                                       title="{{ enseignement.denomination }}">{{ enseignement.denomination }}</a>
+                                                </div>
+                                                <div class="col">
+                                                    <span>20h de cours</span>
+                                                </div>
+                                            </div>
 
-                            </div>
+                                            <div class="last-level">
+                                                <div class="ligne">
+                                                    <table>
+                                                        <tbody>
+                                                        <tr>
+                                                            <th>Enseignant</th>
+                                                            <th>Heures de CM</th>
+                                                            <th>Heures de TD</th>
+                                                            <th>Heures de TP</th>
+                                                        </tr>
 
-                            <div class="level3">
-                                <div class="ligne">
-                                    <div class="col icon">
-                                        <span class="glyphicon glyphicon-folder-close"></span>
-                                        <img alt="" class="loading" height="16"
-                                             src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
-                                    </div>
-                                    <div class="col content">
-                                        <a href="#" title="BD">Base de données</a>
-                                    </div>
-                                    <div class="col">
-                                        <span>36h de cours</span>
-                                    </div>
+
+                                                        {% for attribution in enseignement.lesAttributions %}
+                                                            <tr>
+                                                                <td class="username">{{ attribution.enseignant.prenom }} {{ attribution.enseignant.nom }}</td>
+                                                                <td class="cm"><input type="text" name="cm" value="{{ attribution.nombreHeuresCM }}"
+                                                                                      disabled></td>
+                                                                <td class="td"><input type="text" name="td" value="{{ attribution.nombreHeuresTD }}"
+                                                                                      disabled></td>
+                                                                <td class="tp"><input type="text" name="tp" value="{{ attribution.nombreHeuresTP }}"
+                                                                                      disabled></td>
+                                                                {% if app.user.enseignant == attribution.enseignant %}
+                                                                <td class="btn_action">
+                                                                    <a href="#" title="Modifier"
+                                                                       class='btnModifier'><span
+                                                                                class="glyphicon glyphicon-pencil"></span></a>
+                                                                    <a href="#" title="Supprimer"
+                                                                       class='btnSupprimer'><span
+                                                                                class="glyphicon glyphicon-trash"></span></a>
+                                                                    <a href="#" title="Valider" class='btnValider'><span
+                                                                                class="glyphicon glyphicon-ok"></span></a>
+                                                                </td>
+                                                                {% endif %}
+                                                            </tr>
+                                                        {% endfor %}
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    {% endfor %}
                                 </div>
-                            </div>
+                            {% endfor %}
                         </div>
-                        <div class="level2">
-                            <div class="ligne">
-                                <div class="col icon">
-                                    <span class="glyphicon glyphicon-folder-close"></span>
-                                    <img alt="" class="loading" height="16"
-                                         src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
-                                </div>
-                                <div class="col content">
-                                    <a href="#" title="PCSI">PCSI</a>
-                                </div>
+                    {% endfor %}
 
-                                <div class="col">
-                                    <span></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="level1">
-                        <div class="ligne">
-                            <div class="col icon">
-                                <span class="glyphicon glyphicon-folder-close"></span>
-                                <img alt="" class="loading" height="16"
-                                     src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
-                            </div>
-                            <div class="col content">
-                                <a href="#" title="DUT">Année Spéciale</a>
-                            </div>
-
-                            <div class="col">
-
-                            </div>
-                        </div>
-
-                        <div class="level2">
-                            <div class="ligne">
-                                <div class="col icon">
-                                    <span class="glyphicon glyphicon-folder-close"></span>
-                                    <img alt="" class="loading" height="16"
-                                         src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
-                                </div>
-                                <div class="col content">
-                                    <a href="#" title="Année 1">Année 1</a>
-                                </div>
-
-                                <div class="col">
-                                    <span>3h de cours</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="level2">
-                            <div class="ligne">
-                                <div class="col icon">
-                                    <span class="glyphicon glyphicon-folder-close"></span>
-                                    <img alt="" class="loading" height="16"
-                                         src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
-                                </div>
-                                <div class="col content">
-                                    <a href="#" title="Année 2">Année 2</a>
-                                </div>
-
-                                <div class="col">
-                                    <span>3h de cours</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                 </div>
 

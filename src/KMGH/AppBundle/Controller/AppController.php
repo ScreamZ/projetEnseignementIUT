@@ -14,9 +14,9 @@ class AppController extends Controller
      */
     public function indexAction()
     {
-        $diplome = $this->getDoctrine()->getRepository("KMGHAppBundle:Diplome")->findAll();
+        $typeDiplomes = $this->getDoctrine()->getRepository("KMGHAppBundle:TypeDiplome")->findAll();
         return array(
-            "diplomes"=>$diplome
+            "typeDiplomes"=>$typeDiplomes
         );
     }
 

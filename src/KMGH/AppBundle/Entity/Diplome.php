@@ -84,7 +84,7 @@ class Diplome
     }
 
     /**
-     * Add lesEnseignements
+     * Add enseignement
      *
      * @param \KMGH\UserBundle\Entity\Enseignement $lesEnseignements
      * @return Diplome
@@ -97,7 +97,7 @@ class Diplome
     }
 
     /**
-     * Remove lesEnseignements
+     * Remove enseignement
      *
      * @param \KMGH\UserBundle\Entity\Enseignement $lesEnseignements
      */
@@ -107,7 +107,7 @@ class Diplome
     }
 
     /**
-     * Get lesEnseignements
+     * Get enseignement
      *
      * @return \Doctrine\Common\Collections\Collection 
      */

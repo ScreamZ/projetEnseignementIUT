@@ -29,7 +29,7 @@ abstract class Enseignement
 
     /**
      * @var Periode
-     * @ORM\ManyToMany(targetEntity="KMGH\AppBundle\Entity\Periode",mappedBy="id")
+     * @ORM\ManyToMany(targetEntity="KMGH\AppBundle\Entity\Periode", mappedBy="lesEnseignements")
      */
     protected $periodes;
 
@@ -42,7 +42,7 @@ abstract class Enseignement
     /**
      * @var Diplome
      *
-     * @ORM\ManyToOne(targetEntity="KMGH\AppBundle\Entity\Diplome")
+     * @ORM\ManyToOne(targetEntity="KMGH\AppBundle\Entity\Diplome", inversedBy="lesEnseignements")
      */
     private $diplome;
 
