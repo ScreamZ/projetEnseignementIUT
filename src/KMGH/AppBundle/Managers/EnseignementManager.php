@@ -28,7 +28,6 @@ class EnseignementManager extends BaseManager
     {
         switch ($type) {
             case 'module':
-               return $this->getRepository()->find(1);
                 return new Module();
             case 'projet':
                 return new Projet();
@@ -39,7 +38,7 @@ class EnseignementManager extends BaseManager
         }
     }
 
-    protected function getRepository()
+    public function getRepository()
     {
         return $this->em->getRepository('KMGHUserBundle:Enseignement');
     }
