@@ -22,15 +22,6 @@ class AppController extends Controller
     }
 
     /**
-     * @Route(name="kmgh_appbundle_app_options", path="/options")
-     * @Template("KMGHAppBundle:App:options.html.twig")
-     */
-    public function optionsAction()
-    {
-
-    }
-
-    /**
      * @Route(name="kmgh_appbundle_app_fiches", path="/fiches-enseignement")
      * @Template("KMGHAppBundle:App:fiches.html.twig")
      */
