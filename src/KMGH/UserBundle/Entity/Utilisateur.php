@@ -23,7 +23,7 @@ class Utilisateur extends BaseUser
     protected $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="KMGH\UserBundle\Entity\Enseignant", inversedBy="utilisateur")
+     * @ORM\OneToOne(targetEntity="KMGH\UserBundle\Entity\Enseignant", inversedBy="utilisateur", cascade={"persist"})
      * @ORM\JoinColumn(name="enseignant_id", referencedColumnName="id")
      **/
     private $enseignant;
