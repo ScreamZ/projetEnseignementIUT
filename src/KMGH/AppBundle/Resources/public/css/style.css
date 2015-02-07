@@ -221,9 +221,10 @@ body{
 }
 	
 	
-#main h1,h2,h3,p,td,quote,small,form,input,ul,li,ol,label{
-	margin:0px;
-	padding:0px;
+#main h1,h2,h3,p,td,small,form,input,ul,li,ol,label{
+	margin:0;
+	padding:0;
+	text-align: center;
 }
 	
 #pageContent{
@@ -395,7 +396,6 @@ body{
 }
 .last-level table th{
 	font-size: 13px;
-	font-weight:0;
 	border:1px solid #eee;
 	padding: 5px;
 	background: #ddd;
@@ -501,10 +501,6 @@ cursor: default;
 	margin-top: 0;
 }
 
-.login input[type=text], .login input[type=password] {
-	width: 278px;
-}
-
 .login p.remember_me {
 	float: left;
 	line-height: 31px;
@@ -561,7 +557,7 @@ cursor: default;
 .container-login input[type=text], input[type=password] {
 	margin: 5px;
 	padding: 0 10px;
-	width: 200px;
+	width: 260px;
 	height: 34px;
 	color: #404040;
 	background: white;
@@ -579,6 +575,7 @@ cursor: default;
 	outline-color: #dceefc;
 	outline-offset: 0;
 }
+
 
 .container-login input[type=submit] {
 	padding: 0 18px;
@@ -604,6 +601,13 @@ cursor: default;
 }
 
 .container-login input[type=submit]:active {
+	background: #cde5ef;
+	border-color: #9eb9c2 #b3c0c8 #b4ccce;
+	-webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+	box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+.container-login input[type=submit]:hover {
 	background: #cde5ef;
 	border-color: #9eb9c2 #b3c0c8 #b4ccce;
 	-webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
