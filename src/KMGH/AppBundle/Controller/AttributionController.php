@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Validation;
 
 class AttributionController extends Controller
 {
@@ -19,13 +20,11 @@ class AttributionController extends Controller
      */
     public function udpateAction($id)
     {
-        return new Response(200, 200);
         $request = Request::createFromGlobals();
         $nbHeuresCM = $request->request->get('cm');
         $nbHeuresTD = $request->request->get('td');
         $nbHeuresTP = $request->request->get('tp');
-        // @todo ajouter manager
-        $manager = $this->get('');
+        $manager = $this->get('kmgh_app.attribution_manager');
         /**
          * @var Attribution $attribution
          */
@@ -34,13 +33,14 @@ class AttributionController extends Controller
         $attribution->setNombreHeuresTD($nbHeuresTD);
         $attribution->setNombreHeuresTP($nbHeuresTP);
 
-        $validator = $this->get('validator');
+        $validator = Validation::createValidator();
         $errorList = $validator->validate($attribution);
 
         if (count($errorList) > 0) {
             return new Response(401, 401);
         } else {
-            $manager->update($attribution);
+            $manager->persistAndFlush($attribution);
+
             return new Response(200, 200);
         }
     }
