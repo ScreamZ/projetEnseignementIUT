@@ -5,6 +5,7 @@ namespace KMGH\UserBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use KMGH\AppBundle\Entity\Attribution;
+use KMGH\AppBundle\Entity\Module;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -188,7 +189,7 @@ class Enseignant
     /**
      * Get statut
      *
-     * @return \KMGH\UserBundle\Entity\Statut
+     * @return Statut
      */
     public function getStatut()
     {
@@ -198,14 +199,33 @@ class Enseignant
     /**
      * Set statut
      *
-     * @param \KMGH\UserBundle\Entity\Statut $statut
+     * @param Statut $statut
      *
      * @return Enseignant
      */
-    public function setStatut(\KMGH\UserBundle\Entity\Statut $statut)
+    public function setStatut(Statut $statut)
     {
         $this->statut = $statut;
 
         return $this;
+    }
+
+    /**
+     * Calcule la somme des heures pour un enseignant, soit la somme des heures des attributions.
+     *
+     * @return float Le nombre d'heures enseignées (Somme des attributions)
+     */
+    public function getSommeHeuresEnseignant()
+    {
+        $somme = 0.0;
+
+        foreach ($this->lesAttributions as $attribution) {
+            /**
+             * @var Attribution $attribution
+             */
+            $somme += $attribution->getSommeHeureAttribution();
+        }
+
+        return $somme;
     }
 }
