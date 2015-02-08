@@ -13,22 +13,32 @@ use Doctrine\ORM\EntityManager;
 
 abstract class BaseManager
 {
-   /**
-    * @var EntityManager
-    */
-   protected $em;
+    /**
+     * @var EntityManager
+     */
+    protected $em;
 
-   function __construct(EntityManager $em)
-   {
-      $this->em = $em;
-   }
+    function __construct(EntityManager $em)
+    {
+        $this->em = $em;
+    }
 
 
-   public function persistAndFlush($entity)
-   {
-      $this->em->persist($entity);
-      $this->em->flush();
-   }
+    public function persist($entity, $andFlush = true)
+    {
+        $this->em->persist($entity);
+        if ($andFlush) {
+            $this->em->flush();
+        }
+    }
 
-   abstract public function getRepository();
+    public function remove($entity, $andFlush = true)
+    {
+        $this->em->remove($entity);
+        if ($andFlush) {
+            $this->em->flush();
+        }
+    }
+
+    abstract public function getRepository();
 }
