@@ -4,8 +4,6 @@ namespace KMGH\AppBundle\Controller;
 
 use KMGH\AppBundle\Entity\Attribution;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validation;
@@ -89,9 +87,9 @@ class AttributionController extends Controller
     public function insertAction()
     {
         $request = Request::createFromGlobals();
-        $nbHeuresCM = $request->request->get('cm');
-        $nbHeuresTD = $request->request->get('td');
-        $nbHeuresTP = $request->request->get('tp');
+        $nbHeuresCM = $request->request->get('cm', 0);
+        $nbHeuresTD = $request->request->get('td', 0);
+        $nbHeuresTP = $request->request->get('tp', 0);
         $manager = $this->get('kmgh_app.attribution_manager');
         /**
          * TODO : Implements CSRF Verification
