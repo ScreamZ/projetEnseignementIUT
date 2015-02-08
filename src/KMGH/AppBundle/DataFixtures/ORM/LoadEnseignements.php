@@ -57,11 +57,11 @@ class LoadEnseignements implements FixtureInterface, ContainerAwareInterface
         /**
          * @var Projet $projet
          */
-        $projet->setEnseignantResponsable($userManager->findUserBy(array('username' => 'toto')));
+        /*$projet->setEnseignantResponsable($userManager->findUserBy(array('username' => 'toto')));
         $projet->setDiplome($diplomeManager->findOneBy(array('nom' => 'API-DAE')));
         $projet->setNbEtudiants(3);
         $projet->setNbHeuresParEtudiants(5);
-        $manager->persist($projet);
+        $manager->persist($projet);*/
 
         $manager->flush();
     }

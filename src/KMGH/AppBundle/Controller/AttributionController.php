@@ -82,7 +82,7 @@ class AttributionController extends Controller
     /**
      * Traitement de l'ajout d'une nouvelle attribution
      *
-     * @Route(name="kmgh_appbundle_attribution_insert", path="/insert/{id}")
+     * @Route(name="kmgh_appbundle_attribution_insert", path="/insert}")
      *
      * @return Response
      */
