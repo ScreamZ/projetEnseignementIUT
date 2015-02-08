@@ -11,5 +11,8 @@
         <service id="kmgh_app.enseignement_manager" class="KMGH\AppBundle\Managers\EnseignementManager">
             <argument type="service" id="doctrine.orm.entity_manager"/>
         </service>
+        <service id="kmgh_app.typediplome_manager" class="KMGH\AppBundle\Managers\TypeDiplomeManager">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+        </service>
     </services>
 </container>

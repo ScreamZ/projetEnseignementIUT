@@ -15,7 +15,7 @@ class AppController extends Controller
     public function indexAction()
     {
         //todo recuperer par ordre alphabetique
-        $typeDiplomes = $this->getDoctrine()->getRepository("KMGHAppBundle:TypeDiplome")->findAll();
+        $typeDiplomes = $this->get('kmgh_app.typediplome_manager')->findAll();
         return array(
             "typeDiplomes"=>$typeDiplomes
         );
