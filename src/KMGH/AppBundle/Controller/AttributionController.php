@@ -6,6 +6,7 @@ use KMGH\AppBundle\Entity\Attribution;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Validation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -82,7 +83,7 @@ class AttributionController extends Controller
     /**
      * Traitement de l'ajout d'une nouvelle attribution
      *
-     * @Route(name="kmgh_appbundle_attribution_insert", path="/insert}")
+     * @Route(name="kmgh_appbundle_attribution_insert", path="/insert/")
      *
      * @return Response
      */
@@ -92,6 +93,8 @@ class AttributionController extends Controller
         $nbHeuresCM = $request->request->get('cm', 0);
         $nbHeuresTD = $request->request->get('td', 0);
         $nbHeuresTP = $request->request->get('tp', 0);
+        $userId = $request->request->get('userId');
+        $enseignementId = $request->request->get('enseignementId');
         $manager = $this->get('kmgh_app.attribution_manager');
         /**
          * TODO : Implements CSRF Verification
@@ -99,6 +102,9 @@ class AttributionController extends Controller
          * @var Attribution $attribution
          */
         $attribution = new Attribution();
+        $attribution->setAnnee(new \DateTime());
+        $attribution->setEnseignant($this->get('fos_user.user_manager')->findUserBy(array('id'=>$userId)));
+        $attribution->setEnseignement($this->get('kmgh_app.enseignement_manager')->getRepository()->find($userId));
         $attribution->setNombreHeuresCM($nbHeuresCM);
         $attribution->setNombreHeuresTD($nbHeuresTD);
         $attribution->setNombreHeuresTP($nbHeuresTP);

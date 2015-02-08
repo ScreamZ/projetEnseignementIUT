@@ -11,7 +11,7 @@
     </div>
     {% if app.user is not null %}
     <div id="header_right">
-        <p>Bienvenue, <b>{{ app.user.enseignant.prenom ~ ' ' ~ app.user.enseignant.nom }}</b></p>
+        <p>Bienvenue, <b id="userWelcome" data-idUser="{{ app.user.enseignant.id }}">{{ app.user.enseignant.prenom ~ ' ' ~ app.user.enseignant.nom }}</b></p>
 
         <p><a href="{{ path('kmgh_userbundle_user_options') }}">Options</a> | <a
                     href="{{ path('fos_user_security_logout') }}">Déconnexion</a></p>

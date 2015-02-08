@@ -12,6 +12,15 @@ $(document).ready(function () {
         $('.alert-box').find('.type').html('');
         $('.alert-box').removeClass('success').removeClass('error');
     }
+
+    /* Enleve la boite de message dans 5 seconde */
+    function clearBoxIn5() {
+        window.setTimeout(function () {
+            $('#alertMsg').slideUp();
+            clearMsgBox();
+        }, 5000);
+    }
+
     /* Clique au niveau 1 */
     $('.tab > .level1 > .ligne > .content a').click(function () {
         var ligne = $(this).parent().parent();
@@ -94,27 +103,55 @@ $(document).ready(function () {
                     $('#alertMsg').addClass('success').fadeIn();
                     $('#alertMsg .msg').html('Les modifications ont été effectuées avec succès.');
                     $('#alertMsg .type').html('Ok : ');
+                    clearBoxIn5();
                     $('.btnModifier', btn_action).delay(400).fadeIn();
                     $('.btnSupprimer', btn_action).delay(400).fadeIn();
-
                 }
                 else{
                     $('#alertMsg .msg').html('Modication non permise');
                     $('#alertMsg .type').html('Erreur : ');
                     $('#alertMsg').addClass('error').fadeIn();
+                    clearBoxIn5();
                 }
             })
             .fail(function(){
                 $('#alertMsg .msg').html('Impossible de se connecter à la base données');
                 $('#alertMsg .type').html('Erreur : ');
                 $('#alertMsg').addClass('error').fadeIn();
+                clearBoxIn5();
             });
+    });
 
-        window.setTimeout( function(){
-            $('#alertMsg').slideUp();
-            clearMsgBox();
-        }, 5000 );
+    $('.newAttribution').click(function(e){
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost/projetEnseignementIUT/web/app_dev.php/insert/',
+            data:{ userId : $('#userWelcome').attr('data-idUser'), enseignementId : $(this).parents('.last-level').attr('data-enseigementId') },
+            statusCode: {
+                200: function(response) {
+                    $(this).parents('tbody').append('' +
+                    '<tr id="'+response+'">' +
+                        '<td class="username">'+$('#userWelcome').html()+'</td>'+
+                        '<td class="cm"><input type="text" name="cm" value="0" disabled></td>'+
+                        '<td class="td"><input type="text" name="td" value="0" disabled></td>'+
+                        '<td class="tp"><input type="text" name="tp" value="0" disabled></td>'+
+                        '<td class="btn_action">'+
+                            '<a href="#" title="Modifier" class="btnModifier"><span class="glyphicon glyphicon-pencil"></span></a>'+
+                            '<a href="#" title="Supprimer" class="btnSupprimer"><span class="glyphicon glyphicon-trash"></span></a>'+
+                            '<a href="#" title="Valider" class="btnValider"><span class="glyphicon glyphicon-ok"></span></a>'+
+                        '</td>'+
+                    '</tr>');
+                },
 
+                401: function(response) {
+                    $('#alertMsg .msg').html('Impossible de se connecter à la base données');
+                    $('#alertMsg .type').html('Erreur : ');
+                    $('#alertMsg').addClass('error').fadeIn();
+                }
+            }
+
+        });
     });
 
 });

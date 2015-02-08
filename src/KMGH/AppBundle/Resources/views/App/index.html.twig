@@ -75,19 +75,20 @@
                                                 </div>
                                             </div>
 
-                                            <div class="last-level">
+                                            <div class="last-level" data-enseigementId="{{ enseignement.id }}">
                                                 <div class="ligne">
                                                     <table>
                                                         <tbody>
-                                                        <tr>
+                                                        <tr class="champTitre">
                                                             <th>Enseignant</th>
                                                             <th>Heures de CM</th>
                                                             <th>Heures de TD</th>
                                                             <th>Heures de TP</th>
                                                         </tr>
 
-
+                                                        {% set userPosedeUneAttribution = false %}
                                                         {% for attribution in enseignement.lesAttributions %}
+
                                                             <tr id="{{ attribution.id }}">
                                                                 <td class="username">{{ attribution.enseignant.prenom }} {{ attribution.enseignant.nom }}</td>
                                                                 <td class="cm"><input type="text" name="cm" value="{{ attribution.nombreHeuresCM }}"
@@ -97,6 +98,7 @@
                                                                 <td class="tp"><input type="text" name="tp" value="{{ attribution.nombreHeuresTP }}"
                                                                                       disabled></td>
                                                                 {% if app.user.enseignant == attribution.enseignant %}
+                                                                    {% set userPosedeUneAttribution = true %}
                                                                 <td class="btn_action">
                                                                     <a href="#" title="Modifier"
                                                                        class='btnModifier'><span
@@ -112,6 +114,9 @@
                                                         {% endfor %}
 
                                                         </tbody>
+                                                        {% if not userPosedeUneAttribution %}
+                                                            <tr><td><a href="" class="newAttribution">Ajouter une attribution <span class="glyphicon glyphicon-plus"></span></a></td></tr>
+                                                        {% endif %}
                                                     </table>
                                                 </div>
                                             </div>
