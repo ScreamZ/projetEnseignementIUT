@@ -422,6 +422,11 @@ class Module extends Enseignement
         return $this;
     }
 
+    /**
+     * Calcule la somme des heures de chaque attribution de ce module.
+     *
+     * @return float La somme des heures de CM, TD et TP
+     */
     public function getSommeHeuresModules()
     {
         $somme = 0.0;

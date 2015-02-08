@@ -136,6 +136,11 @@ class Diplome
         return $this->lesEnseignements;
     }
 
+    /**
+     * Calcule la somme des heures de chaque enseignement de ce diplome.
+     *
+     * @return float La somme des heures de CM, TD et TP
+     */
     public function getSommeHeuresDiplomes()
     {
         $somme = 0.0;

@@ -52,7 +52,7 @@
                                         </div>
 
                                         <div class="col">
-                                            <span>{{ diplome.getSommeHeuresDiplomes }} Heure de cours</span>
+                                            <span>{{ diplome.getSommeHeuresDiplomes }} Heures de cours</span>
                                         </div>
                                     </div>
                                     {% for enseignement in diplome.lesEnseignements %}
@@ -70,7 +70,8 @@
                                                        title="{{ enseignement.denomination }}">{{ enseignement.denomination }}</a>
                                                 </div>
                                                 <div class="col">
-                                                    <span>{{ enseignement.getSommeHeuresModules }} Heure de cours</span>
+                                                    <span>{{ enseignement.getSommeHeuresModules }}
+                                                        Heures de cours</span>
                                                 </div>
                                             </div>
 
@@ -140,7 +141,7 @@
 
             <p>{{ app.user.enseignant.prenom ~ ' ' ~ app.user.enseignant.nom }}</p>
 
-            <p>Nombre d'heure affectées : XX h</p>
+            <p>Nombre d'heure affectées : {{ app.user.enseignant.getSommeHeuresEnseignant }} Heures</p>
 
             <p></p>
         </div>

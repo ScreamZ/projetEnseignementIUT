@@ -115,6 +115,11 @@ class TypeDiplome
         return $this->lesDiplomes;
     }
 
+    /**
+     * Calcule la somme des heures de chaque diplome de ce type de diplome.
+     *
+     * @return float La somme des heures de CM, TD et TP
+     */
     public function getSommeHeuresTypeDiplome()
     {
         $somme = 0.0;
