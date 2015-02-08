@@ -26,7 +26,7 @@ class EnseignementManager extends BaseManager
      */
     public function createEnseignement($type)
     {
-        switch ($type) {
+        switch (strtolower($type)) {
             case 'module':
                 return new Module();
             case 'projet':

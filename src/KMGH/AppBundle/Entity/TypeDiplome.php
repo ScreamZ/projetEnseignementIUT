@@ -37,9 +37,20 @@ class TypeDiplome
     private $lesDiplomes;
 
     /**
+     * Constructor
+     *
+     * @param String $nom Type du diplome
+     */
+    public function __construct($nom)
+    {
+        $this->nom = $nom;
+        $this->lesDiplomes = new ArrayCollection();
+    }
+
+    /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -47,9 +58,20 @@ class TypeDiplome
     }
 
     /**
+     * Get nom
+     *
+     * @return string
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
      * Set nom
      *
      * @param string $nom
+     *
      * @return TypeDiplome
      */
     public function setNom($nom)
@@ -60,29 +82,13 @@ class TypeDiplome
     }
 
     /**
-     * Get nom
-     *
-     * @return string 
-     */
-    public function getNom()
-    {
-        return $this->nom;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->lesDiplomes = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
      * Add lesDiplomes
      *
-     * @param \KMGH\AppBundle\Entity\Diplome $lesDiplomes
+     * @param Diplome $lesDiplomes
+     *
      * @return TypeDiplome
      */
-    public function addLesDiplome(\KMGH\AppBundle\Entity\Diplome $lesDiplomes)
+    public function addLesDiplome(Diplome $lesDiplomes)
     {
         $this->lesDiplomes[] = $lesDiplomes;
 
@@ -92,9 +98,9 @@ class TypeDiplome
     /**
      * Remove lesDiplomes
      *
-     * @param \KMGH\AppBundle\Entity\Diplome $lesDiplomes
+     * @param Diplome $lesDiplomes
      */
-    public function removeLesDiplome(\KMGH\AppBundle\Entity\Diplome $lesDiplomes)
+    public function removeLesDiplome(Diplome $lesDiplomes)
     {
         $this->lesDiplomes->removeElement($lesDiplomes);
     }
@@ -102,7 +108,7 @@ class TypeDiplome
     /**
      * Get lesDiplomes
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getLesDiplomes()
     {

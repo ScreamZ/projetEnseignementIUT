@@ -36,13 +36,12 @@ class LoadUtilisateurData implements FixtureInterface, ContainerAwareInterface
     {
         $statut = new Statut();
         $statut->setNomStatut('Vaccataire')->setQuotaHeureEnseignement(rand(1, 100));
-        $em = $this->container->get('doctrine.orm.entity_manager');
-        $em->persist($statut);
+        $manager->persist($statut);
 
         $this->createData('toto', 'toto', $statut, "Miklos", 'Molnar');
         $this->createData('titi', 'titi', $statut, "Stéphanie", 'Metz');
 
-        $em->flush();
+        $manager->flush();
     }
 
     private function createData($username, $password, $statut, $prenom, $nom)
@@ -56,6 +55,14 @@ class LoadUtilisateurData implements FixtureInterface, ContainerAwareInterface
         $enseignant->setPrenom($prenom)->setNom($nom)->setUtilisateur($user)->setStatut($statut);
         $user->setEnseignant($enseignant);
         $this->container->get('fos_user.user_manager')->updateUser($user);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getOrder()
+    {
+        return 1; // l'ordre dans lequel les fichiers sont chargés
     }
 
 

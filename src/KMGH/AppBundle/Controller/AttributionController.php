@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validation;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class AttributionController extends Controller
 {
@@ -105,7 +107,7 @@ class AttributionController extends Controller
         $errorList = $validator->validate($attribution);
 
         if (count($errorList) > 0) {
-            return new Response(401, 401);
+            return new Response('ERROR', 401);
         } else {
             $manager->persist($attribution);
 

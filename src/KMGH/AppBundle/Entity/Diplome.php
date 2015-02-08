@@ -46,8 +46,9 @@ class Diplome
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct($nom)
     {
+        $this->nom = $nom;
         $this->lesEnseignements = new ArrayCollection();
     }
 
