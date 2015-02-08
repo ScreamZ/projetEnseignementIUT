@@ -147,9 +147,34 @@ class Attribution
     }
 
     /**
+     * Set enseignement
+     *
+     * @param Enseignement $enseignement
+     *
+     * @return Attribution
+     */
+    public function setEnseignement(Enseignement $enseignement)
+    {
+        $this->enseignement = $enseignement;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreHeuresTD
+     *
+     * @return float
+     */
+    public function getNombreHeuresTD()
+    {
+        return $this->nombreHeuresTD;
+    }
+
+    /**
      * Set nombreHeuresTD
      *
      * @param float $nombreHeuresTD
+     *
      * @return Attribution
      */
     public function setNombreHeuresTD($nombreHeuresTD)
@@ -160,32 +185,9 @@ class Attribution
     }
 
     /**
-     * Get nombreHeuresTD
-     *
-     * @return float 
-     */
-    public function getNombreHeuresTD()
-    {
-        return $this->nombreHeuresTD;
-    }
-
-    /**
-     * Set nombreHeuresTP
-     *
-     * @param float $nombreHeuresTP
-     * @return Attribution
-     */
-    public function setNombreHeuresTP($nombreHeuresTP)
-    {
-        $this->nombreHeuresTP = $nombreHeuresTP;
-
-        return $this;
-    }
-
-    /**
      * Get nombreHeuresTP
      *
-     * @return float 
+     * @return float
      */
     public function getNombreHeuresTP()
     {
@@ -193,14 +195,15 @@ class Attribution
     }
 
     /**
-     * Set enseignement
+     * Set nombreHeuresTP
      *
-     * @param \KMGH\AppBundle\Entity\Enseignement $enseignement
+     * @param float $nombreHeuresTP
+     *
      * @return Attribution
      */
-    public function setEnseignement(\KMGH\AppBundle\Entity\Enseignement $enseignement)
+    public function setNombreHeuresTP($nombreHeuresTP)
     {
-        $this->enseignement = $enseignement;
+        $this->nombreHeuresTP = $nombreHeuresTP;
 
         return $this;
     }
@@ -219,5 +222,15 @@ class Attribution
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * Calcule la sommes des heures de l'attribution
+     *
+     * @return float La somme des heures de CM, TD et TP
+     */
+    public function getSommeHeureAttribution()
+    {
+        return $this->nombreHeuresCM + $this->nombreHeuresTD + $this->nombreHeuresTP;
     }
 }

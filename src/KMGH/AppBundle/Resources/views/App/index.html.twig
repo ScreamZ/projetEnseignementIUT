@@ -1,7 +1,6 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-
     <div id="main">
         <div class="loading">
             <img src="{{ asset('bundles/kmghapp/img/ajax_load.gif') }}" alt="loading" width="71" height="61"
@@ -22,7 +21,7 @@
 
 
                     {% for typeDiplome in typeDiplomes %}
-                        {# KMGH\AppBundle\Entity\TypeDiplome typeDiplome #}
+                        {# typeDiplome KMGH\AppBundle\Entity\TypeDiplome #}
                         <div class="level1">
                             <div class="ligne">
                                 <div class="col icon">
@@ -35,7 +34,7 @@
                                 </div>
 
                                 <div class="col">
-                                    <span>6h de cours</span>
+                                    <span>{{ typeDiplome.getSommeHeuresTypeDiplome }} Heures de cours</span>
                                 </div>
                             </div>
 
@@ -53,7 +52,7 @@
                                         </div>
 
                                         <div class="col">
-                                            <span>3h de cours</span>
+                                            <span>{{ diplome.getSommeHeuresDiplomes }} Heure de cours</span>
                                         </div>
                                     </div>
                                     {% for enseignement in diplome.lesEnseignements %}
@@ -71,7 +70,7 @@
                                                        title="{{ enseignement.denomination }}">{{ enseignement.denomination }}</a>
                                                 </div>
                                                 <div class="col">
-                                                    <span>20h de cours</span>
+                                                    <span>{{ enseignement.getSommeHeuresModules }} Heure de cours</span>
                                                 </div>
                                             </div>
 

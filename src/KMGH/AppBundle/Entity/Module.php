@@ -13,8 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Module extends Enseignement
 {
-
-
     /**
      * @var string
      *
@@ -134,9 +132,6 @@ class Module extends Enseignement
     {
         $this->dateDemarrage = $dateDemarrage;
     }
-
-
-
 
     /**
      * Get denomination
@@ -307,33 +302,7 @@ class Module extends Enseignement
     }
 
     /**
-     * Add compositionRecommandee
-     *
-     * @param \KMGH\AppBundle\Entity\CompositionModule $compositionRecommandee
-     *
-     * @return Module
-     */
-    public function addCompositionRecommandee(\KMGH\AppBundle\Entity\CompositionModule $compositionRecommandee)
-    {
-        $this->compositionRecommandee[] = $compositionRecommandee;
-
-        return $this;
-    }
-
-    /**
-     * Remove compositionRecommandee
-     *
-     * @param \KMGH\AppBundle\Entity\CompositionModule $compositionRecommandee
-     */
-    public function removeCompositionRecommandee(\KMGH\AppBundle\Entity\CompositionModule $compositionRecommandee)
-    {
-        $this->compositionRecommandee->removeElement($compositionRecommandee);
-    }
-
-    /**
-     * Get compositionRecommandee
-     *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return mixed
      */
     public function getCompositionRecommandee()
     {
@@ -341,42 +310,45 @@ class Module extends Enseignement
     }
 
     /**
-     * Set compositionRecommandee
-     *
-     * @param \KMGH\AppBundle\Entity\CompositionModule $compositionRecommandee
-     *
-     * @return Module
+     * @param mixed $compositionRecommandee
      */
-    public function setCompositionRecommandee(\KMGH\AppBundle\Entity\CompositionModule $compositionRecommandee = null)
+    public function setCompositionRecommandee($compositionRecommandee)
     {
         $this->compositionRecommandee = $compositionRecommandee;
-
-        return $this;
     }
 
     /**
-     * Add compositionChoisie
-     *
-     * @param \KMGH\AppBundle\Entity\CompositionModule $compositionChoisie
-     *
      * @return Module
      */
-    public function addCompositionChoisie(\KMGH\AppBundle\Entity\CompositionModule $compositionChoisie)
+    public function getModulesPreRequis()
     {
-        $this->compositionChoisie[] = $compositionChoisie;
-
-        return $this;
+        return $this->modulesPreRequis;
     }
 
     /**
-     * Remove compositionChoisie
-     *
-     * @param \KMGH\AppBundle\Entity\CompositionModule $compositionChoisie
+     * @param Module $modulesPreRequis
      */
-    public function removeCompositionChoisie(\KMGH\AppBundle\Entity\CompositionModule $compositionChoisie)
+    public function setModulesPreRequis($modulesPreRequis)
     {
-        $this->compositionChoisie->removeElement($compositionChoisie);
+        $this->modulesPreRequis = $modulesPreRequis;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPreRequisDe()
+    {
+        return $this->preRequisDe;
+    }
+
+    /**
+     * @param mixed $preRequisDe
+     */
+    public function setPreRequisDe($preRequisDe)
+    {
+        $this->preRequisDe = $preRequisDe;
+    }
+
 
     /**
      * Get compositionChoisie
@@ -391,11 +363,11 @@ class Module extends Enseignement
     /**
      * Set compositionChoisie
      *
-     * @param \KMGH\AppBundle\Entity\CompositionModule $compositionChoisie
+     * @param CompositionModule $compositionChoisie
      *
      * @return Module
      */
-    public function setCompositionChoisie(\KMGH\AppBundle\Entity\CompositionModule $compositionChoisie = null)
+    public function setCompositionChoisie(CompositionModule $compositionChoisie = null)
     {
         $this->compositionChoisie = $compositionChoisie;
 
@@ -448,5 +420,19 @@ class Module extends Enseignement
         $this->objectifPedagogique = $objectifPedagogique;
 
         return $this;
+    }
+
+    public function getSommeHeuresModules()
+    {
+        $somme = 0.0;
+
+        foreach ($this->lesAttributions as $attribution) {
+            /**
+             * @var Attribution $attribution
+             */
+            $somme += $attribution->getSommeHeureAttribution();
+        }
+
+        return $somme;
     }
 }

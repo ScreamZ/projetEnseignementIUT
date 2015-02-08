@@ -107,7 +107,7 @@ class Diplome
      *
      * @param Enseignement $lesEnseignements
      *
-*@return Diplome
+     * @return Diplome
      */
     public function addLesEnseignement(Enseignement $lesEnseignements)
     {
@@ -129,10 +129,24 @@ class Diplome
     /**
      * Get enseignement
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getLesEnseignements()
     {
         return $this->lesEnseignements;
+    }
+
+    public function getSommeHeuresDiplomes()
+    {
+        $somme = 0.0;
+
+        foreach ($this->lesEnseignements as $enseignement) {
+            /**
+             * @var Module $enseignement FIXME : Faire pour enseignement et pas module et donc bouger la méthode dans la superclasse
+             */
+            $somme += $enseignement->getSommeHeuresModules();
+        }
+
+        return $somme;
     }
 }

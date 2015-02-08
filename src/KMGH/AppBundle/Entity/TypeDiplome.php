@@ -114,4 +114,17 @@ class TypeDiplome
     {
         return $this->lesDiplomes;
     }
+
+    public function getSommeHeuresTypeDiplome()
+    {
+        $somme = 0.0;
+        foreach ($this->lesDiplomes as $diplome) {
+            /**
+             * @var Diplome $diplome
+             */
+            $somme += $diplome->getSommeHeuresDiplomes();
+        }
+
+        return $somme;
+    }
 }

@@ -104,7 +104,9 @@ class AttributionController extends Controller
         $attribution = new Attribution();
         $attribution->setAnnee(new \DateTime());
         $attribution->setEnseignant($this->get('fos_user.user_manager')->findUserBy(array('id'=>$userId)));
-        $attribution->setEnseignement($this->get('kmgh_app.enseignement_manager')->getRepository()->find($userId));
+        $attribution->setEnseignement(
+            $this->get('kmgh_app.enseignement_manager')->getRepository()->find($enseignementId)
+        );
         $attribution->setNombreHeuresCM($nbHeuresCM);
         $attribution->setNombreHeuresTD($nbHeuresTD);
         $attribution->setNombreHeuresTP($nbHeuresTP);
