@@ -105,7 +105,7 @@ class AttributionController extends Controller
         $errorList = $validator->validate($attribution);
 
         if (count($errorList) > 0) {
-            return new Response(401, 401);
+            return new Response('ERROR', 401);
         } else {
             $manager->persist($attribution);
 
