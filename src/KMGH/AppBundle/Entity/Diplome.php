@@ -48,7 +48,7 @@ class Diplome
      */
     public function __construct()
     {
-        $this->lesEnseignements = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->lesEnseignements = new ArrayCollection();
     }
 
     /**
@@ -78,18 +78,6 @@ class Diplome
     }
 
     /**
-     * Set nom
-     *
-     * @param string $nom
-     * @return Diplome
-     */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-    /**
      * Get nom
      *
      * @return string
@@ -100,12 +88,27 @@ class Diplome
     }
 
     /**
-     * Add enseignement
+     * Set nom
      *
-     * @param \KMGH\UserBundle\Entity\Enseignement $lesEnseignements
+     * @param string $nom
+     *
      * @return Diplome
      */
-    public function addLesEnseignement(\KMGH\UserBundle\Entity\Enseignement $lesEnseignements)
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * Add enseignement
+     *
+     * @param Enseignement $lesEnseignements
+     *
+*@return Diplome
+     */
+    public function addLesEnseignement(Enseignement $lesEnseignements)
     {
         $this->lesEnseignements[] = $lesEnseignements;
 
@@ -115,9 +118,9 @@ class Diplome
     /**
      * Remove enseignement
      *
-     * @param \KMGH\UserBundle\Entity\Enseignement $lesEnseignements
+     * @param Enseignement $lesEnseignements
      */
-    public function removeLesEnseignement(\KMGH\UserBundle\Entity\Enseignement $lesEnseignements)
+    public function removeLesEnseignement(Enseignement $lesEnseignements)
     {
         $this->lesEnseignements->removeElement($lesEnseignements);
     }
