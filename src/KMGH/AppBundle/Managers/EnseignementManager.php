@@ -40,6 +40,6 @@ class EnseignementManager extends BaseManager
 
     public function getRepository()
     {
-        return $this->em->getRepository('KMGHUserBundle:Enseignement');
+        return $this->em->getRepository('KMGHAppBundle:Enseignement');
     }
 }
