@@ -22,12 +22,11 @@ class AppController extends Controller
     }
 
     /**
-     * @Route(name="kmgh_appbundle_app_fiches", path="/fiches-enseignement")
+     * @Route(name="kmgh_appbundle_app_fiches", path="/FICHES-ENSEIGNEMENT")
      * @Template("KMGHAppBundle:App:fiches.html.twig")
      */
     public function fichesAction()
     {
 
     }
-
 }

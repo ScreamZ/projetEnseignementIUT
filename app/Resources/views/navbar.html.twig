@@ -13,7 +13,7 @@
     <div id="header_right">
         <p>Bienvenue, <b>{{ app.user.enseignant.prenom ~ ' ' ~ app.user.enseignant.nom }}</b></p>
 
-        <p><a href="settings_admin.php">Options</a> | <a
+        <p><a href="{{ path('kmgh_userbundle_user_options') }}">Options</a> | <a
                     href="{{ path('fos_user_security_logout') }}">Déconnexion</a></p>
     </div>
     {% endif %}
