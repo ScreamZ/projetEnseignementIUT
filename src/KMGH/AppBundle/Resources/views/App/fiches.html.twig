@@ -1,6 +1,73 @@
 {% extends '::base.html.twig' %}
-
 {% block body %}
+    <div id="main">
+        <div class="loading">
+            <img src="{{ asset('bundles/kmghapp/img/ajax_load.gif') }}" alt="loading" width="71" height="61"
+                 id="loading"/>
+        </div>
+        <div id="pageContent">
+
+            <div id="alertMsg" class="alert-box">
+                <div class="close-box">x</div>
+                <span class="type"></span>
+                <span class="msg"></span>
+            </div>
+
+            <div class="file-wrap">
+                <div class="commit commit-tease js-details-container"></div>
+                <div class="tab">
+
+                    {% for periode in lesPeriodes %}
+                        {# periode KMGH\AppBundle\Entity\Periode #}
+                        <div class="level1">
+                            <div class="ligne">
+                                <div class="col icon">
+                                    <span class="glyphicon glyphicon-folder-close"></span>
+                                    <img alt="" class="loading" height="16"
+                                         src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
+                                </div>
+                                <div class="col content">
+                                    {% for enseignement in periode.lesEnseignements %}
+                                        {#  enseignement KMGH\AppBundle\Entity\Enseignement #}
+                                        <a href="#"
+                                           title="{{ enseignement.denomination }} ">{{ enseignement.denomination }}</a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+
+                            <div class="last-level">
+                                <div class="ligne">
+                                    <table>
+                                        <tbody>
+                                        <tr class="champTitre">
+                                            <th>Enseignant</th>
+                                            <th>Heures de CM</th>
+                                            <th>Heures de TD</th>
+                                            <th>Heures de TP</th>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Test1</td>
+                                            <td>test2</td>
+                                            <td>Test3</td>
+                                            <td>test4</td>
+
+                                        </tr>
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
 

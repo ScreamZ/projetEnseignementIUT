@@ -5,6 +5,7 @@ namespace KMGH\AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\BrowserKit\Response;
 
 class AppController extends Controller
 {
@@ -22,11 +23,14 @@ class AppController extends Controller
     }
 
     /**
-     * @Route(name="kmgh_appbundle_app_fiches", path="/FICHES-ENSEIGNEMENT")
+     * @Route(name="kmgh_appbundle_app_fiches", path="/fiches-enseignement")
      * @Template("KMGHAppBundle:App:fiches.html.twig")
      */
     public function fichesAction()
     {
-
+        $lesPeriodes = $this->getDoctrine()->getRepository("KMGHAppBundle:Periode")->findAll();
+        return array(
+            "lesPeriodes"=>$lesPeriodes
+        );
     }
 }

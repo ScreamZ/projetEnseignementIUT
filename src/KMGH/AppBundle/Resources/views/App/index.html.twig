@@ -34,7 +34,7 @@
                                 </div>
 
                                 <div class="col">
-                                    <span>{{ typeDiplome.getSommeHeuresTypeDiplome }} Heures</span>
+                                    <span>{{ typeDiplome.getSommeHeuresTypeDiplome }} Heures de cours</span>
                                 </div>
                             </div>
 
@@ -52,7 +52,7 @@
                                         </div>
 
                                         <div class="col">
-                                            <span>{{ diplome.getSommeHeuresDiplomes }} Heures</span>
+                                            <span>{{ diplome.getSommeHeuresDiplomes }} Heure de cours</span>
                                         </div>
                                     </div>
                                     {% for enseignement in diplome.lesEnseignements %}
@@ -70,8 +70,7 @@
                                                        title="{{ enseignement.denomination }}">{{ enseignement.denomination }}</a>
                                                 </div>
                                                 <div class="col">
-                                                    <span>{{ enseignement.getSommeHeuresModules }}
-                                                        Heures</span>
+                                                    <span>{{ enseignement.getSommeHeuresModules }} Heure de cours</span>
                                                 </div>
                                             </div>
 
@@ -109,8 +108,8 @@
                                                                     <a href="#" title="Valider" class='btnValider'><span
                                                                                 class="glyphicon glyphicon-ok"></span></a>
                                                                 </td>
-                                                                {% endif %}
-                                                            </tr>
+                                                        {% endif %}
+                                                        </tr>
                                                         {% endfor %}
 
                                                         </tbody>
@@ -135,13 +134,12 @@
 
         </div>
         <!-- PageContent -->
-
         <div id="menu_right">
             <h1>Informations</h1>
 
             <p>{{ app.user.enseignant.prenom ~ ' ' ~ app.user.enseignant.nom }}</p>
 
-            <p>Nombre d'heure affectées : {{ app.user.enseignant.getSommeHeuresEnseignant }} Heures</p>
+            <p>Nombre d'heure affectées : XX h</p>
 
             <p></p>
         </div>
