@@ -5,7 +5,6 @@ namespace KMGH\AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\BrowserKit\Response;
 
 class AppController extends Controller
 {
@@ -29,23 +28,9 @@ class AppController extends Controller
     public function fichesAction()
     {
         //to update
-        $lesPeriodes = $this->getDoctrine()->getRepository("KMGHAppBundle:Periode")->findAll();
+        $lesEnseignements = $this->getDoctrine()->getRepository("KMGHAppBundle:Enseignement")->findAll();
         return array(
-            "lesPeriodes"=>$lesPeriodes
+            "lesEnseignements"=>$lesEnseignements
         );
-    }
-
-    /**
-     * @Route(name="kmgh_appbundle_app_detailFiches", path="/detail-fiches/{id}")
-     * @Template("KMGHAppBundle:App:detailFiches.html.twig")
-     */
-    public function fichesDetailAction($id)
-    {
-        $detailFiches = array(
-            'id'      => $id
-        );
-        return $this->render('KMGHAppBundle:App:detailFiches.html.twig', array(
-            'detailFiches' => $detailFiches
-        ));
     }
 }

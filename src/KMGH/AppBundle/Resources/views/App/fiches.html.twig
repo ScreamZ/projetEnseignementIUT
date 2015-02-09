@@ -1,4 +1,5 @@
-{% extends '::base.html.twig' %}
+{% extends "::base.html.twig" %}
+
 {% block body %}
     <div id="main">
         <div class="loading">
@@ -15,10 +16,12 @@
 
             <div class="file-wrap">
                 <div class="commit commit-tease js-details-container"></div>
+
                 <div class="tab">
 
-                    {% for periode in lesPeriodes %}
-                        {# @var periode KMGH\AppBundle\Entity\Periode #}
+
+                    {% for enseignement in lesEnseignements %}
+                        {# enseignement KMGH\AppBundle\Entity\Enseignement #}
                         <div class="level1">
                             <div class="ligne">
                                 <div class="col icon">
@@ -27,30 +30,100 @@
                                          src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
                                 </div>
                                 <div class="col content">
-                                    {% for enseignement in periode.lesEnseignements %}
-                                        {#  enseignement KMGH\AppBundle\Entity\Enseignement #}
-
-
-                                        {% for detailFiches in lesPeriodes %}
-
-                                                <a href="{{ path('kmgh_appbundle_app_detailFiches', {'id': detailFiches.id}) }}">
-                                                    {{ enseignement.denomination }}
-                                                </a>
-
-                                        {% endfor %}
-                                    {% endfor %}
-
-
+                                    <a href="#"
+                                       title="{{ enseignement.denomination }}">{{ enseignement.denomination }}</a>
                                 </div>
                             </div>
 
-
-                       </div>
+                            <div class="level2">
+                                <div class="ligne">
+                                    <div data-enseigementId="{{ enseignement.id }}">
+                                        <table class="table table-bordered">
+                                            <caption><h3>Informations enseignement</h3></caption>
+                                            <thead>
+                                            <tr>
+                                                <th><p class="text-center"><strong>Intitulés</strong></p></th>
+                                                <th><p class="text-center"><strong>Renseignements</strong></p></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>Description</td>
+                                                <td>{{ enseignement.description }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Responsable du module</td>
+                                                <td>{{ enseignement.enseignantResponsable.nom }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Nombre de séances par groupe par semaine</td>
+                                                <td>{{ enseignement.nombreSceancesParGroupesParSemaines }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Durée de la séance par semaine</td>
+                                                <td>{{ enseignement.dureeSceanceParSemaine }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Nombre étudiants</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Objectif pédagogique</td>
+                                                <td>{{ enseignement.objectifPedagogique }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Pré-requis</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Module pré-requis</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Composition choisie</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Composition recommandée</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Besoins matériels</td>
+                                                <td>{{ enseignement.materiels }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Evaluation</td>
+                                                <td>{{ enseignement.evaluation }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Date de démarrage</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Bibliographie</td>
+                                                <td>{{ enseignement.bibliographie }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Ressources annexes</td>
+                                                <td>{{ enseignement.ressourcesAnnexes }}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     {% endfor %}
                 </div>
             </div>
         </div>
+        <!-- PageContent -->
+        <div id="menu_right">
+            <h1>Informations</h1>
+
+            <p>{{ app.user.enseignant.prenom ~ ' ' ~ app.user.enseignant.nom }}</p>
+
+            <p>Nombre d'heure affectées : {{ app.user.enseignant.getSommeHeuresEnseignant }} Heures</p>
+        </div>
     </div>
-
 {% endblock %}
-
