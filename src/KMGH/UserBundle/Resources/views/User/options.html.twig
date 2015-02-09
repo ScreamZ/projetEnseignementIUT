@@ -47,6 +47,10 @@
                     <td>Quota d'heures :</td>
                     <td>{{ app.user.enseignant.statut.quotaHeureEnseignement }}</td>
                 </tr>
+                <tr>
+                    <td>Heures affectées :</td>
+                    <td>{{ app.user.enseignant.getSommeHeuresEnseignant }}</td>
+                </tr>
                 </tbody>
             </table>
             <a href="" class="btn btn-default">
