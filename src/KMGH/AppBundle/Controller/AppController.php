@@ -28,6 +28,7 @@ class AppController extends Controller
      */
     public function fichesAction()
     {
+        //to update
         $lesPeriodes = $this->getDoctrine()->getRepository("KMGHAppBundle:Periode")->findAll();
         return array(
             "lesPeriodes"=>$lesPeriodes
