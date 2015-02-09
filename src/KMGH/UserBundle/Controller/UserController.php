@@ -2,9 +2,10 @@
 
 namespace KMGH\UserBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use KMGH\UserBundle\Entity\Utilisateur;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class UserController extends Controller
 {
@@ -14,6 +15,11 @@ class UserController extends Controller
      */
     public function optionsAction()
     {
+        /**
+         * @var Utilisateur $user
+         */
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $user->getEnseignant()->getNom();
         return array();
     }
 }

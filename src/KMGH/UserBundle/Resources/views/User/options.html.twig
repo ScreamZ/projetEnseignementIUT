@@ -1,4 +1,65 @@
 {% extends "::base.html.twig" %}
 {% block body %}
-    bonjour moumou
+
+    <div id="main">
+        {% set user = app.user %}
+        {# user KMGH\UserBundle\Entity\Utilisateur #}
+
+
+        <div class="loading">
+            <img src="{{ asset('bundles/kmghapp/img/ajax_load.gif') }}" alt="loading" width="71" height="61"
+                 id="loading"/>
+        </div>
+        <div id="pageContent">
+
+
+            <table class="table table-bordered">
+                <caption><h3>Informations utilisateur</h3></caption>
+                <thead>
+                <tr>
+                    <th><p class="text-center"><strong>Intitulés</strong></p></th>
+                    <th><p class="text-center"><strong>Renseignements</strong></p></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Nom d'utilisateur :</td>
+                    <td>{{ user.username }}</td>
+                </tr>
+                <tr>
+                    <td>Nom :</td>
+                    <td>{{ user.enseignant.nom }}</td>
+                </tr>
+                <tr>
+                    <td>prénom :</td>
+                    <td>{{ user.enseignant.prenom }}</td>
+                </tr>
+                <tr>
+                    <td>Status :</td>
+                    <td>{{ app.user.enseignant.statut.nomStatut }}</td>
+                </tr>
+                <tr>
+                    <td>Quota d'heures :</td>
+                    <td>{{ app.user.enseignant.statut.quotaHeureEnseignement }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <a href="" class="btn btn-default">
+                <i class="glyphicon glyphicon-chevron-right"></i>
+                Modifier
+            </a>
+
+        </div>
+        <!-- PageContent -->
+
+        <div id="menu_right">
+            <h1>Informations</h1>
+
+            <p>{{ app.user.enseignant.prenom ~ ' ' ~ app.user.enseignant.nom }}</p>
+
+            <p>Nombre d'heure affectées : XX h</p>
+
+            <p></p>
+        </div>
+    </div>
 {% endblock %}
