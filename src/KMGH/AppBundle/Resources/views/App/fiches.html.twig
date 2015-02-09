@@ -18,7 +18,7 @@
                 <div class="tab">
 
                     {% for periode in lesPeriodes %}
-                        {# periode KMGH\AppBundle\Entity\Periode #}
+                        {# @var periode KMGH\AppBundle\Entity\Periode #}
                         <div class="level1">
                             <div class="ligne">
                                 <div class="col icon">
@@ -29,11 +29,21 @@
                                 <div class="col content">
                                     {% for enseignement in periode.lesEnseignements %}
                                         {#  enseignement KMGH\AppBundle\Entity\Enseignement #}
-                                        <a href="#"
-                                           title="{{ enseignement.denomination }} ">{{ enseignement.denomination }}</a>
+
+
+                                        {% for detailFiches in lesPeriodes %}
+
+                                                <a href="{{ path('kmgh_appbundle_app_detailFiches', {'id': detailFiches.id}) }}">
+                                                    {{ enseignement.denomination }}
+                                                </a>
+
+                                        {% endfor %}
                                     {% endfor %}
+
+
                                 </div>
                             </div>
+
 
                        </div>
                     {% endfor %}

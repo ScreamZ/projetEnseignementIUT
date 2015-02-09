@@ -34,4 +34,18 @@ class AppController extends Controller
             "lesPeriodes"=>$lesPeriodes
         );
     }
+
+    /**
+     * @Route(name="kmgh_appbundle_app_detailFiches", path="/detail-fiches/{id}")
+     * @Template("KMGHAppBundle:App:detailFiches.html.twig")
+     */
+    public function fichesDetailAction($id)
+    {
+        $detailFiches = array(
+            'id'      => $id
+        );
+        return $this->render('KMGHAppBundle:App:detailFiches.html.twig', array(
+            'detailFiches' => $detailFiches
+        ));
+    }
 }
