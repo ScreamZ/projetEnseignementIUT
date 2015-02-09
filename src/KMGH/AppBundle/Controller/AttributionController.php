@@ -3,6 +3,8 @@
 namespace KMGH\AppBundle\Controller;
 
 use KMGH\AppBundle\Entity\Attribution;
+use KMGH\AppBundle\Entity\Enseignement;
+use KMGH\UserBundle\Entity\Utilisateur;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -100,13 +102,13 @@ class AttributionController extends Controller
          * TODO : Implements CSRF Verification
          *
          * @var Attribution $attribution
+         * @var Utilisateur $user
          */
         $attribution = new Attribution();
         $attribution->setAnnee(new \DateTime());
-        $attribution->setEnseignant($this->get('fos_user.user_manager')->findUserBy(array('id'=>$userId)));
-        $attribution->setEnseignement(
-            $this->get('kmgh_app.enseignement_manager')->getRepository()->find($enseignementId)
-        );
+        $user = $this->get('fos_user.user_manager')->findUserBy(array('id' => $userId));
+        $attribution->setEnseignant($user->getEnseignant());
+        $attribution->setEnseignement($this->get('kmgh_app.enseignement_manager')->getRepository()->find($enseignementId));
         $attribution->setNombreHeuresCM($nbHeuresCM);
         $attribution->setNombreHeuresTD($nbHeuresTD);
         $attribution->setNombreHeuresTP($nbHeuresTP);
