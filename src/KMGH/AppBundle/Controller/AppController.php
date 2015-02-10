@@ -33,4 +33,17 @@ class AppController extends Controller
             "lesEnseignements"=>$lesEnseignements
         );
     }
+
+
+    /**
+     * @Route(name="kmgh_appbundle_app_admin_attribution", path="/admin/attribution")
+     * @Template("KMGHAppBundle:App:admin-attribution.html.twig")
+     */
+    public function adminAttributionAction()
+    {
+        $attributions = $this->getDoctrine()->getRepository("KMGHAppBundle:Attribution")->findAll();
+        return array(
+            "attributions"=>$attributions
+        );
+    }
 }

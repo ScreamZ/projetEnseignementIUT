@@ -30,27 +30,14 @@
 
 
         <li><a href="{{ path('kmgh_appbundle_app_fiches') }}">Fiches enseignement</a></li>
-        <ul id="menu3">
-            <li><a href="#page1">le lien 1</a></li>
-            <li><a href="#page1">le lien 2</a></li>
-            <li><a href="#page1">le lien 3</a></li>
-            <li><a href="#page1">le lien 4</a></li>
-        </ul>
 
-        <li><a href="#">Page 3 &#9660;</a></li>
-        <ul id="menu4">
-            <li><a href="#page1">lien 1</a></li>
-            <li><a href="#page1">lien 2</a></li>
-            <li><a href="#page1">lien 3</a></li>
-            <li><a href="#page1">lien 4</a></li>
-        </ul>
-
-        <li><a href="#">Page 4 &#9660;</a></li>
-        <ul id="menu5">
-            <li><a href="#page1">lien 1</a></li>
-            <li><a href="#page1">lien 2</a></li>
-            <li><a href="#page1">lien 3</a></li>
-            <li><a href="#page1">lien 4</a></li>
-        </ul>
+        {% if is_granted('ROLE_ADMIN')  %}
+        <li><a class="depliant" href="#">administration &#9660;</a></li>
+            <ul class="sous-menu">
+                <li><a href="{{ path('kmgh_appbundle_app_admin_attribution') }}">Voir les attributions</a></li>
+                <li><a href="#page1">le lien 3</a></li>
+                <li><a href="#page1">le lien 4</a></li>
+            </ul>
+        {% endif %}
     </ul>
 </div>

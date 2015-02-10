@@ -175,9 +175,6 @@ body{
 /* ------- SOUS MENU ---------- */
 
 
-#nav ul{
-	padding:0 5%;
-}
 #nav ul li a{
 	color:#666;
 	font-size:14px;
@@ -186,15 +183,40 @@ body{
 
 #nav ul li a:hover{
 	color:#222;
+
 }
 
-#menu1, #menu2, #menu3, #menu4, #menu5 {
-	  visibility : hidden ;
-	  position:absolute;
-	  top:44px;
-	  padding:0;
+.sous-menu {
+	display: none;
+	position:absolute;
+	top:40px;
+	width: auto;
+	background: #f2f2f2;
+	border-bottom: 1px solid #e5e5e5;
+	border-left: 1px solid #e5e5e5;
+	border-right: 1px solid #e5e5e5;
+	left:300px;
+	box-shadow: 0 4px 9px #777;
+	padding: 0;
 }
 
+#nav .sous-menu li{
+	padding: 10px;
+	width:100%;
+	display: block;
+	margin: 0;
+}
+
+.sous-menu li:hover{
+	background: #286090;
+}
+
+.sous-menu li a{
+	width: 100%;
+	position: relative;
+	height:100%;
+	display: block;
+}
 #bg_sousmenu{
 	background:#f2f2f2;
 	border-bottom:1px solid #e5e5e5;
@@ -406,25 +428,25 @@ body{
 .last-level table td.username{
 	padding: 5px;
 }
-.last-level table td.btn_action{
+table td.btn_action{
 	text-align: center;
 	margin-right: 10px;
 	padding: 5px;
 }
-.last-level table td.btn_action .glyphicon-pencil{
+table td.btn_action .glyphicon-pencil{
 	color:#80a6cd;
 	margin-right:10px;
 }
-.last-level table td.btn_action .glyphicon-pencil:hover{
+table td.btn_action .glyphicon-pencil:hover{
 	color:#6086ad;
 }
-.last-level table td.btn_action .glyphicon-trash{
+table td.btn_action .glyphicon-trash{
 	color:#888;
 }
-.last-level table td.btn_action .glyphicon-trash:hover{
+table td.btn_action .glyphicon-trash:hover{
 	color:#666;
 }
-.last-level table td.btn_action .btnValider{
+table td.btn_action .btnValider{
 	display: none;
 	color:green;
 }
@@ -625,4 +647,9 @@ cursor: default;
 .login .confirm {
 	color: green;
 	display: none;
+}
+
+.table th{
+	text-align: center;
+	font-weight:bold;
 }

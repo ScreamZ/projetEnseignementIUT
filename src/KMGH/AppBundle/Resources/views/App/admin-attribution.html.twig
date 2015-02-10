@@ -1,0 +1,54 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <div id="main">
+        <div class="loading">
+            <img src="{{ asset('bundles/kmghapp/img/ajax_load.gif') }}" alt="loading" width="71" height="61"
+                 id="loading"/>
+        </div>
+        <div id="pageContent">
+
+            <div id="alertMsg" class="alert-box">
+                <div class="close-box">x</div>
+                <span class="type"></span>
+                <span class="msg"></span>
+            </div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Enseignant</th>
+                        <th>Diplome</th>
+                        <th>Heures CM</th>
+                        <th>Heures TD</th>
+                        <th>Heures TP</th>
+                    </tr>
+                </thead>
+                <tbody class="table-striped">
+                    {% for attribution in attributions %}
+                    {# attribution KMGH\AppBundle\Entity\Attribution #}
+                        <tr id="{{ attribution.enseignant.id }}">
+                            <th scope="row">{{ loop.index }}</th>
+                            <td>{{ attribution.enseignant.prenom ~ ' ' ~ attribution.enseignant.nom }}</td>
+                            <td>{{ attribution.enseignement.denomination }}</td>
+                            <td class="cm"><input disabled name="cm" value="{{ attribution.nombreHeuresCM }}"></td>
+                            <td class="td"><input disabled name="td" value="{{ attribution.nombreHeuresTD }}"></td>
+                            <td class="tp"><input disabled name="tp" value="{{ attribution.nombreHeuresTP }}"></td>
+                            <td class="btn_action">
+                                <a href="#" title="Modifier"
+                                   class='btnModifier'><span
+                                            class="glyphicon glyphicon-pencil"></span></a>
+                                <a href="#" title="Supprimer"
+                                   class='btnSupprimer'><span
+                                            class="glyphicon glyphicon-trash"></span></a>
+                                <a href="#" title="Valider" class='btnValider'><span
+                                            class="glyphicon glyphicon-ok"></span></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

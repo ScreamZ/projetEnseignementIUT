@@ -1,5 +1,27 @@
 $(document).ready(function () {
 
+    /********************************************************************
+     * Menu
+     */
+
+    menuOuvert = false;
+    $(".depliant").on("click", function(e){
+        e.preventDefault();
+        var li = $(this).parent();
+        if(!menuOuvert){
+            menuOuvert = true;
+            li.siblings('ul').show();
+        }
+        else{
+            menuOuvert = false;
+            li.siblings('ul').hide();
+        }
+    })
+
+    /******************************************************************
+     * boite de message
+     */
+
     /* Close-box message */
     $('.alert-box').on('click', '.close-box', function () {
         $(this).parent().fadeOut();
@@ -21,6 +43,9 @@ $(document).ready(function () {
         }, 5000);
     }
 
+    /*******************************************************************
+     * tableau dépliant
+     */
     /* Clique au niveau 1 */
     $('.tab > .level1 > .ligne > .content a').click(function () {
         var ligne = $(this).parent().parent();
@@ -74,7 +99,7 @@ $(document).ready(function () {
 
 
     /* Clique sur modifier */
-    $('#main').on('click', '.last-level table td.btn_action .btnModifier', function () {
+    $('#main').on('click', '.btnModifier', function () {
         var btn_action = $(this).parent();
         $('.btnModifier', btn_action).fadeOut();
         $('.btnSupprimer', btn_action).fadeOut();
@@ -83,7 +108,7 @@ $(document).ready(function () {
     });
 
     /* Clique sur valider */
-    $('#main').on('click', '.last-level table td.btn_action .btnValider', function () {
+    $('#main').on('click', '.btnValider', function () {
         var that = this;
         var tr = $(this).parent().parent();
         var cm = $('.cm input', tr).val();
