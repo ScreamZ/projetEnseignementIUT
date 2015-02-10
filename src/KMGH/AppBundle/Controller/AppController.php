@@ -42,8 +42,39 @@ class AppController extends Controller
     public function adminAttributionAction()
     {
         $attributions = $this->getDoctrine()->getRepository("KMGHAppBundle:Attribution")->findAll();
+        $enseignants = $this->getDoctrine()->getRepository("KMGHUserBundle:Enseignant")->findAll();
+        $enseignements = $this->getDoctrine()->getRepository("KMGHAppBundle:Enseignement")->findAll();
+
         return array(
-            "attributions"=>$attributions
+            "attributions"=>$attributions,
+            "enseignants"=>$enseignants,
+            "enseignements"=>$enseignements
+        );
+    }
+
+    /**
+     * @Route(name="kmgh_appbundle_app_admin_modules", path="/admin/modules")
+     * @Template("KMGHAppBundle:App:admin-modules.html.twig")
+     */
+    public function adminModulesAction()
+    {
+        $enseignements = $this->getDoctrine()->getRepository("KMGHAppBundle:Enseignement")->findAll();
+        return array(
+            "enseignements"=>$enseignements
+        );
+    }
+
+    /**
+     * @Route(name="kmgh_appbundle_app_admin_enseignants", path="/admin/enseignants")
+     * @Template("KMGHAppBundle:App:admin-enseignants.html.twig")
+     */
+    public function adminEnseignantsAction()
+    {
+        $enseignants = $this->getDoctrine()->getRepository("KMGHUserBundle:Enseignant")->findAll();
+        $statuts = $this->getDoctrine()->getRepository("KMGHUserBundle:Statut")->findAll();
+        return array(
+            "enseignants"=>$enseignants,
+            "statuts"=>$statuts
         );
     }
 }

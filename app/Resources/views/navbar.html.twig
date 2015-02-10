@@ -34,9 +34,9 @@
         {% if is_granted('ROLE_ADMIN')  %}
         <li><a class="depliant" href="#">administration &#9660;</a></li>
             <ul class="sous-menu">
-                <li><a href="{{ path('kmgh_appbundle_app_admin_attribution') }}">Voir les attributions</a></li>
-                <li><a href="#page1">le lien 3</a></li>
-                <li><a href="#page1">le lien 4</a></li>
+                <li><a href="{{ path('kmgh_appbundle_app_admin_attribution') }}">Attributions</a></li>
+                <li><a href="{{ path('kmgh_appbundle_app_admin_modules') }}">Diplomes/modules</a></li>
+                <li><a href="{{ path('kmgh_appbundle_app_admin_enseignants') }}">Enseignants</a></li>
             </ul>
         {% endif %}
     </ul>

@@ -1,0 +1,70 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <div id="main">
+        <div class="loading">
+            <img src="{{ asset('bundles/kmghapp/img/ajax_load.gif') }}" alt="loading" width="71" height="61"
+                 id="loading"/>
+        </div>
+        <div id="pageContent">
+            <h1>Gestion des enseignants</h1>
+
+            <div id="alertMsg" class="alert-box">
+                <div class="close-box">x</div>
+                <span class="type"></span>
+                <span class="msg"></span>
+            </div>
+
+
+            <a id="btnOuvrePanelAjout" href="#"><span class="glyphicon glyphicon-plus"></span> Ajouter un enseigant non inscrit</a>
+            <form id="panelAjout" action="#" method="post">
+                <label>Nom : </label><input name="nom" type="text" >
+                <label>Prénom : </label><input name="prenom" type="text" >
+                <label>Statut : </label>
+                <select style="width:180px" name="statut" type="text" >
+                    {% for statut in statuts %}
+                    <option value="{{ statut.id }}">{{ statut.nomStatut }}</option>
+                    {% endfor %}
+                </select>
+                <a class="btn btn-default"><input style="width:30px" type="submit" value="ok"></a>
+            </form>
+
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
+                    <th>Statut</th>
+                    <th>Inscrit</th>
+                </tr>
+                </thead>
+                <tbody class="table-striped">
+                {% for enseignant in enseignants %}
+                    {# attribution KMGH\AppBundle\Entity\Attribution #}
+                    <tr id="{{ enseignant.id }}">
+                        <th scope="row">{{ loop.index }}</th>
+                        <td>{{ enseignant.nom }}</td>
+                        <td>{{ enseignant.prenom }}</td>
+                        <td>{{ enseignant.utilisateur.email }}</td>
+                        <td>{{ enseignant.statut.nomStatut }}</td>
+                        <td>{%  if enseignant.utilisateur != null %}Inscrit{% else %}Non inscrit{% endif %}</td>
+                        <td class="btn_action">
+                            <a href="#" title="Modifier"
+                               class='btnModifier'><span
+                                        class="glyphicon glyphicon-pencil"></span></a>
+                            <a href="#" title="Supprimer"
+                               class='btnSupprimer'><span
+                                        class="glyphicon glyphicon-trash"></span></a>
+                            <a href="#" title="Valider" class='btnValider'><span
+                                        class="glyphicon glyphicon-ok"></span></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

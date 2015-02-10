@@ -7,12 +7,37 @@
                  id="loading"/>
         </div>
         <div id="pageContent">
+            <h1>Gestion des attributions</h1>
+
 
             <div id="alertMsg" class="alert-box">
                 <div class="close-box">x</div>
                 <span class="type"></span>
                 <span class="msg"></span>
             </div>
+
+            <a id="btnOuvrePanelAjout" href="#"><span class="glyphicon glyphicon-plus"></span> Ajouter une attribution</a>
+            <form id="panelAjout" action="#" method="post">
+                <label>Enseignant : </label>
+                <select style="width:180px" name="enseignant" type="text" >
+                    <option></option>
+                    {% for enseignant in enseignants %}
+                    <option value="{{ enseignant.id }}">{{ enseignant.prenom ~ ' ' ~ enseignant.nom }}</option>
+                    {% endfor %}
+                </select>
+                <label>Enseignement : </label>
+                <select style="width:180px" name="diplome" type="text" >
+                    <option></option>
+                    {% for enseignement in enseignements %}
+                        <option value="{{ enseignement.id }}">{{ enseignement.denomination }}</option>
+                    {% endfor %}
+                </select><br>
+                <label>Heures CM : </label><input name="cm" type="text" >
+                <label>Heures TD : </label><input name="td" type="text" >
+                <label>Heures TP : </label><input name="tp" type="text" ><br>
+                <a class="btn btn-default"><input style="width:30px" type="submit" value="ok"></a>
+            </form>
+
 
             <table class="table">
                 <thead>
@@ -51,4 +76,9 @@
             </table>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        CSRF_TOKEN = '{{ user_csrf() }}';
+    </script>
 {% endblock %}

@@ -1,22 +1,39 @@
 $(document).ready(function () {
 
+
+
+
+    /*******************************************************************
+     * Ouverture du panel d'ajout des enseignants, attribution, etc EN ADMIN
+     */
+    ajoutEnseigantOuvert = false;
+    $('#main').on('click','#btnOuvrePanelAjout', function(e){
+        e.preventDefault();
+        if(ajoutEnseigantOuvert == false){
+            ajoutEnseigantOuvert = true;
+            $(this).find('span').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+            $("#panelAjout").slideDown();
+        }
+        else{
+            ajoutEnseigantOuvert = false;
+            $(this).find('span').removeClass('glyphicon-minus').addClass('glyphicon-plus');
+            $("#panelAjout").slideUp();
+        }
+    });
+
+
     /********************************************************************
      * Menu
      */
 
-    menuOuvert = false;
-    $(".depliant").on("click", function(e){
+    $(".depliant").on("mouseover", function(e){
         e.preventDefault();
         var li = $(this).parent();
-        if(!menuOuvert){
-            menuOuvert = true;
-            li.siblings('ul').show();
-        }
-        else{
-            menuOuvert = false;
+        li.siblings('ul').show();
+        li.siblings('ul').on("mouseleave", function(){
             li.siblings('ul').hide();
-        }
-    })
+        })
+    });
 
     /******************************************************************
      * boite de message
@@ -212,6 +229,7 @@ $(document).ready(function () {
                 $('#alertMsg').addClass('error').fadeIn();
             })
     });
+
 
 
 });
