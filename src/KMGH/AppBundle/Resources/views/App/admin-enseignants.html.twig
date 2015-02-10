@@ -68,3 +68,8 @@
         </div>
     </div>
 {% endblock %}
+{% block javascripts %}
+    <script>
+        CSRF_TOKEN = '{{ user_csrf() }}';
+    </script>
+{% endblock %}
