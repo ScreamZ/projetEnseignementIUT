@@ -19,7 +19,7 @@
 
                 <div class="tab">
 
-
+                    {% set userEstEnseignantResponsable = false %}
                     {% for enseignement in lesEnseignements %}
                         {# enseignement KMGH\AppBundle\Entity\Enseignement #}
                         <div class="level1">
@@ -57,7 +57,9 @@
                                             </tr>
                                             <tr>
                                                 <td>Nombre de séances par groupe par semaine</td>
-                                                <td>{{ enseignement.nombreSceancesParGroupesParSemaines }}</td>
+                                                <td><input type="text" name="nbSeanceParSemaine"
+                                                           value="{{ enseignement.nombreSceancesParGroupesParSemaines }}"
+                                                           disabled></td>
                                             </tr>
                                             <tr>
                                                 <td>Durée de la séance par semaine</td>
@@ -108,6 +110,20 @@
                                                 <td>{{ enseignement.ressourcesAnnexes }}</td>
                                             </tr>
                                             </tbody>
+                                            {% if app.user.enseignant == enseignement.enseignantResponsable %}
+                                                {% set userEstEnseignantResponsable = true %}
+                                                <tr>
+                                                    <td></td>
+                                                    <!-- glyphicon glyphicon-edit -->
+                                                    <td class="btn_action">
+                                                        <a href="#" title="Modifier"
+                                                           class='btnModifier'><span
+                                                                    class="glyphicon glyphicon-pencil"></span></a>
+                                                        <a href="#" title="Valider" class='btnValider'><span
+                                                                    class="glyphicon glyphicon-ok"></span></a>
+                                                    </td>
+                                                </tr>
+                                            {% endif %}
                                         </table>
                                     </div>
                                 </div>
