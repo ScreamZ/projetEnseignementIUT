@@ -22,7 +22,7 @@ class TypeDiplomeManager extends BaseManager
      *
      * @return array
      */
-    public function findAll()
+    public function findAllEnhanced()
     {
         return $this->getRepository()->findAllWithJoin();
     }

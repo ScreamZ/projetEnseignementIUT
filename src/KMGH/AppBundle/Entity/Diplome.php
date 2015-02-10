@@ -45,6 +45,8 @@ class Diplome
 
     /**
      * Constructor
+     *
+     * @param $nom String Le nom du diplome
      */
     public function __construct($nom)
     {

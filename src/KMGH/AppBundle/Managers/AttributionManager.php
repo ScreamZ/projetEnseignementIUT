@@ -11,11 +11,6 @@ namespace KMGH\AppBundle\Managers;
 
 class AttributionManager extends BaseManager
 {
-
-    public function find($id){
-        return $this->getRepository()->find($id);
-    }
-
     public function getRepository()
     {
         return $this->em->getRepository('KMGHAppBundle:Attribution');

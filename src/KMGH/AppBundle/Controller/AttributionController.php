@@ -40,7 +40,7 @@ class AttributionController extends Controller
         /**
          * @var Attribution $attribution
          */
-        $attribution = $manager->find($id);
+        $attribution = $manager->getRepository()->find($id);
         if (null == $attribution) {
             return new Response(401, 401);
         }
@@ -93,7 +93,7 @@ class AttributionController extends Controller
         /**
          * @var Attribution $attribution
          */
-        $attribution = $manager->find($id);
+        $attribution = $manager->getRepository()->find($id);
         if (null != $attribution) {
             $manager->remove($attribution);
 
