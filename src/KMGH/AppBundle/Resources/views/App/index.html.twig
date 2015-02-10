@@ -91,31 +91,39 @@
 
                                                             <tr id="{{ attribution.id }}">
                                                                 <td class="username">{{ attribution.enseignant.prenom }} {{ attribution.enseignant.nom }}</td>
-                                                                <td class="cm"><input type="text" name="cm" value="{{ attribution.nombreHeuresCM }}"
+                                                                <td class="cm"><input type="text" name="cm"
+                                                                                      value="{{ attribution.nombreHeuresCM }}"
                                                                                       disabled></td>
-                                                                <td class="td"><input type="text" name="td" value="{{ attribution.nombreHeuresTD }}"
+                                                                <td class="td"><input type="text" name="td"
+                                                                                      value="{{ attribution.nombreHeuresTD }}"
                                                                                       disabled></td>
-                                                                <td class="tp"><input type="text" name="tp" value="{{ attribution.nombreHeuresTP }}"
+                                                                <td class="tp"><input type="text" name="tp"
+                                                                                      value="{{ attribution.nombreHeuresTP }}"
                                                                                       disabled></td>
                                                                 {% if app.user.enseignant == attribution.enseignant %}
                                                                     {% set userPosedeUneAttribution = true %}
-                                                                <td class="btn_action">
-                                                                    <a href="#" title="Modifier"
-                                                                       class='btnModifier'><span
-                                                                                class="glyphicon glyphicon-pencil"></span></a>
-                                                                    <a href="#" title="Supprimer"
-                                                                       class='btnSupprimer'><span
-                                                                                class="glyphicon glyphicon-trash"></span></a>
-                                                                    <a href="#" title="Valider" class='btnValider'><span
-                                                                                class="glyphicon glyphicon-ok"></span></a>
-                                                                </td>
+                                                                    <td class="btn_action">
+                                                                        <a href="#" title="Modifier"
+                                                                           class='btnModifier'><span
+                                                                                    class="glyphicon glyphicon-pencil"></span></a>
+                                                                        <a href="#" title="Supprimer"
+                                                                           class='btnSupprimer'><span
+                                                                                    class="glyphicon glyphicon-trash"></span></a>
+                                                                        <a href="#" title="Valider"
+                                                                           class='btnValider'><span
+                                                                                    class="glyphicon glyphicon-ok"></span></a>
+                                                                    </td>
                                                                 {% endif %}
                                                             </tr>
                                                         {% endfor %}
 
                                                         </tbody>
                                                         {% if not userPosedeUneAttribution %}
-                                                            <tr><td><a href="" class="newAttribution"><span class="glyphicon glyphicon-plus"></span> Ajouter une attribution</a></td></tr>
+                                                            <tr>
+                                                                <td><a href="" class="newAttribution"><span
+                                                                                class="glyphicon glyphicon-plus"></span>
+                                                                        Ajouter une attribution</a></td>
+                                                            </tr>
                                                         {% endif %}
                                                     </table>
                                                 </div>
@@ -146,4 +154,10 @@
             <p></p>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        CSRF_TOKEN = '{{ user_csrf() }}';
+    </script>
 {% endblock %}

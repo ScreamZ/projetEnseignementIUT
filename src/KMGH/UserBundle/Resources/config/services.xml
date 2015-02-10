@@ -4,13 +4,12 @@
            xmlns="http://symfony.com/schema/dic/services"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <!--
     <services>
-        <service id="kmgh_user.example" class="KMGH\UserBundle\Example">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
+        <!-- Csrf User Filter -->
+        <service class="KMGH\UserBundle\Twig\UserCsrfExtension" id="kmgh_user.twig_usercsrfextension">
+            <argument type="service" id="security.csrf.token_manager"/>
+            <argument type="service" id="security.token_storage"/>
+            <tag name="twig.extension"/>
         </service>
     </services>
-    -->
 </container>

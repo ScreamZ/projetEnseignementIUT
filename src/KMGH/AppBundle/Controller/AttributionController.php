@@ -8,6 +8,7 @@ use KMGH\UserBundle\Entity\Utilisateur;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Validation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -30,9 +31,13 @@ class AttributionController extends Controller
         $nbHeuresTD = $request->request->get('td');
         $nbHeuresTP = $request->request->get('tp');
         $manager = $this->get('kmgh_app.attribution_manager');
+        $csrf = $request->request->get('csrf_token');
+
+        if (!$this->isValidatedCSRF($csrf)) {
+            throw new AccessDeniedException("Jeton CSRF invalide, tentative de piratage ?");
+        }
+
         /**
-         * TODO : Implements CSRF Verification
-         *
          * @var Attribution $attribution
          */
         $attribution = $manager->find($id);
@@ -56,6 +61,18 @@ class AttributionController extends Controller
     }
 
     /**
+     * Valide un token csrf selon le standard défini dans l'extension twig dans le UserBundle
+     *
+     * @param String $token Le token transmit à comparer
+     *
+     * @return bool
+     */
+    private function isValidatedCSRF($token)
+    {
+        return $this->isCsrfTokenValid('projet_iut_' . $this->getUser()->getId(), $token);
+    }
+
+    /**
      * Traitement de la suppression d'une attribution existante
      *
      * @Route(name="kmgh_appbundle_attribution_delete", path="/delete/{id}")
@@ -65,10 +82,15 @@ class AttributionController extends Controller
      */
     public function deleteAction($id)
     {
+        $request = Request::createFromGlobals();
         $manager = $this->get('kmgh_app.attribution_manager');
+        $csrf = $request->request->get('csrf_token');
+
+        if (!$this->isValidatedCSRF($csrf)) {
+            throw new AccessDeniedException("Jeton CSRF invalide, tentative de piratage ?");
+        }
+
         /**
-         * TODO : Implements CSRF Verification
-         *
          * @var Attribution $attribution
          */
         $attribution = $manager->find($id);
@@ -98,9 +120,14 @@ class AttributionController extends Controller
         $userId = $request->request->get('userId');
         $enseignementId = $request->request->get('enseignementId');
         $manager = $this->get('kmgh_app.attribution_manager');
+
+        $csrf = $request->request->get('csrf_token');
+
+        if (!$this->isValidatedCSRF($csrf)) {
+            throw new AccessDeniedException("Jeton CSRF invalide, tentative de piratage ?");
+        }
+
         /**
-         * TODO : Implements CSRF Verification
-         *
          * @var Attribution $attribution
          * @var Utilisateur $user
          */
