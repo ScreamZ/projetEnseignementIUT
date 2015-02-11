@@ -29,8 +29,12 @@ class AdminController extends Controller
             $manager = $this->get('kmgh_app.attribution_manager');
             $manager->persist($attribution);
 
-            $this->addFlash('success', 'Votre attribution à bien été faite');
-            $this->redirectToRoute('kmgh_appbundle_admin_attribution');
+            $this->addFlash('notice', array(
+                'alert' => 'success',
+                'title' => 'Félicitations!',
+                'message' => 'Votre attribution à bien été enregistrée dans la base de données'
+            ));
+            return $this->redirectToRoute('kmgh_appbundle_admin_attribution');
         }
 
         $attributions = $this->getDoctrine()->getRepository("KMGHAppBundle:Attribution")->findAll();
