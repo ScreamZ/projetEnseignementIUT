@@ -27,10 +27,16 @@ class AppController extends Controller
      */
     public function fichesAction()
     {
-        //to update
-        $lesEnseignements = $this->getDoctrine()->getRepository("KMGHAppBundle:Enseignement")->findAll();
+
+        $typeDiplomes = $this->get('kmgh_app.typediplome_manager')->findAllEnhanced();
+        $listeDiplomes = $this->getDoctrine()->getRepository('KMGHAppBundle:Diplome')->findAll();
+        $listEnseignements = $this->getDoctrine()->getRepository('KMGHAppBundle:Enseignement')->findAll();
+        $listPeriodes = $this->getDoctrine()->getRepository('KMGHAppBundle:Periode')->findAll();
         return array(
-            "lesEnseignements"=>$lesEnseignements
+            "typeDiplomes"=>$typeDiplomes,
+            "listeDiplomes"=>$listeDiplomes,
+            "listEnseignements"=>$listEnseignements,
+            "listPeriodes"=>$listPeriodes
         );
     }
 }

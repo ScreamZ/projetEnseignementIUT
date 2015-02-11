@@ -1,145 +1,135 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-    <div id="main">
-        <div class="loading">
-            <img src="{{ asset('bundles/kmghapp/img/ajax_load.gif') }}" alt="loading" width="71" height="61"
-                 id="loading"/>
-        </div>
-        <div id="pageContent">
 
-            <div id="alertMsg" class="alert-box">
-                <div class="close-box">x</div>
-                <span class="type"></span>
-                <span class="msg"></span>
-            </div>
+<br/>
 
-            <div class="file-wrap">
-                <div class="commit commit-tease js-details-container"></div>
+<h3> Liste des fiches enseignements :</h3>
+<br/>
+<p>Accéder à une fiche : </p>
+<p name="form" id="form">
+    <select name="choix1" id="choix1" onchange="premier_choix(this.value); showOptions(this);">
+        <option value="choix1">-- Type diplôme --</option>
+        {% for typeDiplome in typeDiplomes %}
+            {# typeDiplome KMGH\AppBundle\Entity\TypeDiplome #}
+            <option id="{{ typeDiplome.id }}">{{ typeDiplome.nom }}</option>
+        {% endfor %}
+    </select>
 
-                <div class="tab">
+    <select name="choix2" id="choix2" style="display:none;" onchange="second_choix(this.value); showOptions(this);">
+        <option value="choix2">-- Diplôme --</option>
+        <option id="...">Diplôme1</option>
+        <option id="...">Diplôme2</option>
+    </select>
 
-                    {% set userEstEnseignantResponsable = false %}
-                    {% for enseignement in lesEnseignements %}
-                        {# enseignement KMGH\AppBundle\Entity\Enseignement #}
-                        <div class="level1">
-                            <div class="ligne">
-                                <div class="col icon">
-                                    <span class="glyphicon glyphicon-folder-close"></span>
-                                    <img alt="" class="loading" height="16"
-                                         src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
-                                </div>
-                                <div class="col content">
-                                    <a href="#"
-                                       title="{{ enseignement.denomination }}">{{ enseignement.denomination }}</a>
-                                </div>
-                            </div>
+    <select name="choix3" id="choix3" style="display:none;" onchange="troisieme_choix(this.value); showOptions(this);">
+        <option value="choix3">-- Enseignement --</option>
+        <option id="...">Enseignement1</option>
+        <option id="...">Enseignement2</option>
+    </select>
 
-                            <div class="level2">
-                                <div class="ligne">
-                                    <div data-enseigementId="{{ enseignement.id }}">
-                                        <table class="table table-bordered">
-                                            <caption><h3>Informations enseignement</h3></caption>
-                                            <thead>
-                                            <tr>
-                                                <th><p class="text-center"><strong>Intitulés</strong></p></th>
-                                                <th><p class="text-center"><strong>Renseignements</strong></p></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>Description</td>
-                                                <td>{{ enseignement.description }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Responsable du module</td>
-                                                <td>{{ enseignement.enseignantResponsable.nom }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Nombre de séances par groupe par semaine</td>
-                                                <td><input type="text" name="nbSeanceParSemaine"
-                                                           value="{{ enseignement.nombreSceancesParGroupesParSemaines }}"
-                                                           disabled></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Durée de la séance par semaine</td>
-                                                <td>{{ enseignement.dureeSceanceParSemaine }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Nombre étudiants</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Objectif pédagogique</td>
-                                                <td>{{ enseignement.objectifPedagogique }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Pré-requis</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Module pré-requis</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Composition choisie</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Composition recommandée</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Besoins matériels</td>
-                                                <td>{{ enseignement.materiels }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Evaluation</td>
-                                                <td>{{ enseignement.evaluation }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Date de démarrage</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Bibliographie</td>
-                                                <td>{{ enseignement.bibliographie }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Ressources annexes</td>
-                                                <td>{{ enseignement.ressourcesAnnexes }}</td>
-                                            </tr>
-                                            </tbody>
-                                            {% if app.user.enseignant == enseignement.enseignantResponsable %}
-                                                {% set userEstEnseignantResponsable = true %}
-                                                <tr>
-                                                    <td></td>
-                                                    <!-- glyphicon glyphicon-edit -->
-                                                    <td class="btn_action">
-                                                        <a href="#" title="Modifier"
-                                                           class='btnModifier'><span
-                                                                    class="glyphicon glyphicon-pencil"></span></a>
-                                                        <a href="#" title="Valider" class='btnValider'><span
-                                                                    class="glyphicon glyphicon-ok"></span></a>
-                                                    </td>
-                                                </tr>
-                                            {% endif %}
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-        <!-- PageContent -->
-        <div id="menu_right">
-            <h1>Informations</h1>
+    <select name="choix4" id="choix4" style="display:none;" onchange="quatrieme_choix(this.value); showOptions(this);">
+        <option value="choix4">-- Année - Semestre --</option>
+        <option id="...">Année1 - Semestre1</option>
+        <option id="...">Année2 - Semestre2</option>
+    </select>
 
-            <p>{{ app.user.enseignant.prenom ~ ' ' ~ app.user.enseignant.nom }}</p>
+    <button type="button" id="btnShowFiches1" style="display:none;" onclick="TestIfAllSelected();">Afficher</button>
+     <!--
+      <div align="center" id="btnShowFiches2" style="display:none;" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-right"></i>
+            Afficher
+      </div>
+    -->
 
-            <p>Nombre d'heure affectées : {{ app.user.enseignant.getSommeHeuresEnseignant }} Heures</p>
-        </div>
-    </div>
+</p>
+    <p id="showTabFiche"></p>
+
+    <script>
+        function premier_choix(valeur) {
+            if(valeur=="choix1") {
+                document.getElementById("choix2").style.display = "none";
+                document.getElementById("choix3").style.display = "none";
+                document.getElementById("choix4").style.display = "none";
+            } else {
+                document.getElementById("choix2").style.display = "inline";
+             }
+        }
+        function second_choix(valeur) {
+            if(valeur=="choix2") {
+                document.getElementById("choix2").style.display = "inline";
+
+            } else {
+                document.getElementById("choix2").style.display = "inline";
+                document.getElementById("choix3").style.display = "inline";
+            }
+        }
+        function troisieme_choix(valeur) {
+            if(valeur=="choix3") {
+                document.getElementById("choix2").style.display = "inline";
+                document.getElementById("choix3").style.display = "inline";
+
+            } else {
+                document.getElementById("choix2").style.display = "inline";
+                document.getElementById("choix3").style.display = "inline";
+                document.getElementById("choix4").style.display = "inline";
+            }
+        }
+        function quatrieme_choix(valeur) {
+            if(valeur!="choix4") {
+                document.getElementById("btnShowFiches1").style.display = "inline";
+                //document.getElementById("btnShowFiches2").style.display = "inline";
+            }
+        }
+
+        function TestIfAllSelected() {
+            var form = $('#form');
+            var typeDiplome_id = $('#choix1', form).val();
+            var diplome_id = $('#choix2', form).val();
+            var enseignement_id = $('#choix3', form).val();
+            var periode_id = $('#choix4', form).val();
+
+
+
+            if (typeDiplome_id != 'choix1' && diplome_id != 'choix2'
+                    && enseignement_id != 'choix3' && periode_id != 'choix4') {
+                        showFiches();
+            }else {
+                alert('Veuillez sélectionner tous les champs !');
+
+            }
+        }
+        function showOptions(selChoice){
+            var adVALUE = selChoice[selChoice.selectedIndex].value; // get id
+            var adID = selChoice[selChoice.selectedIndex].id; // get id in database
+
+            var typeDiplome_idVal = {};
+            typeDiplome_idVal[0]= [adID];
+            typeDiplome_idVal[1]= [adVALUE];
+
+            //console.log("id : "+adID+"  value : "+adVALUE);
+           // console.log("typeDiplome_idVal_0 : "+typeDiplome_idVal[0]+"  typeDiplome_idVal_1 : "+typeDiplome_idVal[1]);
+        }
+
+        function showFiches(){
+            //var adVALUE = selChoice[selChoice.selectedIndex].value; // get id
+            //var adID = selChoice[selChoice.selectedIndex].id; // get id in database
+
+            //console.log("id : "+adID+"  value : "+adVALUE);
+            /*
+             var typeDiplome_id = {};
+             typeDiplome_id [0]= adID;
+             typeDiplome_id [1]= adVALUE;
+             */
+            var choix1 = document.getElementById("choix1").value;
+            var choix2 = document.getElementById("choix2").value;
+            var choix3 = document.getElementById("choix3").value;
+            var choix4 = document.getElementById("choix4").value;
+
+
+            document.getElementById("showTabFiche").innerHTML = " <br />"
+            + choix1 +" <br />"+ choix2 +" <br />"+ choix3 +" <br />"+choix4;
+
+        }
+    </script>
 {% endblock %}
