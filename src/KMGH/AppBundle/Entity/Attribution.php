@@ -66,10 +66,14 @@ class Attribution
     private $enseignement;
 
     /**
-     * Constructor
+     * Initialise une Attribution avec des heures égales à zéro et la date actuelle
      */
     public function __construct()
     {
+        $this->annee = new \DateTime();
+        $this->nombreHeuresCM = 0;
+        $this->nombreHeuresTD = 0;
+        $this->nombreHeuresTP = 0;
     }
 
     /**

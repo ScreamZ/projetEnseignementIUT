@@ -2,9 +2,12 @@
 
 namespace KMGH\AppBundle\Controller;
 
+use KMGH\AppBundle\Entity\Attribution;
+use KMGH\AppBundle\Form\AttributionType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/admin")
@@ -17,14 +20,24 @@ class AdminController extends Controller
      */
     public function attributionAction()
     {
+        $attribution = new Attribution();
+        $form = $this->createForm(new AttributionType(), $attribution);
+
+        $form->handleRequest(Request::createFromGlobals());
+
+        if ($form->isValid()) {
+            $manager = $this->get('kmgh_app.attribution_manager');
+            $manager->persist($attribution);
+
+            $this->addFlash('success', 'Votre attribution à bien été faite');
+            $this->redirectToRoute('kmgh_appbundle_admin_attribution');
+        }
+
         $attributions = $this->getDoctrine()->getRepository("KMGHAppBundle:Attribution")->findAll();
-        $enseignants = $this->getDoctrine()->getRepository("KMGHUserBundle:Enseignant")->findAll();
-        $enseignements = $this->getDoctrine()->getRepository("KMGHAppBundle:Enseignement")->findAll();
 
         return array(
             "attributions" => $attributions,
-            "enseignants" => $enseignants,
-            "enseignements" => $enseignements
+            'form' => $form->createView()
         );
     }
 

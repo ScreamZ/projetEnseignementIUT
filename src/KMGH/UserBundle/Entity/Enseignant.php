@@ -228,4 +228,18 @@ class Enseignant
 
         return $somme;
     }
+
+    /**
+     * Donne une représentation de la classe.
+     *
+     * Utilisé notamment dans le formulaire admin où on affiche la liste des enseignants.
+     *
+     * @return string La concaténation du nom et du prénom de l'enseignant
+     */
+    function __toString()
+    {
+        return $this->nom . ' ' . $this->prenom;
+    }
+
+
 }

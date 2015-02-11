@@ -16,62 +16,50 @@
                 <span class="msg"></span>
             </div>
 
-            <a id="btnOuvrePanelAjout" href="#"><span class="glyphicon glyphicon-plus"></span> Ajouter une attribution</a>
-            <form id="panelAjout" action="#" method="post">
-                <label>Enseignant : </label>
-                <select style="width:180px" name="enseignant" type="text" >
-                    <option></option>
-                    {% for enseignant in enseignants %}
-                    <option value="{{ enseignant.id }}">{{ enseignant.prenom ~ ' ' ~ enseignant.nom }}</option>
-                    {% endfor %}
-                </select>
-                <label>Enseignement : </label>
-                <select style="width:180px" name="diplome" type="text" >
-                    <option></option>
-                    {% for enseignement in enseignements %}
-                        <option value="{{ enseignement.id }}">{{ enseignement.denomination }}</option>
-                    {% endfor %}
-                </select><br>
-                <label>Heures CM : </label><input name="cm" type="text" >
-                <label>Heures TD : </label><input name="td" type="text" >
-                <label>Heures TP : </label><input name="tp" type="text" ><br>
-                <a class="btn btn-default"><input style="width:30px" type="submit" value="ok"></a>
-            </form>
-
-
+            <a id="btnOuvrePanelAjout" href="#"><span class="glyphicon glyphicon-plus"></span> Ajouter une
+                attribution</a>
+            {{ form_start(form, {'attr': {'id': 'panelAjout'}}) }}
+            {{ form_errors(form) }}
+            {{ form_row(form.enseignant) }}
+            {{ form_row(form.enseignement) }}<br>
+            {{ form_row(form.nombreHeuresCM) }}
+            {{ form_row(form.nombreHeuresTD) }}
+            {{ form_row(form.nombreHeuresTP) }}
+            {{ form_row(form.submit,{'attr': {'class': 'btn btn-default'}, 'label': 'Valider'}) }}
+            {{ form_end(form) }}
             <table class="table">
                 <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Enseignant</th>
-                        <th>Diplome</th>
-                        <th>Heures CM</th>
-                        <th>Heures TD</th>
-                        <th>Heures TP</th>
-                    </tr>
+                <tr>
+                    <th>#</th>
+                    <th>Enseignant</th>
+                    <th>Diplome</th>
+                    <th>Heures CM</th>
+                    <th>Heures TD</th>
+                    <th>Heures TP</th>
+                </tr>
                 </thead>
                 <tbody class="table-striped">
-                    {% for attribution in attributions %}
+                {% for attribution in attributions %}
                     {# attribution KMGH\AppBundle\Entity\Attribution #}
-                        <tr id="{{ attribution.enseignant.id }}">
-                            <th scope="row">{{ loop.index }}</th>
-                            <td>{{ attribution.enseignant.prenom ~ ' ' ~ attribution.enseignant.nom }}</td>
-                            <td>{{ attribution.enseignement.denomination }}</td>
-                            <td class="cm"><input disabled name="cm" value="{{ attribution.nombreHeuresCM }}"></td>
-                            <td class="td"><input disabled name="td" value="{{ attribution.nombreHeuresTD }}"></td>
-                            <td class="tp"><input disabled name="tp" value="{{ attribution.nombreHeuresTP }}"></td>
-                            <td class="btn_action">
-                                <a href="#" title="Modifier"
-                                   class='btnModifier'><span
-                                            class="glyphicon glyphicon-pencil"></span></a>
-                                <a href="#" title="Supprimer"
-                                   class='btnSupprimer'><span
-                                            class="glyphicon glyphicon-trash"></span></a>
-                                <a href="#" title="Valider" class='btnValider'><span
-                                            class="glyphicon glyphicon-ok"></span></a>
-                            </td>
-                        </tr>
-                    {% endfor %}
+                    <tr id="{{ attribution.enseignant.id }}">
+                        <th scope="row">{{ loop.index }}</th>
+                        <td>{{ attribution.enseignant.prenom ~ ' ' ~ attribution.enseignant.nom }}</td>
+                        <td>{{ attribution.enseignement.denomination }}</td>
+                        <td class="cm"><input disabled name="cm" value="{{ attribution.nombreHeuresCM }}"></td>
+                        <td class="td"><input disabled name="td" value="{{ attribution.nombreHeuresTD }}"></td>
+                        <td class="tp"><input disabled name="tp" value="{{ attribution.nombreHeuresTP }}"></td>
+                        <td class="btn_action">
+                            <a href="#" title="Modifier"
+                               class='btnModifier'><span
+                                        class="glyphicon glyphicon-pencil"></span></a>
+                            <a href="#" title="Supprimer"
+                               class='btnSupprimer'><span
+                                        class="glyphicon glyphicon-trash"></span></a>
+                            <a href="#" title="Valider" class='btnValider'><span
+                                        class="glyphicon glyphicon-ok"></span></a>
+                        </td>
+                    </tr>
+                {% endfor %}
                 </tbody>
             </table>
         </div>

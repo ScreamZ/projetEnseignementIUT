@@ -440,4 +440,18 @@ class Module extends Enseignement
 
         return $somme;
     }
+
+    /**
+     * Donne une représentation de la classe.
+     *
+     * Utilisé notamment dans le formulaire admin où on affiche la liste des modules.
+     *
+     * @return string Le nom du module (sa dénomination)
+     */
+    function __toString()
+    {
+        return $this->denomination;
+    }
+
+
 }
