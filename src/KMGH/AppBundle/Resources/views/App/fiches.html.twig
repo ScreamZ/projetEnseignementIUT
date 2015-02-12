@@ -1,62 +1,87 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
+    <br/>
 
-<br/>
 
-<h3> Liste des fiches enseignements :</h3>
-<br/>
-<p>Accéder à une fiche : </p>
-<p name="form" id="form">
-    <select name="choix1" id="choix1" onchange="premier_choix(this.value); showOptions(this);">
-        <option value="choix1">-- Type diplôme --</option>
-        {% for typeDiplome in typeDiplomes %}
-            {# typeDiplome KMGH\AppBundle\Entity\TypeDiplome #}
-            <option id="{{ typeDiplome.id }}">{{ typeDiplome.nom }}</option>
-        {% endfor %}
-    </select>
+    <h3> Liste des fiches enseignements :</h3>
+    <br/>
+    <p>Accéder à une fiche : </p>
+    <p name="form" id="form">
+        <select name="choix1" id="choix1" onchange="premier_choix(this.value); showOptions();">
+            <option value="choix1">-- Type diplôme --</option>
+            {% for typeDiplome in typeDiplomes %}
+                {# typeDiplome KMGH\AppBundle\Entity\TypeDiplome #}
+                <option id="{{ typeDiplome.id }}">{{ typeDiplome.nom }}</option>
+            {% endfor %}
+        </select>
 
-    <select name="choix2" id="choix2" style="display:none;" onchange="second_choix(this.value); showOptions(this);">
-        <option value="choix2">-- Diplôme --</option>
-        <option id="...">Diplôme1</option>
-        <option id="...">Diplôme2</option>
-    </select>
+        <select name="choix2" id="choix2" style="display:none;" onchange="second_choix(this.value); showOptions();">
+            <option value="choix2">-- Diplôme --</option>
+            {% for typeDiplome in typeDiplomes %}
+                {# typeDiplome KMGH\AppBundle\Entity\TypeDiplome #}
 
-    <select name="choix3" id="choix3" style="display:none;" onchange="troisieme_choix(this.value); showOptions(this);">
-        <option value="choix3">-- Enseignement --</option>
-        <option id="...">Enseignement1</option>
-        <option id="...">Enseignement2</option>
-    </select>
+                {% if typeDiplome.id == 2 %}
 
-    <select name="choix4" id="choix4" style="display:none;" onchange="quatrieme_choix(this.value); showOptions(this);">
-        <option value="choix4">-- Année - Semestre --</option>
-        <option id="...">Année1 - Semestre1</option>
-        <option id="...">Année2 - Semestre2</option>
-    </select>
+                    {% for diplome in typeDiplome.lesDiplomes %}
+                        {# diplome KMGH\AppBundle\Entity\Diplome #}
 
-    <button type="button" id="btnShowFiches1" style="display:none;" onclick="TestIfAllSelected();">Afficher</button>
-     <!--
-      <div align="center" id="btnShowFiches2" style="display:none;" class="btn btn-default">
-            <i class="glyphicon glyphicon-chevron-right"></i>
-            Afficher
-      </div>
-    -->
+                        <option id="{{ diplome.id }}">{{ diplome.nom }}</option>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </select>
 
-</p>
-    <p id="showTabFiche"></p>
+        <select name="choix3" id="choix3" style="display:none;"
+                onchange="troisieme_choix(this.value); showOptions();">
+            <option value="choix3">-- Enseignement --</option>
+            {% for diplome in listeDiplomes %}
+                {# diplome KMGH\AppBundle\Entity\Diplome #}
+                {% if diplome.id == 2 %}
+                    {% for enseignement in diplome.lesEnseignements %}
+                        {# enseignement KMGH\AppBundle\Entity\Enseignement #}
+                        <option id="{{ enseignement.id }}">{{ enseignement.denomination }}</option>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </select>
+
+        <select name="choix4" id="choix4" style="display:none;"
+                onchange="quatrieme_choix(this.value); showOptions();">
+            <option value="choix4">-- Année - Semestre --</option>
+            {% for periode in listPeriodes %}
+                {# diplome KMGH\AppBundle\Entity\Diplome #}
+                {% if periode.id == 2 %}
+                    <option id="{{ periode.id }}">{{ periode.annee ~' - Sem '~ periode.semestre }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+
+        <button type="button" id="btnShowFiches1" style="display:none;" onclick="TestIfAllSelected();">Afficher</button>
+        <!--
+         <div align="center" id="btnShowFiches2" style="display:none;" class="btn btn-default">
+               <i class="glyphicon glyphicon-chevron-right"></i>
+               Afficher
+         </div>
+       -->
+
+    </p>
+
+    <p id="showSelectedElements"></p> <!-- style="display:none;" -->
+
 
     <script>
         function premier_choix(valeur) {
-            if(valeur=="choix1") {
+            if (valeur == "choix1") {
                 document.getElementById("choix2").style.display = "none";
                 document.getElementById("choix3").style.display = "none";
                 document.getElementById("choix4").style.display = "none";
             } else {
                 document.getElementById("choix2").style.display = "inline";
-             }
+            }
         }
         function second_choix(valeur) {
-            if(valeur=="choix2") {
+            if (valeur == "choix2") {
                 document.getElementById("choix2").style.display = "inline";
 
             } else {
@@ -65,7 +90,7 @@
             }
         }
         function troisieme_choix(valeur) {
-            if(valeur=="choix3") {
+            if (valeur == "choix3") {
                 document.getElementById("choix2").style.display = "inline";
                 document.getElementById("choix3").style.display = "inline";
 
@@ -76,9 +101,10 @@
             }
         }
         function quatrieme_choix(valeur) {
-            if(valeur!="choix4") {
+            if (valeur != "choix4") {
                 document.getElementById("btnShowFiches1").style.display = "inline";
                 //document.getElementById("btnShowFiches2").style.display = "inline";
+                //document.getElementById("showTabFiche").style.display = "inline";
             }
         }
 
@@ -90,28 +116,33 @@
             var periode_id = $('#choix4', form).val();
 
 
-
             if (typeDiplome_id != 'choix1' && diplome_id != 'choix2'
                     && enseignement_id != 'choix3' && periode_id != 'choix4') {
-                        showFiches();
-            }else {
+                showFiches();
+            } else {
                 alert('Veuillez sélectionner tous les champs !');
-
             }
         }
-        function showOptions(selChoice){
-            var adVALUE = selChoice[selChoice.selectedIndex].value; // get id
-            var adID = selChoice[selChoice.selectedIndex].id; // get id in database
 
-            var typeDiplome_idVal = {};
-            typeDiplome_idVal[0]= [adID];
-            typeDiplome_idVal[1]= [adVALUE];
+        function getIdChoix1() {
+            var listTypesDiplome = document.getElementById(choix1);
+            var selectedTypeDiplome = listTypesDiplome.options[listTypesDiplome.selectedIndex].id;
 
-            //console.log("id : "+adID+"  value : "+adVALUE);
-           // console.log("typeDiplome_idVal_0 : "+typeDiplome_idVal[0]+"  typeDiplome_idVal_1 : "+typeDiplome_idVal[1]);
+            console.log("selectedTypeDiplome : " + selectedTypeDiplome);
+
+
         }
 
-        function showFiches(){
+        function showOptions() {
+            var listTypesDiplome = document.getElementById("choix1");
+            var selectedTypeDiplome = listTypesDiplome.options[listTypesDiplome.selectedIndex].id;
+
+            //console.log("selectedTypeDiplome : "+selectedTypeDiplome);
+            return selectedTypeDiplome;
+        }
+
+
+        function showFiches() {
             //var adVALUE = selChoice[selChoice.selectedIndex].value; // get id
             //var adID = selChoice[selChoice.selectedIndex].id; // get id in database
 
@@ -127,9 +158,192 @@
             var choix4 = document.getElementById("choix4").value;
 
 
-            document.getElementById("showTabFiche").innerHTML = " <br />"
-            + choix1 +" <br />"+ choix2 +" <br />"+ choix3 +" <br />"+choix4;
+            document.getElementById("showSelectedElements").innerHTML = " <br />"
+            + choix1 + " <br />" + choix2 + " <br />" + choix3 + " <br />" + choix4 +
+            "<br />";
+
 
         }
+    </script>
+
+
+
+
+
+
+    <!-- /////////////////////////////////////////////////////////////////////////////////////-->
+    <div id="main">
+        <div class="loading">
+            <img src="{{ asset('bundles/kmghapp/img/ajax_load.gif') }}" alt="loading" width="71" height="61"
+                 id="loading"/>
+        </div>
+        <div id="pageContent">
+
+            <div id="alertMsg" class="alert-box">
+                <div class="close-box">x</div>
+                <span class="type"></span>
+                <span class="msg"></span>
+            </div>
+
+            <div class="file-wrap">
+                <div class="commit commit-tease js-details-container"></div>
+
+                <div class="tab">
+
+
+                    {% for typeDiplome in typeDiplomes %}
+                        {# typeDiplome KMGH\AppBundle\Entity\TypeDiplome #}
+                        <div class="level1">
+                            <div class="ligne">
+                                <div class="col icon">
+                                    <span class="glyphicon glyphicon-folder-close"></span>
+                                    <img alt="" class="loading" height="16"
+                                         src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
+                                </div>
+                                <div class="col content">
+                                    <a href="#" title="{{ typeDiplome.nom }}">{{ typeDiplome.nom }}</a>
+                                </div>
+                            </div>
+
+                            {% for diplome in typeDiplome.lesDiplomes %}
+                                {# diplome KMGH\AppBundle\Entity\Diplome #}
+                                <div class="level2">
+                                    <div class="ligne">
+                                        <div class="col icon">
+                                            <span class="glyphicon glyphicon-folder-close"></span>
+                                            <img alt="" class="loading" height="16"
+                                                 src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
+                                        </div>
+                                        <div class="col content">
+                                            <a href="#" title="{{ diplome.nom }}">{{ diplome.nom }}</a>
+                                        </div>
+                                    </div>
+
+                                    {% for enseignement in diplome.lesEnseignements %}
+                                    {# enseignement KMGH\AppBundle\Entity\Enseignement #}
+                                        <div class="level3">
+                                            <div class="ligne">
+                                                <div class="col icon">
+                                                    <span class="glyphicon glyphicon-folder-close"></span>
+                                                    <img alt="" class="loading" height="16"
+                                                         src="{{ asset('bundles/kmghapp/img/loading.gif') }}" width="16">
+                                                </div>
+                                                <div class="col content">
+                                                    <a href="#" title="{{ enseignement.denomination }}">{{ enseignement.denomination }}</a>
+                                                </div>
+                                            </div>
+
+                                            <div class="last-level" data-enseigementId=""{{ enseignement.id }}">
+                                                <div class="ligne">
+                                                    <table class="table table-bordered">
+                                                        <caption><h4>Fiche de module
+                                                                "{{ enseignement.denomination }}"
+                                                                en {{ typeDiplome.nom }} - {{ diplome.nom }}</h4></caption>
+                                                        <thead>
+                                                        <tr>
+                                                            <th><p class="text-center">
+                                                                    <strong>Intitulés</strong></p></th>
+                                                            <th><p class="text-center">
+                                                                    <strong>Renseignements</strong></p></th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>Description</td>
+                                                            <td>{{ enseignement.description }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Responsable du module</td>
+                                                            <td>{{ enseignement.enseignantResponsable.nom }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Nombre de séances par groupe par semaine</td>
+                                                            <td>{{ enseignement.nombreSceancesParGroupesParSemaines }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Durée de la séance par semaine</td>
+                                                            <td>{{ enseignement.dureeSceanceParSemaine }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Nombre étudiants</td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Objectif pédagogique</td>
+                                                            <td>{{ enseignement.objectifPedagogique }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Pré-requis</td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Module pré-requis</td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Composition choisie</td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Composition recommandée</td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Besoins matériels</td>
+                                                            <td>{{ enseignement.materiels }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Evaluation</td>
+                                                            <td>{{ enseignement.evaluation }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Date de démarrage</td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Bibliographie</td>
+                                                            <td>{{ enseignement.bibliographie }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Ressources annexes</td>
+                                                            <td>{{ enseignement.ressourcesAnnexes }}</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    {% endfor %}
+
+
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+
+
+                </div>
+
+            </div>
+
+        </div>
+        <!-- PageContent -->
+
+        <div id="menu_right">
+            <h1>Informations</h1>
+
+            <p>{{ app.user.enseignant.prenom ~ ' ' ~ app.user.enseignant.nom }}</p>
+
+            <p>Nombre d'heure affectées : {{ app.user.enseignant.getSommeHeuresEnseignant }} Heures</p>
+
+            <p></p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        CSRF_TOKEN = '{{ user_csrf() }}';
     </script>
 {% endblock %}
