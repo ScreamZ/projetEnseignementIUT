@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new KMGH\AppBundle\KMGHAppBundle(),
             new KMGH\UserBundle\KMGHUserBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

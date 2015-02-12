@@ -12,4 +12,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class DiplomeRepository extends EntityRepository
 {
+    public function findDiplomeByTypeDiplomeId($id)
+    {
+        $qb = $this->createQueryBuilder('d')
+            ->where('d.typeDiplome = :id')
+            ->setParameter('id', $id);
+
+        return $qb->getQuery()->getResult();
+    }
 }

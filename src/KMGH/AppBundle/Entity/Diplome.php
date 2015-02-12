@@ -4,12 +4,15 @@ namespace KMGH\AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Exclude;
+use JMS\Serializer\Annotation\ExclusionPolicy;
 
 /**
  * Diplome
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="KMGH\AppBundle\Entity\DiplomeRepository")
+ * @ExclusionPolicy("none")
  */
 class Diplome
 {
@@ -32,6 +35,7 @@ class Diplome
     /**
      * @var ArrayCollection
      *
+     * @Exclude()
      * @ORM\OneToMany(targetEntity="KMGH\AppBundle\Entity\Enseignement", mappedBy="diplome")
      */
     private $lesEnseignements;
@@ -39,6 +43,7 @@ class Diplome
     /**
      * @var TypeDiplome
      *
+     * @Exclude()
      * @ORM\ManyToOne(targetEntity="KMGH\AppBundle\Entity\TypeDiplome", inversedBy="lesDiplomes")
      */
     private $typeDiplome;

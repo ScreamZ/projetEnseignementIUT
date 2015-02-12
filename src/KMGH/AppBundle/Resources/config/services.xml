@@ -14,5 +14,9 @@
         <service id="kmgh_app.typediplome_manager" class="KMGH\AppBundle\Managers\TypeDiplomeManager">
             <argument type="service" id="doctrine.orm.entity_manager"/>
         </service>
+        <service id="kmgh_app.diplome_manager" class="KMGH\AppBundle\Managers\DiplomeManager">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="service_container"/>
+        </service>
     </services>
 </container>
