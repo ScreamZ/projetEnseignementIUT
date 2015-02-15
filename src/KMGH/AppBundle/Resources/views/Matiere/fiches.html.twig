@@ -1,0 +1,238 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <br/>
+    <p>Sélectionner un choix</p>
+
+    {{ form(form) }}
+
+    <p id="loading-img" style="display: none"><img
+                src="http://officedelamer.com/office/wp-content/plugins/ajax-campaign-monitor-forms/ajax-loading.gif"
+                alt="loading"></p>
+
+    <br/>
+    <div id="showFiche" style="display: none">
+        <table class="table table-bordered">
+            <caption><h4 id="titleTabFiche"></h4></caption>
+            <thead>
+            <tr>
+                <th><p class="text-center"><strong>Intitulés</strong></p></th>
+                <th><p class="text-center"><strong>Renseignements</strong></p></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Description</td>
+                <td id="descriptionEnseignement"></td>
+            </tr>
+            <tr>
+                <td>Responsable du module</td>
+                <td id="enseignementResp"></td>
+            </tr>
+            <tr>
+                <td>Nombre de séances par groupe par semaine</td>
+                <td id="nbHSemaineGroupe"></td>
+            </tr>
+            <tr>
+                <td>Durée de la séance par semaine</td>
+                <td id="dureeSeanceSemaine"></td>
+            </tr>
+            <tr>
+                <td>Nombre étudiants</td>
+                <td id="nbEtudiants"></td>
+            </tr>
+            <tr>
+                <td>Objectif pédagogique</td>
+                <td id="objectifPedag"></td>
+            </tr>
+            <tr>
+                <td>Pré-requis</td>
+                <td id="prerequis"></td>
+            </tr>
+            <tr>
+                <td>Module pré-requis</td>
+                <td id="modulePrerequis"></td>
+            </tr>
+            <tr>
+                <td>Composition choisie</td>
+                <td id="composChoisie"></td>
+            </tr>
+            <tr>
+                <td>Composition recommandée</td>
+                <td id="composRecommandee"></td>
+            </tr>
+            <tr>
+                <td>Besoins matériels</td>
+                <td id="materiel"></td>
+            </tr>
+            <tr>
+                <td>Evaluation</td>
+                <td id="evaluation"></td>
+            </tr>
+            <tr>
+                <td>Date de démarrage</td>
+                <td id="dateDemarrage"></td>
+            </tr>
+            <tr>
+                <td>Bibliographie</td>
+                <td id="bibliographie"></td>
+            </tr>
+            <tr>
+                <td>Ressources annexes</td>
+                <td id="ressourcesAnnexes"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        $(function () {
+
+            var tabTypeDiplomes = [];
+            var tabDiplomes = [];
+            var tabEns = [];
+            var tabPeriodes = [];
+            var objectPeriodes = [];
+            var objectDiplomes = [];
+            var objectEns = [];
+
+            var urlFicheAjax = 'http://localhost/projetEnseignementIUT/web/app_dev.php/fiche-ajax';
+            var selectTypeDiplome = $('#kmgh_app_enseignement_typeDiplome');
+            var selectDiplome = $('#kmgh_app_enseignement_diplome');
+            var selectEnseignement = $('#kmgh_app_enseignement_enseignement');
+            var selectPeriode = $('#kmgh_app_enseignement_periode');
+            var showFiche = $('#showFiche');
+            var loadingImg = $('#loading-img');
+            // hide list
+            selectDiplome.hide();
+            selectEnseignement.hide();
+            selectPeriode.hide();
+
+            // listeners ( typeDiplomes )
+            selectTypeDiplome.change(function (e) {
+                e.stopPropagation();
+                var idTypeDiplome = selectTypeDiplome.val();
+                selectDiplome.empty(); // clear liste diplomes
+                selectEnseignement.empty(); // clear liste enseignements
+                selectPeriode.empty(); // clear liste periodes
+                showFiche.hide(); //desactiver l'affichage de la fiche
+                loadingImg.show();
+                $.post(urlFicheAjax + "/liste-diplomes", {id: idTypeDiplome})
+                        .done(function (data) {
+                            $.each(data, function (i, item) {
+                                selectDiplome.append($('<option>', {
+                                    value: item.id,
+                                    text: item.nom
+                                }));
+                                tabDiplomes[i] = item.id;
+                                objectDiplomes[i] = data[i];
+                            });
+                            selectDiplome.show();
+                            loadingImg.hide();
+
+                            // listener diplomes
+                            selectDiplome.change(function (e) {
+                                e.stopPropagation();
+                                selectEnseignement.empty(); // clear liste enseignement
+                                selectPeriode.empty(); // clear liste periode
+                                var idDiplome = selectDiplome.val();
+                                loadingImg.show();
+                                $.post(urlFicheAjax + "/liste-enseignements", {id: idDiplome})
+                                        .done(function (data) {
+                                            $.each(data, function (i, item) {
+                                                selectEnseignement.append($('<option>', {
+                                                    value: item.id,
+                                                    text: item.denomination
+                                                }));
+                                                tabEns[i] = item.id;
+                                                objectEns[i] = data[i];
+                                            });
+                                            selectEnseignement.show();
+                                            loadingImg.hide();
+
+                                            // listener enseignement
+                                            selectEnseignement.change(function (e) {
+                                                e.stopPropagation();
+                                                selectPeriode.empty(); // clear liste periode
+                                                var idEnseignement = selectEnseignement.val();
+                                                loadingImg.show();
+                                                $.post(urlFicheAjax + "/liste-periodes", {id: idEnseignement})
+                                                        .done(function (data) {
+                                                            $.each(data, function (i, item) {
+                                                                selectPeriode.append($('<option>', {
+                                                                    value: item.id,
+                                                                    text: item.annee + ' - S' + item.semestre
+                                                                }));
+                                                                tabPeriodes[i] = item.id;
+                                                                objectPeriodes[i] = data[i];
+                                                            });
+                                                            selectPeriode.show();
+                                                            loadingImg.hide();
+
+                                                            // listener periode
+                                                            selectPeriode.change(function (e) {
+                                                                e.stopPropagation();
+                                                                var idPeriode = selectPeriode.val();
+
+                                                                var nomDiplome, nomEns, anneePeriode, semestrePeriode, ensDescription, ensMateriel,
+                                                                        ensEvaluation, ensResponsable, ensBiblio, ensRessourcesAnnexes,
+                                                                        ensObjectifPedag;
+                                                                for (var i = 0; i < objectDiplomes.length; i++) {
+                                                                    if (idDiplome == objectDiplomes[i].id) {
+                                                                        nomDiplome = objectDiplomes[i].nom;
+                                                                    }
+                                                                }
+                                                                for (var i = 0; i < objectEns.length; i++) {
+                                                                    if (idEnseignement == objectEns[i].id) {
+                                                                        nomEns = objectEns[i].denomination;
+                                                                        ensDescription = objectEns[i].description;
+                                                                        ensMateriel = objectEns[i].materiel;
+                                                                        ensEvaluation = objectEns[i].evaluation;
+                                                                        ensResponsable = objectEns[i].enseignantResponsable;
+                                                                        ensBiblio = objectEns[i].bibliographie;
+                                                                        ensRessourcesAnnexes = objectEns[i].ressourcesAnnexes;
+                                                                        ensObjectifPedag = objectEns[i].objectif_pedagogique;
+
+                                                                    }
+                                                                }
+                                                                for (var i = 0; i < tabPeriodes.length; i++) {
+                                                                    if (idPeriode == tabPeriodes[i]) {
+                                                                        anneePeriode = objectPeriodes[i].annee;
+                                                                        semestrePeriode = objectPeriodes[i].semestre;
+                                                                    }
+                                                                }
+
+                                                                $('#titleTabFiche').html('Description de la fiche de module "'
+                                                                + nomEns + '" en "LP - ' + nomDiplome
+                                                                + '" pour "S' + semestrePeriode + '-' + anneePeriode+'"');
+                                                                $('#descriptionEnseignement').html(ensDescription);
+                                                                $('#dateDemarrage').html();
+                                                                $('#eval').html(ensEvaluation);
+                                                                $('#nbHSemaineGroupe').html();
+                                                                $('#dureeSeanceSemaine').html();
+                                                                $('#nbEtudiants').html();
+                                                                $('#objectifPedag').html(ensObjectifPedag);
+                                                                $('#ressourcesAnnexes').html();
+                                                                $('#prerequis').html();
+                                                                $('#modulePrerequis').html();
+                                                                $('#bibliographie').html(ensBiblio);
+                                                                $('#composChoisie').html();
+                                                                $('#composRecommandee').html();
+
+                                                                showFiche.show();
+                                                            });
+                                                        });
+                                            });
+                                        });
+                            });
+                        });
+            });
+        });
+    </script>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        CSRF_TOKEN = '{{ user_csrf() }}';
+    </script>
+{% endblock %}
