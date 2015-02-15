@@ -21,22 +21,5 @@ class AppController extends Controller
         );
     }
 
-    /**
-     * @Route(name="kmgh_appbundle_app_fiches", path="/fiches-enseignement")
-     * @Template("KMGHAppBundle:App:fiches.html.twig")
-     */
-    public function fichesAction()
-    {
 
-        $typeDiplomes = $this->get('kmgh_app.typediplome_manager')->findAllEnhanced();
-        $listeDiplomes = $this->getDoctrine()->getRepository('KMGHAppBundle:Diplome')->findAll();
-        $listEnseignements = $this->getDoctrine()->getRepository('KMGHAppBundle:Enseignement')->findAll();
-        $listPeriodes = $this->getDoctrine()->getRepository('KMGHAppBundle:Periode')->findAll();
-        return array(
-            "typeDiplomes"=>$typeDiplomes,
-            "listeDiplomes"=>$listeDiplomes,
-            "listEnseignements"=>$listEnseignements,
-            "listPeriodes"=>$listPeriodes
-        );
-    }
 }

@@ -12,11 +12,18 @@ use Doctrine\ORM\EntityRepository;
  */
 class DiplomeRepository extends EntityRepository
 {
-    public function findDiplomeByTypeDiplomeId($id)
+    /**
+     * Permet de récupéer un ensemble de diplomes correspondant à un TypeDiplome donné passé en paramètre.
+     *
+     * @param $typeDiplome
+     *
+     * @return array liste des diplomes
+     */
+    public function findDiplomeByTypeDiplomeId(TypeDiplome $typeDiplome)
     {
         $qb = $this->createQueryBuilder('d')
-            ->where('d.typeDiplome = :id')
-            ->setParameter('id', $id);
+            ->where('d.typeDiplome = :diplome')
+            ->setParameter('diplome', $typeDiplome);
 
         return $qb->getQuery()->getResult();
     }

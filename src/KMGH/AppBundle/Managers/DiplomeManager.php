@@ -8,7 +8,6 @@
 
 namespace KMGH\AppBundle\Managers;
 
-
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\Container;
 
@@ -25,7 +24,8 @@ class DiplomeManager extends BaseManager
 
     public function jsonFindDiplomeByTypeDiplomeId($id)
     {
-        $lesDiplomes = $this->getRepository()->findDiplomeByTypeDiplomeId($id);
+        $typeDiplome = $this->container->get('kmgh_app.typediplome_manager')->getRepository()->find($id);
+        $lesDiplomes = $this->getRepository()->findDiplomeByTypeDiplomeId($typeDiplome);
         $serializer = $this->container->get('jms_serializer');
         return $serializer->serialize($lesDiplomes, 'json');
     }

@@ -10,11 +10,16 @@
         </service>
         <service id="kmgh_app.enseignement_manager" class="KMGH\AppBundle\Managers\EnseignementManager">
             <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="service_container"/>
         </service>
         <service id="kmgh_app.typediplome_manager" class="KMGH\AppBundle\Managers\TypeDiplomeManager">
             <argument type="service" id="doctrine.orm.entity_manager"/>
         </service>
         <service id="kmgh_app.diplome_manager" class="KMGH\AppBundle\Managers\DiplomeManager">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="service_container"/>
+        </service>
+        <service id="kmgh_app.periode_manager" class="KMGH\AppBundle\Managers\PeriodeManager">
             <argument type="service" id="doctrine.orm.entity_manager"/>
             <argument type="service" id="service_container"/>
         </service>

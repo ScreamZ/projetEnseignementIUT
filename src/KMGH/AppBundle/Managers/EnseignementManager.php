@@ -9,14 +9,24 @@
 namespace KMGH\AppBundle\Managers;
 
 
+use Doctrine\ORM\EntityManager;
 use KMGH\AppBundle\Entity\Enseignement;
 use KMGH\AppBundle\Entity\Module;
 use KMGH\AppBundle\Entity\Projet;
 use KMGH\AppBundle\Entity\Stage;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Process\Exception\LogicException;
 
 class EnseignementManager extends BaseManager
 {
+    private $container;
+
+    function __construct(EntityManager $em, Container $container)
+    {
+        parent::__construct($em);
+        $this->container = $container;
+    }
+
     /**
      * Une factory permettant de créer un objet qui étend la classe <strong>Enseignement</strong>.
      *
@@ -38,6 +48,28 @@ class EnseignementManager extends BaseManager
         }
     }
 
+    /**
+     * Permet de retrouver l'ensemble des enseignements à partir
+     * d'un id d'un diplome donné.
+     *
+     * @param $id pour un diplome
+     *
+     * @return mixed
+     */
+    public function jsonFindEnseignementByDiplomeId($id)
+    {
+        $diplome = $this->container->get('kmgh_app.diplome_manager')->getRepository()->find($id);
+        $lesEnseignements = $this->getRepository()->findEnseignementByDiplomeId($diplome);
+        $serializer = $this->container->get('jms_serializer');
+        return $serializer->serialize($lesEnseignements, 'json');
+    }
+
+    /**
+     *
+     *
+     * @return \KMGH\AppBundle\Entity\EnseignementRepository
+     *
+     */
     public function getRepository()
     {
         return $this->em->getRepository('KMGHAppBundle:Enseignement');

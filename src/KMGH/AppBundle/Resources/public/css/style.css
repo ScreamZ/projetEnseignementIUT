@@ -341,7 +341,7 @@
 	margin-top: -3px;
 	margin-left: -2px;
 }
-.level2,.level3,.last-level{
+.level2,.level3,.level4,.last-level{
 	display: none;
 }
 
@@ -351,6 +351,9 @@
 
 .level3 .ligne{
 	margin-left: 8%;
+}
+.level4 .ligne{
+	margin-left: 12%;
 }
 .last-level .ligne{
 	margin-left: 16%;
