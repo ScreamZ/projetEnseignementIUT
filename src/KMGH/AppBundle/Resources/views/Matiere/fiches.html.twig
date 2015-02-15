@@ -95,6 +95,8 @@
             var objectDiplomes = [];
             var objectEns = [];
 
+            var idTypeDiplome, idDiplome, idEnseignement, idPeriode;
+
             var urlFicheAjax = 'http://localhost/projetEnseignementIUT/web/app_dev.php/fiche-ajax';
             var selectTypeDiplome = $('#kmgh_app_enseignement_typeDiplome');
             var selectDiplome = $('#kmgh_app_enseignement_diplome');
@@ -110,7 +112,7 @@
             // listeners ( typeDiplomes )
             selectTypeDiplome.change(function (e) {
                 e.stopPropagation();
-                var idTypeDiplome = selectTypeDiplome.val();
+                idTypeDiplome = selectTypeDiplome.val();
                 selectDiplome.empty(); // clear liste diplomes
                 selectEnseignement.empty(); // clear liste enseignements
                 selectPeriode.empty(); // clear liste periodes
@@ -118,6 +120,7 @@
                 loadingImg.show();
                 $.post(urlFicheAjax + "/liste-diplomes", {id: idTypeDiplome})
                         .done(function (data) {
+                            selectDiplome.append('<option>-- Diplôme --</option>');
                             $.each(data, function (i, item) {
                                 selectDiplome.append($('<option>', {
                                     value: item.id,
@@ -128,103 +131,105 @@
                             });
                             selectDiplome.show();
                             loadingImg.hide();
-
-                            // listener diplomes
-                            selectDiplome.change(function (e) {
-                                e.stopPropagation();
-                                selectEnseignement.empty(); // clear liste enseignement
-                                selectPeriode.empty(); // clear liste periode
-                                var idDiplome = selectDiplome.val();
-                                loadingImg.show();
-                                $.post(urlFicheAjax + "/liste-enseignements", {id: idDiplome})
-                                        .done(function (data) {
-                                            $.each(data, function (i, item) {
-                                                selectEnseignement.append($('<option>', {
-                                                    value: item.id,
-                                                    text: item.denomination
-                                                }));
-                                                tabEns[i] = item.id;
-                                                objectEns[i] = data[i];
-                                            });
-                                            selectEnseignement.show();
-                                            loadingImg.hide();
-
-                                            // listener enseignement
-                                            selectEnseignement.change(function (e) {
-                                                e.stopPropagation();
-                                                selectPeriode.empty(); // clear liste periode
-                                                var idEnseignement = selectEnseignement.val();
-                                                loadingImg.show();
-                                                $.post(urlFicheAjax + "/liste-periodes", {id: idEnseignement})
-                                                        .done(function (data) {
-                                                            $.each(data, function (i, item) {
-                                                                selectPeriode.append($('<option>', {
-                                                                    value: item.id,
-                                                                    text: item.annee + ' - S' + item.semestre
-                                                                }));
-                                                                tabPeriodes[i] = item.id;
-                                                                objectPeriodes[i] = data[i];
-                                                            });
-                                                            selectPeriode.show();
-                                                            loadingImg.hide();
-
-                                                            // listener periode
-                                                            selectPeriode.change(function (e) {
-                                                                e.stopPropagation();
-                                                                var idPeriode = selectPeriode.val();
-
-                                                                var nomDiplome, nomEns, anneePeriode, semestrePeriode, ensDescription, ensMateriel,
-                                                                        ensEvaluation, ensResponsable, ensBiblio, ensRessourcesAnnexes,
-                                                                        ensObjectifPedag;
-                                                                for (var i = 0; i < objectDiplomes.length; i++) {
-                                                                    if (idDiplome == objectDiplomes[i].id) {
-                                                                        nomDiplome = objectDiplomes[i].nom;
-                                                                    }
-                                                                }
-                                                                for (var i = 0; i < objectEns.length; i++) {
-                                                                    if (idEnseignement == objectEns[i].id) {
-                                                                        nomEns = objectEns[i].denomination;
-                                                                        ensDescription = objectEns[i].description;
-                                                                        ensMateriel = objectEns[i].materiel;
-                                                                        ensEvaluation = objectEns[i].evaluation;
-                                                                        ensResponsable = objectEns[i].enseignantResponsable;
-                                                                        ensBiblio = objectEns[i].bibliographie;
-                                                                        ensRessourcesAnnexes = objectEns[i].ressourcesAnnexes;
-                                                                        ensObjectifPedag = objectEns[i].objectif_pedagogique;
-
-                                                                    }
-                                                                }
-                                                                for (var i = 0; i < tabPeriodes.length; i++) {
-                                                                    if (idPeriode == tabPeriodes[i]) {
-                                                                        anneePeriode = objectPeriodes[i].annee;
-                                                                        semestrePeriode = objectPeriodes[i].semestre;
-                                                                    }
-                                                                }
-
-                                                                $('#titleTabFiche').html('Description de la fiche de module "'
-                                                                + nomEns + '" en "LP - ' + nomDiplome
-                                                                + '" pour "S' + semestrePeriode + '-' + anneePeriode+'"');
-                                                                $('#descriptionEnseignement').html(ensDescription);
-                                                                $('#dateDemarrage').html();
-                                                                $('#eval').html(ensEvaluation);
-                                                                $('#nbHSemaineGroupe').html();
-                                                                $('#dureeSeanceSemaine').html();
-                                                                $('#nbEtudiants').html();
-                                                                $('#objectifPedag').html(ensObjectifPedag);
-                                                                $('#ressourcesAnnexes').html();
-                                                                $('#prerequis').html();
-                                                                $('#modulePrerequis').html();
-                                                                $('#bibliographie').html(ensBiblio);
-                                                                $('#composChoisie').html();
-                                                                $('#composRecommandee').html();
-
-                                                                showFiche.show();
-                                                            });
-                                                        });
-                                            });
-                                        });
-                            });
                         });
+            });
+
+            // listener diplomes
+            selectDiplome.change(function (e) {
+                e.stopPropagation();
+                selectEnseignement.empty(); // clear liste enseignement
+                selectPeriode.empty(); // clear liste periode
+                idDiplome = selectDiplome.val();
+                loadingImg.show();
+                $.post(urlFicheAjax + "/liste-enseignements", {id: idDiplome})
+                        .done(function (data) {
+                            selectEnseignement.append('<option>-- Enseignement --</option>');
+                            $.each(data, function (i, item) {
+                                selectEnseignement.append($('<option>', {
+                                    value: item.id,
+                                    text: item.denomination
+                                }));
+                                tabEns[i] = item.id;
+                                objectEns[i] = data[i];
+                            });
+                            selectEnseignement.show();
+                            loadingImg.hide();
+                        });
+            });
+
+            // listener enseignement
+            selectEnseignement.change(function (e) {
+                e.stopPropagation();
+                selectPeriode.empty(); // clear liste periode
+                idEnseignement = selectEnseignement.val();
+                loadingImg.show();
+                $.post(urlFicheAjax + "/liste-periodes", {id: idEnseignement})
+                        .done(function (data) {
+                            selectPeriode.append('<option>-- Année - Semestre --</option>');
+                            $.each(data, function (i, item) {
+                                selectPeriode.append($('<option>', {
+                                    value: item.id,
+                                    text: item.annee + ' - S' + item.semestre
+                                }));
+                                tabPeriodes[i] = item.id;
+                                objectPeriodes[i] = data[i];
+                            });
+                            selectPeriode.show();
+                            loadingImg.hide();
+                        });
+            });
+
+            // listener periode
+            selectPeriode.change(function (e) {
+                e.stopPropagation();
+                idPeriode = selectPeriode.val();
+
+                var nomDiplome, nomEns, anneePeriode, semestrePeriode, ensDescription, ensMateriel,
+                        ensEvaluation, ensResponsable, ensBiblio, ensRessourcesAnnexes,
+                        ensObjectifPedag;
+                for (var i = 0; i < objectDiplomes.length; i++) {
+                    if (idDiplome == objectDiplomes[i].id) {
+                        nomDiplome = objectDiplomes[i].nom;
+                    }
+                }
+                for (var i = 0; i < objectEns.length; i++) {
+                    if (idEnseignement == objectEns[i].id) {
+                        nomEns = objectEns[i].denomination;
+                        ensDescription = objectEns[i].description;
+                        ensMateriel = objectEns[i].materiel;
+                        ensEvaluation = objectEns[i].evaluation;
+                        ensResponsable = objectEns[i].enseignantResponsable;
+                        ensBiblio = objectEns[i].bibliographie;
+                        ensRessourcesAnnexes = objectEns[i].ressourcesAnnexes;
+                        ensObjectifPedag = objectEns[i].objectif_pedagogique;
+
+                    }
+                }
+                for (var i = 0; i < tabPeriodes.length; i++) {
+                    if (idPeriode == tabPeriodes[i]) {
+                        anneePeriode = objectPeriodes[i].annee;
+                        semestrePeriode = objectPeriodes[i].semestre;
+                    }
+                }
+
+                $('#titleTabFiche').html('Description de la fiche de module "'
+                + nomEns + '" en "LP - ' + nomDiplome
+                + '" pour "S' + semestrePeriode + '-' + anneePeriode+'"');
+                $('#descriptionEnseignement').html(ensDescription);
+                $('#dateDemarrage').html();
+                $('#eval').html(ensEvaluation);
+                $('#nbHSemaineGroupe').html();
+                $('#dureeSeanceSemaine').html();
+                $('#nbEtudiants').html();
+                $('#objectifPedag').html(ensObjectifPedag);
+                $('#ressourcesAnnexes').html();
+                $('#prerequis').html();
+                $('#modulePrerequis').html();
+                $('#bibliographie').html(ensBiblio);
+                $('#composChoisie').html();
+                $('#composRecommandee').html();
+
+                showFiche.show();
             });
         });
     </script>
