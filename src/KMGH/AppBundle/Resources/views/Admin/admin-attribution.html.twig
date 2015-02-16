@@ -29,9 +29,9 @@
             {{ form_errors(form) }}
             {{ form_row(form.enseignant) }}
             {{ form_row(form.enseignement) }}<br>
-            {{ form_row(form.nombreHeuresCM) }}
-            {{ form_row(form.nombreHeuresTD) }}
-            {{ form_row(form.nombreHeuresTP) }}
+            {{ form_row(form.nombreHeuresCM,{'attr': {'style': 'width:30px'},'label': 'Heures CM'})  }}
+            {{ form_row(form.nombreHeuresTD,{'attr': {'style': 'width:30px'},'label': 'Heures TD'})  }}
+            {{ form_row(form.nombreHeuresTP,{'attr': {'style': 'width:30px'},'label': 'Heures TP'}) }}
             {{ form_row(form.submit,{'attr': {'class': 'btn btn-default'}, 'label': 'Valider'}) }}
             {{ form_end(form) }}
             <table class="table">
@@ -48,7 +48,7 @@
                 <tbody class="table-striped">
                 {% for attribution in attributions %}
                     {# attribution KMGH\AppBundle\Entity\Attribution #}
-                    <tr id="{{ attribution.enseignant.id }}">
+                    <tr id="{{ attribution.id }}">
                         <th scope="row">{{ loop.index }}</th>
                         <td>{{ attribution.enseignant.prenom ~ ' ' ~ attribution.enseignant.nom }}</td>
                         <td>{{ attribution.enseignement.denomination }}</td>

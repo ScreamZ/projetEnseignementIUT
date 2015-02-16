@@ -1,7 +1,22 @@
 {% extends '::base.html.twig' %}
 
 {% block body %}
-
+<div id="main">
+    <div class="loading">
+        <img src="{{ asset('bundles/kmghapp/img/ajax_load.gif') }}" alt="loading" width="71" height="61"
+             id="loading"/>
+    </div>
+    <div id="pageContent">
+        <h1>Gestion des modules</h1>
+        <a id="btnOuvrePanelAjout" href="#"><span class="glyphicon glyphicon-plus"></span> Ajouter un diplôme</a>
+        {{ form_start(form, {'attr': {'id': 'panelAjout'}}) }}
+        {{ form_errors(form) }}
+        {{ form_row(form.typeDeDiplome) }}
+        {{ form_row(form.enseignement) }}
+        {{ form_row(form.submit,{'attr': {'class': 'btn btn-default'}, 'label': 'Valider'}) }}
+        {{ form_end(form) }}
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}

@@ -30,9 +30,15 @@ $(document).ready(function () {
         e.preventDefault();
         var li = $(this).parent();
         li.siblings('ul').show();
-        li.siblings('ul').on("mouseleave", function(){
+        li.siblings('ul').on("mouseover", function(){
+            $(this).show();
+            $(this).on("mouseleave", function(){
+                $(this).hide();
+            });
+        });
+        li.on("mouseleave", function(){
             li.siblings('ul').hide();
-        })
+        });
     });
 
     /******************************************************************

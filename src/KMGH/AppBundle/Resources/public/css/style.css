@@ -616,8 +616,12 @@ form#panelAjout{
 }
 form#panelAjout input, form#panelAjout select{
 	background: #ffffff;
-	width:100px;
+	max-width: 250px;
 	margin:5px 10px;
+}
+
+form#panelAjout div{
+	max-width: 40%;
 }
 
 #pageContent h1{
