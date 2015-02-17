@@ -8,15 +8,8 @@
         </div>
         <div id="pageContent">
             <h1>Gestion des attributions</h1>
-            {% for flashMessage in app.session.flashbag.get('notice') %}
-                <div class="alert alert-box {{ flashMessage.alert }} alert-dismissible" role="alert"
-                     style="display: block;">
-                    <button type="button" class="close" data-dismiss="alert">
-                        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-                    </button>
-                    <strong>{{ flashMessage.title }}</strong> {{ flashMessage.message }}.
-                </div>
-            {% endfor %}
+
+
             <div id="alertMsg" class="alert-box">
                 <div class="close-box">x</div>
                 <span class="type"></span>

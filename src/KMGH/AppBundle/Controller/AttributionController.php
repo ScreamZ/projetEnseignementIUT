@@ -52,11 +52,16 @@ class AttributionController extends Controller
         $errorList = $validator->validate($attribution);
 
         if (count($errorList) > 0) {
-            return new Response(401, 401);
+            return new Response(401, Response::HTTP_UNAUTHORIZED);
         } else {
             $manager->persist($attribution);
-
-            return new Response(200, 200);
+            $logger = $this->get('monolog.logger.attribution');
+            $logger->info("Edition d'une attribution (ID:{attribID}) par {enseignant}@{IP} : ", array(
+                'enseignant' => $this->getUser()->getEnseignant(),
+                'IP' => $request->getClientIp(),
+                'attribID' => $attribution->getId()
+            ));
+            return new Response(200, Response::HTTP_OK);
         }
     }
 
@@ -86,17 +91,26 @@ class AttributionController extends Controller
         $manager = $this->get('kmgh_app.attribution_manager');
         $csrf = $request->request->get('csrf_token');
 
+        // TODO : check if not making issues
         if (!$this->isValidatedCSRF($csrf)) {
             throw new AccessDeniedException("Jeton CSRF invalide, tentative de piratage ?");
         }
 
         /**
          * @var Attribution $attribution
+         * FIXME : L'id transmi via l'interface d'administration n'est pas le bon.
          */
         $attribution = $manager->getRepository()->find($id);
+
         if (null != $attribution) {
             $manager->remove($attribution);
-
+            // FIXME : Faille de sécurité on ne teste pas l'utilisateur courant, a voir si c'est vraiment utile sachant qu'on pronne une politique de confiance
+            $logger = $this->get('monolog.logger.attribution');
+            $logger->info("Supression d'une attribution (ID:{attribID}) par {enseignant}@{IP} : ", array(
+                'enseignant' => $this->getUser()->getEnseignant(),
+                'IP' => $request->getClientIp(),
+                'attribID' => $attribution->getId()
+            ));
             return new Response(200, 200);
         } else {
             return new Response(401, 401);
@@ -147,7 +161,12 @@ class AttributionController extends Controller
             return new Response('ERROR', 401);
         } else {
             $manager->persist($attribution);
-
+            $logger = $this->get('monolog.logger.attribution');
+            $logger->info("Ajout d'une attribution (ID:{attribID}) par {enseignant}@{IP} : ", array(
+                'enseignant' => $user->getEnseignant(),
+                'IP' => $request->getClientIp(),
+                'attribID' => $attribution->getId()
+            ));
             return new Response($attribution->getId(), 200);
         }
     }

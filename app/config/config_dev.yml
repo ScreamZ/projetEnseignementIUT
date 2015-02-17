@@ -12,6 +12,7 @@ web_profiler:
     intercept_redirects: false
 
 monolog:
+    channels: ["attribution"]
     handlers:
         main:
             type:   stream
@@ -40,6 +41,11 @@ monolog:
         #chromephp:
         #    type:   chromephp
         #    level:  info
+        attribution:
+            type: stream
+            path: "%kernel.logs_dir%/attributions/attrib.log"
+            level: info
+            channels: attribution
 
 assetic:
     use_controller: true

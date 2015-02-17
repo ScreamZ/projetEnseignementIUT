@@ -12,6 +12,7 @@ imports:
 #        query_cache_driver: apc
 
 monolog:
+    channels: ["attribution"]
     handlers:
         main:
             type:         fingers_crossed
@@ -23,3 +24,8 @@ monolog:
             level: debug
         console:
             type:  console
+        attribution:
+            type: stream
+            path: "%kernel.logs_dir%/attributions/attrib.log"
+            level: info
+            channels: attribution

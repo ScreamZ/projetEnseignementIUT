@@ -22,6 +22,7 @@ class AdminController extends Controller
      */
     public function attributionAction()
     {
+        $request = Request::createFromGlobals();
         $attribution = new Attribution();
         $form = $this->createForm(new AttributionType(), $attribution);
 
@@ -32,6 +33,14 @@ class AdminController extends Controller
                 $manager = $this->get('kmgh_app.attribution_manager');
                 $manager->persist($attribution);
 
+                // LOG
+                $logger = $this->get('monolog.logger.attribution');
+                $logger->info("Edition d'une attribution (ID:{attribID}) par {enseignant}@{IP} : ", array(
+                    'enseignant' => $this->getUser()->getEnseignant(),
+                    'IP' => $request->getClientIp(),
+                    'attribID' => $attribution->getId()
+                ));
+                
                 $this->addFlash('notice', array(
                     'alert' => 'success',
                     'title' => 'Félicitations!',
