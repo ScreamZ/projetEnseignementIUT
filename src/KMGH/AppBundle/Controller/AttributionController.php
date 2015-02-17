@@ -56,10 +56,11 @@ class AttributionController extends Controller
         } else {
             $manager->persist($attribution);
             $logger = $this->get('monolog.logger.attribution');
-            $logger->info("Edition d'une attribution (ID:{attribID}) par {enseignant}@{IP} : ", array(
+            $logger->info("Edition d'une attribution de {attribAssignedEnseignant} (ID:{attribID}) par {enseignant}@{IP} : ", array(
                 'enseignant' => $this->getUser()->getEnseignant(),
                 'IP' => $request->getClientIp(),
-                'attribID' => $attribution->getId()
+                'attribID' => $attribution->getId(),
+                'attribAssignedEnseignant' => $attribution->getEnseignant()
             ));
             return new Response(200, Response::HTTP_OK);
         }
@@ -103,13 +104,17 @@ class AttributionController extends Controller
         $attribution = $manager->getRepository()->find($id);
 
         if (null != $attribution) {
+            $attributionID = $attribution->getId();
+            $attribAssignedEnseignant = $attribution->getEnseignant();
             $manager->remove($attribution);
+
             // FIXME : Faille de sécurité on ne teste pas l'utilisateur courant, a voir si c'est vraiment utile sachant qu'on pronne une politique de confiance
             $logger = $this->get('monolog.logger.attribution');
-            $logger->info("Supression d'une attribution (ID:{attribID}) par {enseignant}@{IP} : ", array(
+            $logger->info("Supression d'une attribution de {attribAssignedEnseignant} (ID:{attribID}) par {enseignant}@{IP} : ", array(
                 'enseignant' => $this->getUser()->getEnseignant(),
                 'IP' => $request->getClientIp(),
-                'attribID' => $attribution->getId()
+                'attribID' => $attributionID,
+                'attribAssignedEnseignant' => $attribAssignedEnseignant
             ));
             return new Response(200, 200);
         } else {
@@ -162,10 +167,11 @@ class AttributionController extends Controller
         } else {
             $manager->persist($attribution);
             $logger = $this->get('monolog.logger.attribution');
-            $logger->info("Ajout d'une attribution (ID:{attribID}) par {enseignant}@{IP} : ", array(
+            $logger->info("Création d'une attribution pour {attribAssignedEnseignant} (ID:{attribID}) par {enseignant}@{IP} : ", array(
                 'enseignant' => $user->getEnseignant(),
                 'IP' => $request->getClientIp(),
-                'attribID' => $attribution->getId()
+                'attribID' => $attribution->getId(),
+                'attribAssignedEnseignant' => $attribution->getEnseignant()
             ));
             return new Response($attribution->getId(), 200);
         }

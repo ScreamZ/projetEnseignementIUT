@@ -35,10 +35,11 @@ class AdminController extends Controller
 
                 // LOG
                 $logger = $this->get('monolog.logger.attribution');
-                $logger->info("Edition d'une attribution (ID:{attribID}) par {enseignant}@{IP} : ", array(
+                $logger->info("Création d'une attribution pour {attribAssignedEnseignant} (ID:{attribID}) par {enseignant}@{IP} : ", array(
                     'enseignant' => $this->getUser()->getEnseignant(),
                     'IP' => $request->getClientIp(),
-                    'attribID' => $attribution->getId()
+                    'attribID' => $attribution->getId(),
+                    'attribAssignedEnseignant' => $attribution->getEnseignant()
                 ));
                 
                 $this->addFlash('notice', array(
@@ -52,7 +53,7 @@ class AdminController extends Controller
                 $this->addFlash('notice', array(
                     'alert' => 'error',
                     'title' => 'Erreur',
-                    'message' => 'L\'attribution existe déjà pour cet enseignant et cet enseignant'
+                    'message' => 'L\'attribution existe déjà pour cet enseignant et cet enseignement'
                 ));
             }
 
