@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use KMGH\UserBundle\Entity\Enseignant;
 
 /**
- * Attribution
+ * attributions
  *
  * @ORM\Table(uniqueConstraints={
  *      @ORM\UniqueConstraint(name="unique_attribution", columns={"enseignant_id","enseignement_id"})
@@ -66,7 +66,7 @@ class Attribution
     private $enseignement;
 
     /**
-     * Initialise une Attribution avec des heures égales à zéro et la date actuelle
+     * Initialise une attributions avec des heures égales à zéro et la date actuelle
      */
     public function __construct()
     {

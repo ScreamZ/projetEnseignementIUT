@@ -131,21 +131,21 @@
 
 .sous-menu {
 	display: none;
-	position:absolute;
-	top:40px;
-	width: auto;
+	position: absolute;
+	top: 38px;
+	width: 250px;
 	background: #f2f2f2;
 	border-bottom: 1px solid #e5e5e5;
 	border-left: 1px solid #e5e5e5;
 	border-right: 1px solid #e5e5e5;
-	left:300px;
+	left: 340px;
 	box-shadow: 0 4px 9px #777;
 	padding: 0;
 	z-index: 999;
 }
 
 #nav .sous-menu li{
-	padding: 10px;
+	padding: 0;
 	width:100%;
 	display: block;
 	margin: 0;
@@ -182,7 +182,7 @@
 	
 	width:80%;
 	min-height:550px;
-	margin:0 auto;
+	margin:50px auto 0 auto;
 }
 	
 	
@@ -624,6 +624,6 @@ form#panelAjout div{
 	max-width: 40%;
 }
 
-#pageContent h1{
+#main h1{
 	margin-bottom:30px ;
 }

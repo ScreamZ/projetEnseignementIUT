@@ -28,16 +28,12 @@ $(document).ready(function () {
 
     $(".depliant").on("mouseover", function(e){
         e.preventDefault();
+        var that = $(this);
         var li = $(this).parent();
-        li.siblings('ul').show();
-        li.siblings('ul').on("mouseover", function(){
-            $(this).show();
-            $(this).on("mouseleave", function(){
-                $(this).hide();
-            });
-        });
+        $(this).siblings('ul').show();
+
         li.on("mouseleave", function(){
-            li.siblings('ul').hide();
+            that.siblings('ul').hide();
         });
     });
 
@@ -126,6 +122,7 @@ $(document).ready(function () {
         var btn_action = $(this).parent();
         $('.btnModifier', btn_action).fadeOut();
         $('.btnSupprimer', btn_action).fadeOut();
+        $('.btnSupprimerAdmin', btn_action).fadeOut();
         $('.btnValider', btn_action).delay(400).fadeIn();
         btn_action.parent().find("input").removeAttr("disabled");
     });
@@ -187,7 +184,7 @@ $(document).ready(function () {
             .done(function () {
                 tr.fadeOut();
                 $('#alertMsg').addClass('success').fadeIn();
-                $('#alertMsg .msg').html('Attribution supprimée avec succès.');
+                $('#alertMsg .msg').html('attributions supprimée avec succès.');
                 $('#alertMsg .type').html('Ok : ');
                 clearBoxIn5();
                 tbody.append('<tr><td><a href="" class="newAttribution"><span class="glyphicon glyphicon-plus"></span> Ajouter une attribution</a></td></tr>');
@@ -236,6 +233,31 @@ $(document).ready(function () {
             })
     });
 
+
+    /************************************************************
+     * ADMIN
+     */
+    $('#main').on('click', '.btnSupprimerAdmin', function (e) {
+        e.preventDefault();
+        var idAttribution = $(this).parent().parent().attr('id');
+        var tr = $(this).parent().parent();
+        var tbody = $(this).parent().parent().parent();
+
+        $.post("http://localhost/projetEnseignementIUT/web/app_dev.php/delete/" + idAttribution, {csrf_token: CSRF_TOKEN})
+            .done(function () {
+                tr.fadeOut();
+                $('#alertMsg').addClass('success').fadeIn();
+                $('#alertMsg .msg').html('attributions supprimée avec succès.');
+                $('#alertMsg .type').html('Ok : ');
+                clearBoxIn5();
+            })
+            .fail(function () {
+                $('#alertMsg .msg').html('Impossible de supprimer l\'attribution');
+                $('#alertMsg .type').html('Erreur : ');
+                $('#alertMsg').addClass('error').fadeIn();
+                clearBoxIn5();
+            })
+    });
 
 
 });

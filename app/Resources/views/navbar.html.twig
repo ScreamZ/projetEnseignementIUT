@@ -32,12 +32,14 @@
         <li><a href="{{ path('kmgh_app_matiere_fiches') }}">Fiches enseignement</a></li>
 
         {% if is_granted('ROLE_ADMIN')  %}
-            <li><a class="depliant" href="#">Administration &#9660;</a></li>
-            <ul class="sous-menu">
-                <li><a href="{{ path('kmgh_appbundle_admin_attribution') }}">Attributions</a></li>
-                <li><a href="{{ path('kmgh_appbundle_admin_modules') }}">Diplomes/modules</a></li>
-                <li><a href="{{ path('kmgh_appbundle_admin_enseignants') }}">Enseignants</a></li>
-            </ul>
+            <li>
+                <a class="depliant" href="#">Administration &#9660;</a>
+                <ul class="sous-menu">
+                    <li><a href="{{ path('kmgh_appbundle_admin_attribution') }}">Attributions</a></li>
+                    <li><a href="{{ path('kmgh_appbundle_admin_modules') }}">Diplomes/modules</a></li>
+                    <li><a href="{{ path('kmgh_appbundle_admin_enseignants') }}">Enseignants</a></li>
+                </ul>
+            </li>
         {% endif %}
     </ul>
 </div>
