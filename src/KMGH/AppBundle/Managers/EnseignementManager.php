@@ -65,6 +65,20 @@ class EnseignementManager extends BaseManager
     }
 
     /**
+     * @param $idsObjDdata
+     *
+     * @return array
+     */
+    public function findAllByIdsSelected($idsObjDdata)
+    {
+        if(!is_array($idsObjDdata)) throw new LogicException('Veuillez passer un tableau de valeurs');
+        $lesObjetsEnseignements = $this->getRepository()->findEnseignementsByIdsSelected($idsObjDdata);
+
+
+        return $lesObjetsEnseignements;
+    }
+
+    /**
      *
      *
      * @return \KMGH\AppBundle\Entity\EnseignementRepository

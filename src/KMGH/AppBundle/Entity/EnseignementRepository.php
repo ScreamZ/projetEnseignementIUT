@@ -23,4 +23,32 @@ class EnseignementRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function findEnseignementsByIdsSelected($idsObjDdata){
+        $qb = $this->createQueryBuilder('e')
+            ->innerJoin('e.diplome','diplome')
+            ->addSelect('diplome')
+            ->innerJoin('diplome.typeDiplome','typeDiplome')
+            ->addSelect('typeDiplome')
+            ->innerJoin('typeDiplome.lesDiplomes','lesDiplomes')
+            ->addSelect('lesDiplomes')
+            ->innerJoin('lesDiplomes.lesEnseignements','lesEnseignements')
+            ->addSelect('lesEnseignements')
+            ->innerJoin('lesEnseignements.periodes','periodes')
+            ->where('typeDiplome = :typeDiplome')
+            ->andWhere('diplome = :diplome')
+            ->andWhere('lesEnseignements = :enseignement')
+            ->andWhere('periodes = :periode')
+            ->andWhere('e.id = :identifier')
+            ->setParameters(array(
+                'typeDiplome' => $idsObjDdata['typeDiplome'],
+                'diplome' => $idsObjDdata["diplome"],
+                'enseignement' => $idsObjDdata["enseignement"],
+                'identifier' => $idsObjDdata["enseignement"],
+                'periode' => $idsObjDdata["periode"]
+                )) ;
+
+        return $qb->getQuery()->getResult();
+
+    }
+
 }

@@ -28,4 +28,5 @@ class PeriodeRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
 }

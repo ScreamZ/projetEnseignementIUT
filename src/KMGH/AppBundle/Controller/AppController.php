@@ -21,5 +21,4 @@ class AppController extends Controller
         );
     }
 
-
 }

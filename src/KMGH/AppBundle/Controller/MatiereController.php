@@ -23,17 +23,8 @@ class MatiereController extends Controller
     public function fichesAction()
     {
         $form = $this->createForm(new MatiereType());
-
-        $typeDiplomes = $this->get('kmgh_app.typediplome_manager')->findAllEnhanced();
-        $listeDiplomes = $this->getDoctrine()->getRepository('KMGHAppBundle:Diplome')->findAll();
-        $listeEnseignements = $this->getDoctrine()->getRepository('KMGHAppBundle:Enseignement')->findAll();
-        $listePeriodes = $this->getDoctrine()->getRepository('KMGHAppBundle:Periode')->findAll();
         return array(
-            'form'=>$form->createView(), // todo : js routing fiches.html.twig
-            "typeDiplomes"=>$typeDiplomes,
-            "listeDiplomes"=>$listeDiplomes,
-            "listeEnseignements"=>$listeEnseignements,
-            "listePeriodes"=>$listePeriodes
+            'form'=>$form->createView() // todo : js routing fiches.html.twig
         );
     }
 
@@ -47,10 +38,8 @@ class MatiereController extends Controller
 
         if ($request->isXmlHttpRequest()) {
             $id = $request->request->get('id');
-
             $managerDiplome = $this->get("kmgh_app.diplome_manager");
             $lesDiplomesJson = $managerDiplome->jsonFindDiplomeByTypeDiplomeId($id);
-
             return new Response($lesDiplomesJson, 200, array('content-type' => 'application/json'));
         } else {
             return new Response(403, Response::HTTP_FORBIDDEN);
@@ -95,4 +84,28 @@ class MatiereController extends Controller
             return new Response(403, Response::HTTP_FORBIDDEN);
         }
     }
+
+    /**
+     * @Route(name="kmgh_app_matiere_tableauFicheAjax",path="/fiche-ajax/tableauFiche")
+     * @Method("POST")
+     */
+
+    public function tableauAction()
+    {
+        $request = Request::createFromGlobals();
+
+        if ($request->isXmlHttpRequest()) {
+            $idsObjDdata = $request->request->get('idsObjDdata');
+            $managerEnseignement = $this->get("kmgh_app.enseignement_manager");
+            $lesObjetsEnseignements = $managerEnseignement->findAllByIdsSelected($idsObjDdata);
+
+            return $this->render('KMGHAppBundle:Matiere:tableau.html.twig', array(
+                "lesObjetsEnseignements"=> $lesObjetsEnseignements
+            ));
+            //return new Response($tableauHtml, 200, array('content-type' => 'text/html'));
+        } else {
+            return new Response(403, Response::HTTP_FORBIDDEN);
+        }
+    }
+
 }

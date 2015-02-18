@@ -30,7 +30,7 @@ class MatiereType extends AbstractType
             array(
                 'class' => 'KMGH\AppBundle\Entity\TypeDiplome',
                 'property' => 'nom',
-                'placeholder' => '-- Type Diplôme --'
+                'empty_value' => '-- Type Diplôme --'
             )
         )
             ->add(

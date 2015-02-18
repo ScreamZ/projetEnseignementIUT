@@ -43,6 +43,7 @@ class PeriodeManager extends BaseManager
         return $serializer->serialize($lesPeriodes, 'json');
     }
 
+
     public function getRepository()
     {
         return $this->em->getRepository('KMGHAppBundle:Periode');
