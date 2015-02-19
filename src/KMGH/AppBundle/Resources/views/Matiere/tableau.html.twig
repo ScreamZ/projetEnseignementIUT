@@ -1,110 +1,117 @@
-<div class="tab">
-    {% for enseignement in lesObjetsEnseignements %}
-        {# enseignement KMGH\AppBundle\Entity\Enseignement #}
-        <table class="table table-bordered">
-            <caption><h4>Fiche de module
-                    "{{ enseignement.denomination }}"
-                    en "{{ enseignement.diplome.typeDiplome.nom }} - {{ enseignement.diplome.nom }}"
-                    pour "S{ { enseignement.periodes.semestre ~'-'~ enseignement.periodes.annee }}" </h4></caption>
-            <thead>
-            <tr>
-                <th><p class="text-center">
-                        <strong>Intitulés</strong></p></th>
-                <th><p class="text-center">
-                        <strong>Renseignements</strong></p></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Description</td>
-                <td>{{ enseignement.description }}</td>
-            </tr>
-            <tr>
-                <td>Responsable du module</td>
-                <td>{{ enseignement.enseignantResponsable.prenom ~' '~ enseignement.enseignantResponsable.nom }}</td>
-            </tr>
-            <tr>
-                <td>Nombre de séances par groupe par semaine</td>
-                <td>{{ enseignement.nombreSceancesParGroupesParSemaines }}</td>
-            </tr>
-            <tr>
-                <td>Durée de la séance par semaine</td>
-                <td>{{ enseignement.dureeSceanceParSemaine }}</td>
-            </tr>
-            <tr>
-                <td>Objectif pédagogique</td>
-                <td>{{ enseignement.objectifPedagogique }}</td>
-            </tr>
-            <tr>
-                <td>Pré-requis</td>
-                <td>{ { enseignement.preRequisDe }}</td>
-            </tr>
-            <tr>
-                <td>Module pré-requis</td>
-                <td>{ { enseignement.modulesPreRequis }}</td>
-            </tr>
-            <tr>
-                <td>Composition choisie</td>
-                <td>
-                    <table class="table table-bordered">
-                        <tbody>
-                        <tr>
-                            <th>Heures de CM</th>
-                            <th>Heures de TD</th>
-                            <th>Heures de TP</th>
-                        </tr>
-                        <tr>
-                            <td>{{ enseignement.compositionChoisie.nombreHeuresCoursMagistraux }}</td>
-                            <td>{{ enseignement.compositionChoisie.nombreHeuresTD }}</td>
-                            <td>{{ enseignement.compositionChoisie.nombreHeuresTP }}</td>
-                        </tr>
+<div id="main">
 
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td>Composition recommandée</td>
-                <td>
-                    <table class="table table-bordered">
-                        <tbody>
-                        <tr>
-                            <th>Heures de CM</th>
-                            <th>Heures de TD</th>
-                            <th>Heures de TP</th>
-                        </tr>
-                        <tr>
-                            <td>{{ enseignement.compositionRecommandee.nombreHeuresCoursMagistraux }}</td>
-                            <td>{{ enseignement.compositionRecommandee.nombreHeuresTD }}</td>
-                            <td>{{ enseignement.compositionRecommandee.nombreHeuresTP }}</td>
-                        </tr>
+    <div class="loading">
+        <img src="{{ asset('bundles/kmghapp/img/ajax_load.gif') }}" alt="loading" width="71" height="61"
+             id="loading"/>
+    </div>
+    <div id="pageContent">
+        {% for enseignement in lesObjetsEnseignements %}
+            {# enseignement KMGH\AppBundle\Entity\Enseignement #}
+            <table class="table table-bordered">
+                <caption><h4>Fiche de module
+                        "{{ enseignement.denomination }}"
+                        en "{{ enseignement.diplome.typeDiplome.nom }} - {{ enseignement.diplome.nom }}"
+                        pour "S0-0000"<!--{ { enseignement.periodes.semestre ~'-'~ enseignement.periodes.annee }}--> </h4></caption>
+                <thead>
+                <tr>
+                    <th><p class="text-center">
+                            <strong>Intitulés</strong></p></th>
+                    <th><p class="text-center">
+                            <strong>Renseignements</strong></p></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Description</td>
+                    <td>{{ enseignement.description }}</td>
+                </tr>
+                <tr>
+                    <td>Responsable du module</td>
+                    <td>{{ enseignement.enseignantResponsable.prenom ~' '~ enseignement.enseignantResponsable.nom }}</td>
+                </tr>
+                <tr>
+                    <td>Nombre de séances par groupe par semaine</td>
+                    <td>{{ enseignement.nombreSceancesParGroupesParSemaines }}</td>
+                </tr>
+                <tr>
+                    <td>Durée de la séance par semaine</td>
+                    <td>{{ enseignement.dureeSceanceParSemaine }}</td>
+                </tr>
+                <tr>
+                    <td>Objectif pédagogique</td>
+                    <td>{{ enseignement.objectifPedagogique }}</td>
+                </tr>
+                <tr>
+                    <td>Pré-requis</td>
+                    <td>{ { enseignement.preRequisDe }}</td>
+                </tr>
+                <tr>
+                    <td>Module pré-requis</td>
+                    <td>{ { enseignement.modulesPreRequis }}</td>
+                </tr>
+                <tr>
+                    <td>Composition choisie</td>
+                    <td>
+                        <table class="table table-bordered">
+                            <tbody>
+                            <tr>
+                                <th>Heures de CM</th>
+                                <th>Heures de TD</th>
+                                <th>Heures de TP</th>
+                            </tr>
+                            <tr>
+                                <td>{{ enseignement.compositionChoisie.nombreHeuresCoursMagistraux }}</td>
+                                <td>{{ enseignement.compositionChoisie.nombreHeuresTD }}</td>
+                                <td>{{ enseignement.compositionChoisie.nombreHeuresTP }}</td>
+                            </tr>
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Composition recommandée</td>
+                    <td>
+                        <table class="table table-bordered">
+                            <tbody>
+                            <tr>
+                                <th>Heures de CM</th>
+                                <th>Heures de TD</th>
+                                <th>Heures de TP</th>
+                            </tr>
+                            <tr>
+                                <td>{{ enseignement.compositionRecommandee.nombreHeuresCoursMagistraux }}</td>
+                                <td>{{ enseignement.compositionRecommandee.nombreHeuresTD }}</td>
+                                <td>{{ enseignement.compositionRecommandee.nombreHeuresTP }}</td>
+                            </tr>
 
-                </td>
-            </tr>
-            <tr>
-                <td>Besoins matériels</td>
-                <td>{{ enseignement.materiels }}</td>
-            </tr>
-            <tr>
-                <td>Evaluation</td>
-                <td>{{ enseignement.evaluation }}</td>
-            </tr>
-            <tr>
-                <td>Date de démarrage</td>
-                <td>{{ enseignement.dateDemarrage.date }}</td>
-            </tr>
-            <tr>
-                <td>Bibliographie</td>
-                <td>{{ enseignement.bibliographie }}</td>
-            </tr>
-            <tr>
-                <td>Ressources annexes</td>
-                <td>{{ enseignement.ressourcesAnnexes }}</td>
-            </tr>
-            </tbody>
-        </table>
-    {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>Besoins matériels</td>
+                    <td>{{ enseignement.materiels }}</td>
+                </tr>
+                <tr>
+                    <td>Evaluation</td>
+                    <td>{{ enseignement.evaluation }}</td>
+                </tr>
+                <tr>
+                    <td>Date de démarrage</td>
+                    <td>{{ enseignement.dateDemarrage.date }}</td>
+                </tr>
+                <tr>
+                    <td>Bibliographie</td>
+                    <td>{{ enseignement.bibliographie }}</td>
+                </tr>
+                <tr>
+                    <td>Ressources annexes</td>
+                    <td>{{ enseignement.ressourcesAnnexes }}</td>
+                </tr>
+                </tbody>
+            </table>
+        {% endfor %}
+    </div>
 </div>

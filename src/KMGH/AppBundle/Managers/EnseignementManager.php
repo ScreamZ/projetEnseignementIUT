@@ -65,14 +65,14 @@ class EnseignementManager extends BaseManager
     }
 
     /**
-     * @param $idsObjDdata
+     * @param $idsObjectsSelected
      *
      * @return array
      */
-    public function findAllByIdsSelected($idsObjDdata)
+    public function findAllByIdsSelected($idsObjectsSelected)
     {
-        if(!is_array($idsObjDdata)) throw new LogicException('Veuillez passer un tableau de valeurs');
-        $lesObjetsEnseignements = $this->getRepository()->findEnseignementsByIdsSelected($idsObjDdata);
+        if(!is_array($idsObjectsSelected)) throw new LogicException('Veuillez passer un tableau de valeurs');
+        $lesObjetsEnseignements = $this->getRepository()->findEnseignementsByIdsSelected($idsObjectsSelected);
 
 
         return $lesObjetsEnseignements;

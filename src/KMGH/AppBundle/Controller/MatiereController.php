@@ -95,9 +95,9 @@ class MatiereController extends Controller
         $request = Request::createFromGlobals();
 
         if ($request->isXmlHttpRequest()) {
-            $idsObjDdata = $request->request->get('idsObjDdata');
+            $idsObjectsSelected = $request->request->get('idsObjDdata');
             $managerEnseignement = $this->get("kmgh_app.enseignement_manager");
-            $lesObjetsEnseignements = $managerEnseignement->findAllByIdsSelected($idsObjDdata);
+            $lesObjetsEnseignements = $managerEnseignement->findAllByIdsSelected($idsObjectsSelected);
 
             return $this->render('KMGHAppBundle:Matiere:tableau.html.twig', array(
                 "lesObjetsEnseignements"=> $lesObjetsEnseignements

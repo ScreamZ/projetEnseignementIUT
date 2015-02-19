@@ -7,9 +7,13 @@
     <p id="loading-img" style="display: none"><img
                 src="http://officedelamer.com/office/wp-content/plugins/ajax-campaign-monitor-forms/ajax-loading.gif"
                 alt="loading"></p>
+    </br>
+     <p id="editFiche" style="display: none"><a href="#" title="Modifier">
+     <span class="glyphicon glyphicon-pencil"></span>
+         Editer cette fiche</a>
+         </p>
 
     <div id="showFiche" style="display: none"></div>
-
     <!--
     /********************************************************************
     * Script Fiches Enseignements
@@ -31,13 +35,14 @@
             var selectEnseignement = $('#kmgh_app_enseignement_enseignement');
             var selectPeriode = $('#kmgh_app_enseignement_periode');
             var showFiche = $('#showFiche');
+            var  editFiche = $('#editFiche');
             var loadingImg = $('#loading-img');
+
             // hide list
             selectDiplome.hide();
             selectEnseignement.hide();
             selectPeriode.hide();
 
-            selectTypeDiplome.append('<option hidden="hidden">-- Type Diplôme --</option>');
             // listeners ( typeDiplomes )
             selectTypeDiplome.change(function (e) {
                 e.stopPropagation();
@@ -131,14 +136,14 @@
                 selectPeriode.attr('disabled', 'disabled');
                 showFiche.hide();
                 idPeriode = selectPeriode.val();
-                var idsObjDdata = {
+                var idsObjectsSelected = {
                     "typeDiplome": idTypeDiplome,
                     "diplome": idDiplome,
                     "enseignement": idEnseignement,
                     "periode": idPeriode
                 };
                 loadingImg.show();
-                $.post(Routing.generate('kmgh_app_matiere_tableauFicheAjax'), {idsObjDdata: idsObjDdata})
+                $.post(Routing.generate('kmgh_app_matiere_tableauFicheAjax'), {idsObjDdata: idsObjectsSelected})
                         .done(function (dataTableau) {
                             showFiche.html(dataTableau);
                             selectTypeDiplome.removeAttr('disabled');
@@ -146,6 +151,7 @@
                             selectEnseignement.removeAttr('disabled');
                             selectPeriode.removeAttr('disabled');
                             showFiche.show();
+                            editFiche.show();
                             loadingImg.hide();
                         });
             });
