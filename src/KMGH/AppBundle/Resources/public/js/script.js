@@ -136,9 +136,8 @@ $(document).ready(function () {
         var tp = $('.tp input', tr).val();
         var id = tr.attr('id');
 
-        // todo ajouter jsRoutingbundle pour changer l'adresse
         // !!! CSRF Token est défini en bas du template INDEX, afin de récupérer une fonction twig !!!
-        $.post("http://localhost/projetEnseignementIUT/web/app_dev.php/update/" + id, {
+        $.post(Routing.generate('kmgh_appbundle_attribution_update', {id: id}), {
             cm: cm,
             td: td,
             tp: tp,
@@ -180,7 +179,7 @@ $(document).ready(function () {
         var tbody = $(this).parent().parent().parent();
 
         // !!! CSRF Token est défini en bas du template INDEX, afin de récupérer une fonction twig !!!
-        $.post("http://localhost/projetEnseignementIUT/web/app_dev.php/delete/" + idAttribution, {csrf_token: CSRF_TOKEN})
+        $.post(Routing.generate('kmgh_appbundle_attribution_delete', {id: idAttribution}), {csrf_token: CSRF_TOKEN})
             .done(function () {
                 tr.fadeOut();
                 $('#alertMsg').addClass('success').fadeIn();
@@ -205,7 +204,7 @@ $(document).ready(function () {
         var tbody = $(this).parent().parent().parent();
 
         // !!! CSRF Token est défini en bas du template INDEX, afin de récupérer une fonction twig !!!
-        $.post("http://localhost/projetEnseignementIUT/web/app_dev.php/insert/",
+        $.post(Routing.generate('kmgh_appbundle_attribution_insert'),
             {
                 userId: $('#userWelcome').attr('data-idUser'),
                 enseignementId: $(this).parents('.last-level').attr('data-enseigementId'),
@@ -243,7 +242,7 @@ $(document).ready(function () {
         var tr = $(this).parent().parent();
         var tbody = $(this).parent().parent().parent();
 
-        $.post("http://localhost/projetEnseignementIUT/web/app_dev.php/delete/" + idAttribution, {csrf_token: CSRF_TOKEN})
+        $.post(Routing.generate('kmgh_appbundle_attribution_delete', {id: idAttribution}), {csrf_token: CSRF_TOKEN})
             .done(function () {
                 tr.fadeOut();
                 $('#alertMsg').addClass('success').fadeIn();

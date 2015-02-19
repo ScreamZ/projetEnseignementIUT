@@ -19,7 +19,7 @@ class AttributionController extends Controller
     /**
      * Mise à jour d'une attribution existante
      *
-     * @Route(name="kmgh_appbundle_attribution_update", path="/update/{id}")
+     * @Route(name="kmgh_appbundle_attribution_update", path="/update/{id}", options={"expose"=true})
      * @param String $id L'id de l'attribution à mettre à jour
      *
      * @return Response
@@ -81,7 +81,7 @@ class AttributionController extends Controller
     /**
      * Traitement de la suppression d'une attribution existante
      *
-     * @Route(name="kmgh_appbundle_attribution_delete", path="/delete/{id}")
+     * @Route(name="kmgh_appbundle_attribution_delete", path="/delete/{id}", options={"expose"=true})
      * @param String $id L'id de l'attribution à supprimer
      *
      * @return Response
@@ -126,7 +126,7 @@ class AttributionController extends Controller
     /**
      * Traitement de l'ajout d'une nouvelle attribution
      *
-     * @Route(name="kmgh_appbundle_attribution_insert", path="/insert/")
+     * @Route(name="kmgh_appbundle_attribution_insert", path="/insert/", options={"expose"=true})
      *
      * @return Response
      */

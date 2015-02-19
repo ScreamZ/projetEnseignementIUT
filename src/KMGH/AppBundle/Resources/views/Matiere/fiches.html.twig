@@ -26,7 +26,6 @@
 
             var idTypeDiplome, idDiplome, idEnseignement, idPeriode;
 
-            var urlFicheAjax = 'http://localhost/projetEnseignementIUT/web/app_dev.php/fiche-ajax';
             var selectTypeDiplome = $('#kmgh_app_enseignement_typeDiplome');
             var selectDiplome = $('#kmgh_app_enseignement_diplome');
             var selectEnseignement = $('#kmgh_app_enseignement_enseignement');
@@ -49,7 +48,7 @@
                 selectPeriode.empty(); // clear liste periodes
                 showFiche.hide(); //desactiver l'affichage de la fiche
                 loadingImg.show();
-                $.post(urlFicheAjax + "/liste-diplomes", {id: idTypeDiplome})
+                $.post(Routing.generate('kmgh_app_matiere_listeDiplomesAjax'), {id: idTypeDiplome})
                         .done(function (data) {
                             selectDiplome.append('<option hidden="hidden">-- Diplôme --</option>');
                             $.each(data, function (i, item) {
@@ -76,7 +75,7 @@
                 showFiche.hide();
                 idDiplome = selectDiplome.val();
                 loadingImg.show();
-                $.post(urlFicheAjax + "/liste-enseignements", {id: idDiplome})
+                $.post(Routing.generate('kmgh_app_matiere_listeEnseignementsAjax'), {id: idDiplome})
                         .done(function (data) {
                             selectEnseignement.append('<option hidden="hidden">-- Enseignement --</option>');
                             $.each(data, function (i, item) {
@@ -104,7 +103,7 @@
                 showFiche.hide();
                 idEnseignement = selectEnseignement.val();
                 loadingImg.show();
-                $.post(urlFicheAjax + "/liste-periodes", {id: idEnseignement})
+                $.post(Routing.generate('kmgh_app_matiere_listePeriodesAjax'), {id: idEnseignement})
                         .done(function (data) {
                             selectPeriode.append('<option selected hidden="hidden">-- Année - Semestre --</option>');
                             $.each(data, function (i, item) {
@@ -139,7 +138,7 @@
                     "periode": idPeriode
                 };
                 loadingImg.show();
-                $.post(urlFicheAjax + '/tableauFiche', {idsObjDdata: idsObjDdata})
+                $.post(Routing.generate('kmgh_app_matiere_tableauFicheAjax'), {idsObjDdata: idsObjDdata})
                         .done(function (dataTableau) {
                             showFiche.html(dataTableau);
                             selectTypeDiplome.removeAttr('disabled');
@@ -157,6 +156,8 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
     <script>
         CSRF_TOKEN = '{{ user_csrf() }}';
     </script>

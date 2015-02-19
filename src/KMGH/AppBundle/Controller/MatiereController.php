@@ -24,12 +24,12 @@ class MatiereController extends Controller
     {
         $form = $this->createForm(new MatiereType());
         return array(
-            'form'=>$form->createView() // todo : js routing fiches.html.twig
+            'form' => $form->createView()
         );
     }
 
     /**
-     * @Route(name="kmgh_app_matiere_listeDiplomesAjax",path="/fiche-ajax/liste-diplomes")
+     * @Route(name="kmgh_app_matiere_listeDiplomesAjax",path="/fiche-ajax/liste-diplomes", options={"expose"=true})
      * @Method("POST")
      */
     public function listeDiplomesAjaxAction()
@@ -47,7 +47,7 @@ class MatiereController extends Controller
     }
 
     /**
-     * @Route(name="kmgh_app_matiere_listeEnseignementsAjax",path="/fiche-ajax/liste-enseignements")
+     * @Route(name="kmgh_app_matiere_listeEnseignementsAjax",path="/fiche-ajax/liste-enseignements", options={"expose"=true})
      * @Method("POST")
      */
     public function listeEnseignementsAjaxAction()
@@ -66,7 +66,7 @@ class MatiereController extends Controller
     }
 
     /**
-     * @Route(name="kmgh_app_matiere_listePeriodesAjax",path="/fiche-ajax/liste-periodes")
+     * @Route(name="kmgh_app_matiere_listePeriodesAjax",path="/fiche-ajax/liste-periodes", options={"expose"=true})
      * @Method("POST")
      */
     public function listePeriodesAjaxAction()
@@ -86,7 +86,7 @@ class MatiereController extends Controller
     }
 
     /**
-     * @Route(name="kmgh_app_matiere_tableauFicheAjax",path="/fiche-ajax/tableauFiche")
+     * @Route(name="kmgh_app_matiere_tableauFicheAjax",path="/fiche-ajax/tableauFiche", options={"expose"=true})
      * @Method("POST")
      */
 
