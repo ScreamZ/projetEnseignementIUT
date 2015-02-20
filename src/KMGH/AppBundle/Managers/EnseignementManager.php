@@ -74,7 +74,6 @@ class EnseignementManager extends BaseManager
         if(!is_array($idsObjectsSelected)) throw new LogicException('Veuillez passer un tableau de valeurs');
         $lesObjetsEnseignements = $this->getRepository()->findEnseignementsByIdsSelected($idsObjectsSelected);
 
-
         return $lesObjetsEnseignements;
     }
 

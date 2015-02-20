@@ -8,10 +8,17 @@
         {% for enseignement in lesObjetsEnseignements %}
             {# enseignement KMGH\AppBundle\Entity\Enseignement #}
             <table class="table table-bordered">
-                <caption><h4>Fiche de module
+                <caption>
+                    <h4>Fiche de module
                         "{{ enseignement.denomination }}"
                         en "{{ enseignement.diplome.typeDiplome.nom }} - {{ enseignement.diplome.nom }}"
-                        pour "S0-0000"<!--{ { enseignement.periodes.semestre ~'-'~ enseignement.periodes.annee }}--> </h4></caption>
+                        pour <ul>
+                        {% for periode in enseignement.periodes %}
+                        {# periode KKMGH\AppBundle\Entity\Periode #}
+
+                            <li>"S{{ periode.semestre ~' - '~ periode.annee }}"</li>
+                        {% endfor %}
+                        </ul></h4></caption>
                 <thead>
                 <tr>
                     <th><p class="text-center">
@@ -43,11 +50,25 @@
                 </tr>
                 <tr>
                     <td>Pré-requis</td>
-                    <td>{ { enseignement.preRequisDe }}</td>
+                    <td>
+                        <ul>
+                            {% for module in enseignement.PreRequisDe %}
+                            {# module KMGH\AppBundle\Entity\Module #}
+
+                                <li>{{ module.denomination }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
                 </tr>
                 <tr>
                     <td>Module pré-requis</td>
-                    <td>{ { enseignement.modulesPreRequis }}</td>
+                    <td><ul>
+                            {% for module in enseignement.modulesPreRequis %}
+                                {# module KMGH\AppBundle\Entity\Module #}
+
+                                <li>{{ module.denomination }}</li>
+                            {% endfor %}
+                        </ul></td>
                 </tr>
                 <tr>
                     <td>Composition choisie</td>
