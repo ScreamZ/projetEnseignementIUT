@@ -151,6 +151,9 @@ class Diplome
     public function getSommeHeuresDiplomes()
     {
         $somme = 0.0;
+        if (null == $this->lesEnseignements) {
+            return $somme;
+        }
 
         foreach ($this->lesEnseignements as $enseignement) {
             /**

@@ -430,6 +430,9 @@ class Module extends Enseignement
     public function getSommeHeuresModules()
     {
         $somme = 0.0;
+        if (null == $this->lesAttributions) {
+            return $somme;
+        }
 
         foreach ($this->lesAttributions as $attribution) {
             /**
