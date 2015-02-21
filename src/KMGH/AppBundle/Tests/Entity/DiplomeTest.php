@@ -27,7 +27,7 @@ class DiplomeTest extends WebTestCase
          * @var Module $module
          */
         $module = static::$kernel->getContainer()->get('kmgh_app.enseignement_manager')->createEnseignement('module');
-        $this->diplome = new Diplome('DUT');
+        $this->diplome = new Diplome('Informatique');
         $this->diplome->addLesEnseignement($module);
 
         $this->assertEquals(0, $this->diplome->getSommeHeuresDiplomes());
