@@ -2,61 +2,71 @@
 
 {% block body %}
     <div id="main">
-            <h1>Gestion des attributions</h1>
+        <h1>Gestion des attributions</h1>
 
 
-            <div id="alertMsg" class="alert-box">
-                <div class="close-box">x</div>
-                <span class="type"></span>
-                <span class="msg"></span>
+        <div id="alertMsg" class="alert-box">
+            <div class="close-box">x</div>
+            <span class="type"></span>
+            <span class="msg"></span>
+        </div>
+
+        {% for flashMessage in app.session.flashbag.get('notice') %}
+            <div id="alertMsg" class="alert alert-box {{ flashMessage.alert }} alert-dismissible" role="alert"
+                 style="display: block;">
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+                <strong>{{ flashMessage.title }}</strong> {{ flashMessage.message }}.
             </div>
+        {% endfor %}
 
-            <a id="btnOuvrePanelAjout" href="#"><span class="glyphicon glyphicon-plus"></span> Ajouter une
-                attribution</a>
-            {{ form_start(form, {'attr': {'id': 'panelAjout'}}) }}
-            {{ form_errors(form) }}
-            {{ form_row(form.enseignant) }}
-            {{ form_row(form.enseignement) }}<br>
-            {{ form_row(form.nombreHeuresCM,{'attr': {'style': 'width:30px'},'label': 'Heures CM'})  }}
-            {{ form_row(form.nombreHeuresTD,{'attr': {'style': 'width:30px'},'label': 'Heures TD'})  }}
-            {{ form_row(form.nombreHeuresTP,{'attr': {'style': 'width:30px'},'label': 'Heures TP'}) }}
-            {{ form_row(form.submit,{'attr': {'class': 'btn btn-default'}, 'label': 'Valider'}) }}
-            {{ form_end(form) }}
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Enseignant</th>
-                    <th>Diplome</th>
-                    <th>Heures CM</th>
-                    <th>Heures TD</th>
-                    <th>Heures TP</th>
+        <a id="btnOuvrePanelAjout" href="#"><span class="glyphicon glyphicon-plus"></span> Ajouter une
+            attribution</a>
+        {{ form_start(form, {'attr': {'id': 'panelAjout'}}) }}
+        {{ form_errors(form) }}
+        {{ form_row(form.enseignant) }}
+        {{ form_row(form.enseignement) }}<br>
+        {{ form_row(form.nombreHeuresCM,{'attr': {'style': 'width:30px'},'label': 'Heures CM'}) }}
+        {{ form_row(form.nombreHeuresTD,{'attr': {'style': 'width:30px'},'label': 'Heures TD'}) }}
+        {{ form_row(form.nombreHeuresTP,{'attr': {'style': 'width:30px'},'label': 'Heures TP'}) }}
+        {{ form_row(form.submit,{'attr': {'class': 'btn btn-default'}, 'label': 'Valider'}) }}
+        {{ form_end(form) }}
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Enseignant</th>
+                <th>Diplome</th>
+                <th>Heures CM</th>
+                <th>Heures TD</th>
+                <th>Heures TP</th>
+            </tr>
+            </thead>
+            <tbody class="table-striped">
+            {% for attribution in attributions %}
+                {# attribution KMGH\AppBundle\Entity\attributions #}
+                <tr id="{{ attribution.id }}">
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ attribution.enseignant.prenom ~ ' ' ~ attribution.enseignant.nom }}</td>
+                    <td>{{ attribution.enseignement.denomination }}</td>
+                    <td class="cm"><input disabled name="cm" value="{{ attribution.nombreHeuresCM }}"></td>
+                    <td class="td"><input disabled name="td" value="{{ attribution.nombreHeuresTD }}"></td>
+                    <td class="tp"><input disabled name="tp" value="{{ attribution.nombreHeuresTP }}"></td>
+                    <td class="btn_action">
+                        <a href="#" title="Modifier"
+                           class='btnModifier'><span
+                                    class="glyphicon glyphicon-pencil"></span></a>
+                        <a href="#" title="Supprimer"
+                           class='btnSupprimerAdmin'><span
+                                    class="glyphicon glyphicon-trash"></span></a>
+                        <a href="#" title="Valider" class='btnValider'><span
+                                    class="glyphicon glyphicon-ok"></span></a>
+                    </td>
                 </tr>
-                </thead>
-                <tbody class="table-striped">
-                {% for attribution in attributions %}
-                    {# attribution KMGH\AppBundle\Entity\attributions #}
-                    <tr id="{{ attribution.id }}">
-                        <th scope="row">{{ loop.index }}</th>
-                        <td>{{ attribution.enseignant.prenom ~ ' ' ~ attribution.enseignant.nom }}</td>
-                        <td>{{ attribution.enseignement.denomination }}</td>
-                        <td class="cm"><input disabled name="cm" value="{{ attribution.nombreHeuresCM }}"></td>
-                        <td class="td"><input disabled name="td" value="{{ attribution.nombreHeuresTD }}"></td>
-                        <td class="tp"><input disabled name="tp" value="{{ attribution.nombreHeuresTP }}"></td>
-                        <td class="btn_action">
-                            <a href="#" title="Modifier"
-                               class='btnModifier'><span
-                                        class="glyphicon glyphicon-pencil"></span></a>
-                            <a href="#" title="Supprimer"
-                               class='btnSupprimerAdmin'><span
-                                        class="glyphicon glyphicon-trash"></span></a>
-                            <a href="#" title="Valider" class='btnValider'><span
-                                        class="glyphicon glyphicon-ok"></span></a>
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
 {% endblock %}
 {% block javascripts %}

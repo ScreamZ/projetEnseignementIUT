@@ -6,6 +6,7 @@ use Doctrine\DBAL\Driver\SQLSrv\SQLSrvException;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use KMGH\AppBundle\Entity\Attribution;
 use KMGH\AppBundle\Form\AttributionType;
+use KMGH\AppBundle\Form\DiplomeType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -26,35 +27,44 @@ class AdminController extends Controller
         $attribution = new Attribution();
         $form = $this->createForm(new AttributionType(), $attribution);
 
-        $form->handleRequest(Request::createFromGlobals());
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
-            try{
+            try {
                 $manager = $this->get('kmgh_app.attribution_manager');
                 $manager->persist($attribution);
 
                 // LOG
                 $logger = $this->get('monolog.logger.attribution');
-                $logger->info("Création d'une attribution pour {attribAssignedEnseignant} (ID:{attribID}) par {enseignant}@{IP} : ", array(
-                    'enseignant' => $this->getUser()->getEnseignant(),
-                    'IP' => $request->getClientIp(),
-                    'attribID' => $attribution->getId(),
-                    'attribAssignedEnseignant' => $attribution->getEnseignant()
-                ));
-                
-                $this->addFlash('notice', array(
-                    'alert' => 'success',
-                    'title' => 'Félicitations!',
-                    'message' => 'Votre attribution à bien été enregistrée dans la base de données'
-                ));
+                $logger->info(
+                    "Création d'une attribution pour {attribAssignedEnseignant} (ID:{attribID}) par {enseignant}@{IP} : ",
+                    array(
+                        'enseignant' => $this->getUser()->getEnseignant(),
+                        'IP' => $request->getClientIp(),
+                        'attribID' => $attribution->getId(),
+                        'attribAssignedEnseignant' => $attribution->getEnseignant()
+                    )
+                );
+
+                $this->addFlash(
+                    'notice',
+                    array(
+                        'alert' => 'success',
+                        'title' => 'Félicitations!',
+                        'message' => 'Votre attribution à bien été enregistrée dans la base de données'
+                    )
+                );
+
                 return $this->redirectToRoute('kmgh_appbundle_admin_attribution');
-            }
-            catch(UniqueConstraintViolationException $e){
-                $this->addFlash('notice', array(
-                    'alert' => 'error',
-                    'title' => 'Erreur',
-                    'message' => 'L\'attribution existe déjà pour cet enseignant et cet enseignement'
-                ));
+            } catch (UniqueConstraintViolationException $e) {
+                $this->addFlash(
+                    'notice',
+                    array(
+                        'alert' => 'error',
+                        'title' => 'Erreur',
+                        'message' => 'L\'attribution existe déjà pour cet enseignant et cet enseignement'
+                    )
+                );
             }
 
         }
@@ -73,10 +83,29 @@ class AdminController extends Controller
      */
     public function modulesAction()
     {
-        $enseignements = $this->getDoctrine()->getRepository("KMGHAppBundle:Enseignement")->findAll();
-        return array(
-            "enseignements" => $enseignements
-        );
+        $request = Request::createFromGlobals();
+        $diplome = $request->request->get("kmgh_appbundle_diplome");
+        if (null != $diplome) {
+            $diplomeManager = $this->get('kmgh_app.diplome_manager');
+            $diplome = $diplomeManager->getRepository()->find($diplome['diplome']);
+
+            $diplomeManager->remove($diplome);
+            $this->addFlash(
+                'notice',
+                array(
+                    'alert' => 'success',
+                    'title' => 'Félicitations',
+                    'message' => 'Le diplôme «' . $diplome->getNom(
+                        ) . '» à bien été supprimé ainsi que ses attributions liées'
+                )
+            );
+
+            return $this->redirectToRoute('kmgh_appbundle_admin_modules');
+        }
+
+        $form = $this->createForm(new DiplomeType());
+
+        return array('form' => $form->createView());
     }
 
     /**
@@ -87,6 +116,7 @@ class AdminController extends Controller
     {
         $enseignants = $this->getDoctrine()->getRepository("KMGHUserBundle:Enseignant")->findAll();
         $statuts = $this->getDoctrine()->getRepository("KMGHUserBundle:Statut")->findAll();
+
         return array(
             "enseignants" => $enseignants,
             "statuts" => $statuts

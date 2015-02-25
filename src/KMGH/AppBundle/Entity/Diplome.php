@@ -59,6 +59,12 @@ class Diplome
         $this->lesEnseignements = new ArrayCollection();
     }
 
+    function __toString()
+    {
+        return $this->nom;
+    }
+
+
     /**
      * Get id
      *
