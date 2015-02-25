@@ -55,13 +55,13 @@ class Attribution
 
     /**
      * @ORM\ManyToOne(targetEntity="KMGH\UserBundle\Entity\Enseignant", inversedBy="lesAttributions")
-     * @ORM\JoinColumn(name="enseignant_id",unique=true)
+     * @ORM\JoinColumn(name="enseignant_id")
      */
     private $enseignant;
 
     /**
      * @ORM\ManyToOne(targetEntity="KMGH\AppBundle\Entity\Enseignement",inversedBy="lesAttributions")
-     * @ORM\JoinColumn(name="enseignement_id",unique=true)
+     * @ORM\JoinColumn(name="enseignement_id")
      */
     private $enseignement;
 

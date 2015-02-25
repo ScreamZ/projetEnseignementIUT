@@ -36,7 +36,7 @@ class Diplome
      * @var ArrayCollection
      *
      * @Exclude()
-     * @ORM\OneToMany(targetEntity="KMGH\AppBundle\Entity\Enseignement", mappedBy="diplome")
+     * @ORM\OneToMany(targetEntity="KMGH\AppBundle\Entity\Enseignement", mappedBy="diplome", cascade={"all"})
      */
     private $lesEnseignements;
 

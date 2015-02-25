@@ -22,7 +22,7 @@ abstract class Enseignement
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="KMGH\AppBundle\Entity\Attribution",mappedBy="enseignement")
+     * @ORM\OneToMany(targetEntity="KMGH\AppBundle\Entity\Attribution",mappedBy="enseignement", cascade={"all"})
      * @ORM\JoinTable(name="enseignements_attributions")
      */
     protected $lesAttributions;
