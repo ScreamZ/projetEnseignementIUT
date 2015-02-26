@@ -4,9 +4,10 @@ namespace KMGH\AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class TypeDiplomeType extends AbstractType
+class CreateModuleType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -16,13 +17,13 @@ class TypeDiplomeType extends AbstractType
     {
         $builder
             ->add(
-                'nom',
+                'denomination',
                 'text',
                 array(
-                    'label' => 'Nom du type de  diplome'
+                    'label' => 'Nom du module'
                 )
             )
-            ->add('Creer le type de diplôme', 'submit');
+            ->add('Creer le module', 'submit');
     }
 
     /**
@@ -32,7 +33,7 @@ class TypeDiplomeType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'KMGH\AppBundle\Entity\TypeDiplome'
+                'data_class' => 'KMGH\AppBundle\Entity\Module'
             )
         );
     }
@@ -42,6 +43,6 @@ class TypeDiplomeType extends AbstractType
      */
     public function getName()
     {
-        return 'kmgh_appbundle_typediplome';
+        return 'kmgh_appbundle_module';
     }
 }

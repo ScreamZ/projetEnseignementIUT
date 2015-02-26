@@ -27,6 +27,6 @@ class CreateDiplomeType extends AbstractType
      */
     public function getName()
     {
-        return 'kmgh_appbundle_diplome_créer';
+        return 'kmgh_appbundle_diplome_creer';
     }
 }

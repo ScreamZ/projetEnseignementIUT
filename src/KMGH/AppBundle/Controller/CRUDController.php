@@ -2,7 +2,9 @@
 
 namespace KMGH\AppBundle\Controller;
 
+use KMGH\AppBundle\Entity\Module;
 use KMGH\AppBundle\Entity\TypeDiplome;
+use KMGH\AppBundle\Form\CreateModuleType;
 use KMGH\AppBundle\Form\DeleteTypeDiplomeType;
 use KMGH\AppBundle\Form\TypeDiplomeType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -77,9 +79,40 @@ class CRUDController extends Controller
         return array('form' => $form->createView());
     }
 
+    /**
+     * @Route(name="kmgh_app_crud_createmodule", path="/create/module")
+     * @Template("KMGHAppBundle:CRUD:createModule.html.twig")
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function createModuleAction()
     {
         $request = Request::createFromGlobals();
+        /**
+         * @var Module $module
+         */
+        $module = $this->get('kmgh_app.enseignement_manager')->createEnseignement('module');
+
+        $form = $this->createForm(new CreateModuleType, $module);
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $manager = $this->get('kmgh_app.enseignement_manager');
+            $manager->persist($module);
+
+            $this->addFlash(
+                'notice',
+                array(
+                    'alert' => 'success',
+                    'title' => 'Félicitations',
+                    'message' => 'Le module «' . $module->getDenomination() . '» à bien été créer'
+                )
+            );
+
+            return $this->redirectToRoute('kmgh_app_crud_createmodule');
+        }
+
+        return array('form' => $form->createView());
     }
 
     public function deleteModuleAction()
