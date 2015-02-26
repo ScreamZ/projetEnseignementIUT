@@ -102,7 +102,6 @@ class MatiereController extends Controller
             return $this->render('KMGHAppBundle:Matiere:tableau.html.twig', array(
                 "lesObjetsEnseignements"=> $lesObjetsEnseignements
             ));
-            //return new Response($tableauHtml, 200, array('content-type' => 'text/html'));
         } else {
             return new Response(403, Response::HTTP_FORBIDDEN);
         }

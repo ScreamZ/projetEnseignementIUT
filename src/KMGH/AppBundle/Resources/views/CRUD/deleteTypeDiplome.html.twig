@@ -1,0 +1,27 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <div id="main">
+
+        <h1>Supression des types de diplômes</h1>
+
+        {% for flashMessage in app.session.flashbag.get('notice') %}
+            <div class="alert alert-box {{ flashMessage.alert }} alert-dismissible" role="alert"
+                 style="display: block;">
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+                <strong>{{ flashMessage.title }}</strong> {{ flashMessage.message }}.
+            </div>
+        {% endfor %}
+        <div>
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            {{ form_row(form.typediplome) }}
+            {{ form_row(form.supprimer, {'label': 'Supprimer le type de diplôme (Les diplômes, enseignements (Modules, Projet et Stages) et attributions liées seront également supprimées en cascade)', 'attr': {'class': 'btn btn-danger'}}) }}
+            {{ form_end(form) }}
+        </div>
+
+    </div>
+{% endblock %}
+

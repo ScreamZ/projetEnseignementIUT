@@ -99,7 +99,6 @@ class AttributionController extends Controller
 
         /**
          * @var Attribution $attribution
-         * FIXME : L'id transmi via l'interface d'administration n'est pas le bon.
          */
         $attribution = $manager->getRepository()->find($id);
 
@@ -108,7 +107,6 @@ class AttributionController extends Controller
             $attribAssignedEnseignant = $attribution->getEnseignant();
             $manager->remove($attribution);
 
-            // FIXME : Faille de sécurité on ne teste pas l'utilisateur courant, a voir si c'est vraiment utile sachant qu'on pronne une politique de confiance
             $logger = $this->get('monolog.logger.attribution');
             $logger->info("Supression d'une attribution de {attribAssignedEnseignant} (ID:{attribID}) par {enseignant}@{IP} : ", array(
                 'enseignant' => $this->getUser()->getEnseignant(),

@@ -41,7 +41,7 @@ class TypeDiplome
      *
      * @param String $nom Type du diplome
      */
-    public function __construct($nom)
+    public function __construct($nom = null)
     {
         $this->nom = $nom;
         $this->lesDiplomes = new ArrayCollection();
